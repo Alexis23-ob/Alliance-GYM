@@ -797,7 +797,116 @@ ul {
     background: #111;
     border: 1px solid var(--glass-border);
     border-radius: 8px;
-    padding: 15px;
+}
+
+/* TikTok Section */
+.tiktok-section {
+    background: var(--bg-dark);
+}
+
+.tiktok-swiper {
+    padding: 20px 0 50px 0; /* Espacio para la paginación */
+}
+
+.tiktok-card {
+    display: block;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 9/16; /* Formato vertical típico de TikTok */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: var(--transition);
+    border: 1px solid var(--glass-border);
+}
+
+.tiktok-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    box-shadow: 0 15px 40px rgba(230, 43, 46, 0.4);
+}
+
+.tiktok-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+}
+
+.tiktok-card:hover .tiktok-img {
+    transform: scale(1.05);
+}
+
+.t-1 { background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=600'); }
+.t-2 { background-image: url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=600'); }
+.t-3 { background-image: url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=600'); }
+.t-4 { background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=600'); }
+.t-5 { background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=600'); }
+
+.tiktok-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.8) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.tiktok-icon {
+    align-self: flex-end;
+    font-size: 1.5rem;
+    color: #fff;
+    text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2fe; /* Colores de TikTok */
+}
+
+.tiktok-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: rgba(255,255,255,0.8);
+    transition: var(--transition);
+}
+
+.tiktok-card:hover .tiktok-play {
+    color: #fff;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.tiktok-info {
+    color: #fff;
+}
+
+.tiktok-info h4 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.tiktok-info p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.8);
+}
+
+/* Controles de Swiper personalizados */
+.tiktok-swiper .swiper-pagination-bullet {
+    background: rgba(255,255,255,0.5);
+}
+.tiktok-swiper .swiper-pagination-bullet-active {
+    background: var(--primary-color);
+}
+.tiktok-swiper .swiper-button-next, .tiktok-swiper .swiper-button-prev {
+    color: var(--primary-color);
+    background: rgba(0,0,0,0.5);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    backdrop-filter: blur(5px);
+}
+.tiktok-swiper .swiper-button-next::after, .tiktok-swiper .swiper-button-prev::after {
+    font-size: 1.2rem;
 }
 
 .macro-header {
