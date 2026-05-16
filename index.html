@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alliance GYM | Eleva tu Potencial</title>
+    <meta name="description" content="Bienvenido a Alliance GYM. Descubre nuestras instalaciones premium, equipo de primera, y coaches personales. Únete hoy.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="img/logo.png" alt="Alliance GYM Logo" class="logo-img">
+                ALLIANCE <span>GYM</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Inicio</a></li>
+                <li><a href="#info">Información</a></li>
+                <li><a href="#equipment">Equipo</a></li>
+                <li><a href="#coaches">Coaches</a></li>
+                <li><a href="#calculator">Nutrición</a></li>
+                <li><a href="#gallery">Instalaciones</a></li>
+                <li><a href="#location">Ubicación</a></li>
+            </ul>
+            <a href="#join" class="btn btn-primary nav-btn">Únete Ahora</a>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">FORJA TU <span>LEGADO</span></h1>
+            <p class="hero-subtitle">Instalaciones premium, equipo de clase mundial y los mejores coaches para llevar tu físico al siguiente nivel.</p>
+            <div class="hero-actions">
+                <a href="#join" class="btn btn-primary btn-large">Comenzar Hoy</a>
+                <a href="#gallery" class="btn btn-outline btn-large">Ver Instalaciones</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Section (Promotions, Enrollment, Hours) -->
+    <section id="info" class="section info-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">TODO LO QUE NECESITAS <span>SABER</span></h2>
+                <p class="section-desc">Conoce nuestros horarios, cómo inscribirte y las increíbles promociones que tenemos para ti.</p>
+            </div>
+
+            <div class="info-grid">
+                <!-- Horarios -->
+                <div class="glass-card info-card">
+                    <div class="card-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Horarios de Atención</h3>
+                    <ul class="hours-list">
+                        <li><span>Lunes a Viernes:</span> 5:00 AM - 11:00 PM</li>
+                        <li><span>Sábados:</span> 6:00 AM - 8:00 PM</li>
+                        <li><span>Domingos:</span> 7:00 AM - 2:00 PM</li>
+                        <li><span>Días Festivos:</span> Consultar en recepción</li>
+                    </ul>
+                </div>
+
+                <!-- Inscripción -->
+                <div class="glass-card info-card">
+                    <div class="card-icon"><i class="fas fa-user-plus"></i></div>
+                    <h3>Cómo Inscribirte</h3>
+                    <ol class="steps-list">
+                        <li>Visita nuestra recepción con tu identificación.</li>
+                        <li>Elige tu plan ideal (Mensual, Trimestral o Anual).</li>
+                        <li>Realiza tu pago (Aceptamos tarjetas, efectivo y transferencias).</li>
+                        <li>¡Recibe tu acceso biométrico y empieza a entrenar!</li>
+                    </ol>
+                </div>
+
+                <!-- Promociones -->
+                <div class="glass-card info-card promo-card" id="join">
+                    <div class="card-icon"><i class="fas fa-tags"></i></div>
+                    <h3>Promociones Actuales</h3>
+                    <div class="promo-content">
+                        <h4>🔥 PROMO VERANO 🔥</h4>
+                        <p>Inscríbete hoy y llévate el primer mes con un <strong>50% de descuento</strong> más una evaluación corporal gratuita.</p>
+                        <button class="btn btn-primary mt-2">Reclamar Promo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section id="equipment" class="section equipment-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">NUESTRA <span>MAQUINARIA</span></h2>
+                <p class="section-desc">Contamos con equipo de última generación dividido por zonas especializadas para optimizar tu entrenamiento.</p>
+            </div>
+
+            <div class="equipment-filters">
+                <button class="filter-btn active" data-filter="all">Todo</button>
+                <button class="filter-btn" data-filter="cardio">Cardio</button>
+                <button class="filter-btn" data-filter="pecho">Pecho</button>
+                <button class="filter-btn" data-filter="espalda">Espalda</button>
+                <button class="filter-btn" data-filter="pierna">Pierna</button>
+                <button class="filter-btn" data-filter="libre">Peso Libre</button>
+            </div>
+
+            <div class="equipment-grid">
+                <!-- Equipment Items -->
+                <div class="equipment-item" data-category="cardio">
+                    <div class="eq-image cardio-img"></div>
+                    <div class="eq-info">
+                        <h3>Zona de Cardio</h3>
+                        <p>Caminadoras, elípticas y bicicletas estáticas de alta tecnología.</p>
+                    </div>
+                </div>
+                <div class="equipment-item" data-category="pecho">
+                    <div class="eq-image pecho-img"></div>
+                    <div class="eq-info">
+                        <h3>Máquinas de Pecho</h3>
+                        <p>Prensas convergentes, pec deck y poleas especializadas.</p>
+                    </div>
+                </div>
+                <div class="equipment-item" data-category="espalda">
+                    <div class="eq-image espalda-img"></div>
+                    <div class="eq-info">
+                        <h3>Máquinas de Espalda</h3>
+                        <p>Remos gironda, jalones al pecho y máquinas dorsales.</p>
+                    </div>
+                </div>
+                <div class="equipment-item" data-category="pierna">
+                    <div class="eq-image pierna-img"></div>
+                    <div class="eq-info">
+                        <h3>Zona de Pierna</h3>
+                        <p>Prensas de 45°, hack squat, extensiones y curls femorales.</p>
+                    </div>
+                </div>
+                <div class="equipment-item" data-category="libre">
+                    <div class="eq-image libre-img"></div>
+                    <div class="eq-info">
+                        <h3>Peso Libre</h3>
+                        <p>Mancuernas hasta 60kg, racks de sentadilla, bancos ajustables.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coaches & Appointments Section -->
+    <section id="coaches" class="section coaches-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ENTRENA CON LOS <span>MEJORES</span></h2>
+                <p class="section-desc">Nuestros coaches personales te ayudarán a alcanzar tus metas. Conoce a nuestro equipo y agenda una cita.</p>
+            </div>
+
+            <div class="coaches-wrapper">
+                <div class="coaches-list">
+                    <div class="coach-card" onclick="selectCoach('Alex R.', 'Hipertrofia y Fuerza')">
+                        <div class="coach-img alex-img"></div>
+                        <div class="coach-info">
+                            <h3>Alex Ramírez</h3>
+                            <p class="coach-specialty">Hipertrofia y Fuerza</p>
+                        </div>
+                    </div>
+                    <div class="coach-card" onclick="selectCoach('Sarah M.', 'Pérdida de Peso y Cardio')">
+                        <div class="coach-img sarah-img"></div>
+                        <div class="coach-info">
+                            <h3>Sarah Martínez</h3>
+                            <p class="coach-specialty">Pérdida de Peso y Acondicionamiento</p>
+                        </div>
+                    </div>
+                    <div class="coach-card" onclick="selectCoach('David C.', 'Rehabilitación y Movilidad')">
+                        <div class="coach-img david-img"></div>
+                        <div class="coach-info">
+                            <h3>David Cruz</h3>
+                            <p class="coach-specialty">Rehabilitación y Movilidad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="appointment-form-container glass-card">
+                    <h3>Agendar Cita con <span id="selected-coach-name">un Coach</span></h3>
+                    <form id="appointment-form" class="appointment-form">
+                        <div class="form-group">
+                            <label for="coach-select">Coach Seleccionado</label>
+                            <select id="coach-select" required>
+                                <option value="" disabled selected>Selecciona un Coach...</option>
+                                <option value="Alex R.">Alex Ramírez</option>
+                                <option value="Sarah M.">Sarah Martínez</option>
+                                <option value="David C.">David Cruz</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-name">Tu Nombre</label>
+                            <input type="text" id="user-name" placeholder="Ej. Juan Pérez" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="user-phone">Teléfono de Contacto</label>
+                            <input type="tel" id="user-phone" placeholder="Ej. 555-123-4567" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="appointment-date">Fecha Deseada</label>
+                            <input type="date" id="appointment-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="appointment-time">Hora Deseada</label>
+                            <input type="time" id="appointment-time" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Confirmar Cita</button>
+                    </form>
+                    <div id="appointment-success" class="success-message" style="display: none;">
+                        <i class="fas fa-check-circle"></i> ¡Cita solicitada con éxito! Te contactaremos pronto para confirmar.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutrition Calculator Section -->
+    <section id="calculator" class="section calculator-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">CALCULADORA <span>NUTRICIONAL</span></h2>
+                <p class="section-desc">Descubre cuántas calorías y macronutrientes necesitas diariamente para alcanzar tus objetivos físicos.</p>
+            </div>
+
+            <div class="calculator-wrapper">
+                <!-- Left Column: Input Form -->
+                <div class="calc-input-panel glass-card">
+                    <form id="nutrition-form" class="nutrition-form">
+                        
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="calc-age"><i class="fas fa-calendar-alt"></i> Edad</label>
+                                <input type="number" id="calc-age" placeholder="Años" min="15" max="100" required>
+                            </div>
+                            <div class="form-group half">
+                                <label for="calc-gender"><i class="fas fa-venus-mars"></i> Género</label>
+                                <div class="select-wrapper">
+                                    <select id="calc-gender" required>
+                                        <option value="male">Masculino</option>
+                                        <option value="female">Femenino</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down select-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="calc-weight"><i class="fas fa-weight"></i> Peso (kg)</label>
+                                <input type="number" id="calc-weight" placeholder="Ej. 75" step="0.1" min="30" max="250" required>
+                            </div>
+                            <div class="form-group half">
+                                <label for="calc-height"><i class="fas fa-ruler-vertical"></i> Altura (cm)</label>
+                                <input type="number" id="calc-height" placeholder="Ej. 175" min="100" max="250" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="calc-activity"><i class="fas fa-running"></i> Nivel de Actividad Física</label>
+                            <div class="select-wrapper">
+                                <select id="calc-activity" required>
+                                    <option value="1.2">Sedentario (Poco o ningún ejercicio)</option>
+                                    <option value="1.375">Ligero (Ejercicio 1-3 días a la semana)</option>
+                                    <option value="1.55">Moderado (Ejercicio 3-5 días a la semana)</option>
+                                    <option value="1.725">Activo (Ejercicio intenso 6-7 días a la semana)</option>
+                                </select>
+                                <i class="fas fa-chevron-down select-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="calc-goal"><i class="fas fa-bullseye"></i> Tu Objetivo</label>
+                            <div class="select-wrapper">
+                                <select id="calc-goal" required>
+                                    <option value="lose">Perder Peso (Déficit)</option>
+                                    <option value="maintain">Mantener Peso (Mantenimiento)</option>
+                                    <option value="gain">Ganar Masa Muscular (Superávit)</option>
+                                </select>
+                                <i class="fas fa-chevron-down select-icon"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-calc-submit w-100 mt-4">
+                            CALCULAR MIS MACROS
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column: Results Panel -->
+                <div class="calc-results-panel" id="calc-results" style="display: none;">
+                    <div class="results-header">
+                        <h3>TUS RESULTADOS ESTIMADOS</h3>
+                    </div>
+
+                    <div class="calories-panel">
+                        <h4>CALORÍAS DIARIAS RECOMENDADAS</h4>
+                        <div class="calories-display">
+                            <div class="calories-circle">
+                                <span id="res-calories" class="cal-number">0</span>
+                                <span class="cal-label">Kcal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="macros-grid">
+                        <div class="macro-card protein-card">
+                            <div class="macro-header">
+                                <span><i class="fas fa-drumstick-bite"></i> Proteínas</span>
+                                <span id="res-pro-pct">30%</span>
+                            </div>
+                            <div class="macro-value"><span id="res-pro-g">0</span>g</div>
+                            <div class="progress-bar-bg"><div class="progress-bar" id="bar-pro"></div></div>
+                        </div>
+
+                        <div class="macro-card carbs-card">
+                            <div class="macro-header">
+                                <span><i class="fas fa-bread-slice"></i> Carbohidratos</span>
+                                <span id="res-carb-pct">40%</span>
+                            </div>
+                            <div class="macro-value"><span id="res-carb-g">0</span>g</div>
+                            <div class="progress-bar-bg"><div class="progress-bar" id="bar-carb"></div></div>
+                        </div>
+
+                        <div class="macro-card fats-card">
+                            <div class="macro-header">
+                                <span><i class="fas fa-cheese"></i> Grasas</span>
+                                <span id="res-fat-pct">30%</span>
+                            </div>
+                            <div class="macro-value"><span id="res-fat-g">0</span>g</div>
+                            <div class="progress-bar-bg"><div class="progress-bar" id="bar-fat"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="meal-breakdown">
+                        <h4>DESGLOSE SUGERIDO DEL PLAN</h4>
+                        <ul class="meal-list">
+                            <li><i class="fas fa-coffee"></i> <strong>Desayuno:</strong> <span id="meal-1">0</span> kcal</li>
+                            <li><i class="fas fa-utensils"></i> <strong>Almuerzo:</strong> <span id="meal-2">0</span> kcal</li>
+                            <li><i class="fas fa-apple-alt"></i> <strong>Snacks:</strong> <span id="meal-3">0</span> kcal</li>
+                            <li><i class="fas fa-moon"></i> <strong>Cena:</strong> <span id="meal-4">0</span> kcal</li>
+                        </ul>
+                    </div>
+
+                    <button class="btn btn-outline w-100 mt-4 btn-generate-plan">GENERAR PLAN COMPLETO</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery & 360 Tour Section -->
+    <section id="gallery" class="section gallery-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">CONOCE NUESTRAS <span>INSTALACIONES</span></h2>
+                <p class="section-desc">Explora el gimnasio a través de nuestra galería y realiza un recorrido virtual en 360°.</p>
+            </div>
+
+            <!-- 360 Viewer -->
+            <div class="tour-360-container glass-card">
+                <div class="tour-header">
+                    <h3><i class="fas fa-vr-cardboard"></i> Recorrido Virtual 360°</h3>
+                    <p>Arrastra la imagen para explorar el área como si estuvieras ahí.</p>
+                </div>
+                <div id="panorama" class="panorama-viewer">
+                    <!-- Pannellum viewer will be injected here -->
+                    <div class="panorama-placeholder">
+                        <i class="fas fa-circle-notch fa-spin"></i> Cargando Visor 360°...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Gallery -->
+            <div class="gallery-grid mt-4">
+                <div class="gallery-item"><div class="g-img g-1"></div></div>
+                <div class="gallery-item"><div class="g-img g-2"></div></div>
+                <div class="gallery-item"><div class="g-img g-3"></div></div>
+                <div class="gallery-item"><div class="g-img g-4"></div></div>
+                <div class="gallery-item"><div class="g-img g-5"></div></div>
+                <div class="gallery-item"><div class="g-img g-6"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="section location-section" style="background-color: var(--bg-dark);">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="section-title">NUESTRA <span>UBICACIÓN</span></h2>
+                <p class="section-desc">Visítanos y comienza a entrenar hoy mismo. ¡Te esperamos en ALLIANCE GYM Chimalhuacán!</p>
+            </div>
+            <div class="map-container glass-card" style="padding: 10px; overflow: hidden;">
+                <iframe 
+                    src="https://maps.google.com/maps?q=ALLIANCE+GYM+CHIMALHUACAN&t=m&z=16&output=embed&iwloc=near" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0; border-radius: 8px;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="img/logo.png" alt="Alliance GYM Logo" class="footer-logo-img">
+                    <h2>ALLIANCE <span>GYM</span></h2>
+                </div>
+                <p>Forjando campeones, un entrenamiento a la vez. Únete a la mejor comunidad fitness.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#info">Servicios</a></li>
+                    <li><a href="#coaches">Coaches</a></li>
+                    <li><a href="#gallery">Tour 360</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-map-marker-alt"></i> ALLIANCE GYM, Chimalhuacán</p>
+                <p><i class="fas fa-phone-alt"></i> +52 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> contacto@alliancegym.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Alliance GYM. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Pannellum 360 Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
