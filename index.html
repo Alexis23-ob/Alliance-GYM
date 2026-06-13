@@ -21,540 +21,1247 @@
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
-            <a href="#" class="logo">
+            <a href="#" class="logo" onclick="goToHome()">
                 <img src="img/logo.png" alt="Alliance GYM Logo" class="logo-img">
                 ALLIANCE <span>GYM</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#home">Inicio</a></li>
                 <li><a href="#info">Información</a></li>
+                <li><a href="#memberships">Membresías</a></li>
                 <li><a href="#equipment">Equipo</a></li>
                 <li><a href="#coaches">Coaches</a></li>
-                <li><a href="#calculator">Nutrición</a></li>
+                <li><a href="#reviews-section">Opiniones</a></li>
                 <li><a href="#gallery">Instalaciones</a></li>
-                <li><a href="#tiktok">TikToks</a></li>
                 <li><a href="#location">Ubicación</a></li>
             </ul>
-            <a href="#join" class="btn btn-primary nav-btn">Únete Ahora</a>
+            <div class="nav-auth-buttons">
+                <a href="#memberships" class="btn btn-primary nav-btn" id="nav-join-btn">Únete Ahora</a>
+                <button class="btn btn-outline nav-portal-btn" id="nav-portal-btn" onclick="openAuthModal()"><i class="fas fa-user-circle"></i> Mi Cuenta</button>
+            </div>
             <div class="hamburger" id="hamburger">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <h1 class="hero-title">FORJA TU <span>LEGADO</span></h1>
-            <p class="hero-subtitle">Instalaciones premium, equipo de clase mundial y los mejores coaches para llevar tu físico al siguiente nivel.</p>
-            <div class="hero-actions">
-                <a href="#join" class="btn btn-primary btn-large">Comenzar Hoy</a>
-                <a href="#gallery" class="btn btn-outline btn-large">Ver Instalaciones</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Info Section (Promotions, Enrollment, Hours) -->
-    <section id="info" class="section info-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">TODO LO QUE NECESITAS <span>SABER</span></h2>
-                <p class="section-desc">Conoce nuestros horarios, cómo inscribirte y las increíbles promociones que tenemos para ti.</p>
-            </div>
-
-            <div class="info-grid">
-                <!-- Horarios -->
-                <div class="glass-card info-card">
-                    <div class="card-icon"><i class="fas fa-clock"></i></div>
-                    <h3>Horarios de Atención</h3>
-                    <ul class="hours-list">
-                        <li><span>Lunes a Viernes:</span> 5:00 AM - 11:00 PM</li>
-                        <li><span>Sábados:</span> 6:00 AM - 8:00 PM</li>
-                        <li><span>Domingos:</span> 7:00 AM - 2:00 PM</li>
-                        <li><span>Días Festivos:</span> Consultar en recepción</li>
-                    </ul>
-                </div>
-
-                <!-- Inscripción -->
-                <div class="glass-card info-card">
-                    <div class="card-icon"><i class="fas fa-user-plus"></i></div>
-                    <h3>Cómo Inscribirte</h3>
-                    <ol class="steps-list">
-                        <li>Visita nuestra recepción con tu identificación.</li>
-                        <li>Elige tu plan ideal (Mensual, Trimestral o Anual).</li>
-                        <li>Realiza tu pago (Aceptamos tarjetas, efectivo y transferencias).</li>
-                        <li>¡Recibe tu acceso biométrico y empieza a entrenar!</li>
-                    </ol>
-                </div>
-
-                <!-- Promociones -->
-                <div class="glass-card info-card promo-card" id="join">
-                    <div class="card-icon"><i class="fas fa-tags"></i></div>
-                    <h3>Promociones Actuales</h3>
-                    <div class="promo-content">
-                        <h4>🔥 PROMO VERANO 🔥</h4>
-                        <p>Inscríbete hoy y llévate el primer mes con un <strong>50% de descuento</strong> más una evaluación corporal gratuita.</p>
-                        <button class="btn btn-primary mt-2">Reclamar Promo</button>
-                    </div>
+    <!-- PUBLIC SITE WRAPPER -->
+    <div id="public-site">
+        
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-overlay"></div>
+            <div class="container hero-content">
+                <h1 class="hero-title">FORJA TU <span>LEGADO</span></h1>
+                <p class="hero-subtitle">Instalaciones premium, equipo de clase mundial y los mejores coaches para llevar tu físico al siguiente nivel.</p>
+                <div class="hero-actions">
+                    <a href="#memberships" class="btn btn-primary btn-large">Comenzar Hoy</a>
+                    <a href="#gallery" class="btn btn-outline btn-large">Ver Instalaciones</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Equipment Section -->
-    <section id="equipment" class="section equipment-section">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2 class="section-title">NUESTRA <span>MAQUINARIA</span></h2>
-                <p class="section-desc">Contamos con equipo de última generación dividido por zonas especializadas para optimizar tu entrenamiento.</p>
-            </div>
-
-            <div class="equipment-filters">
-                <button class="filter-btn active" data-filter="all">Todo</button>
-                <button class="filter-btn" data-filter="cardio">Cardio</button>
-                <button class="filter-btn" data-filter="pecho">Pecho</button>
-                <button class="filter-btn" data-filter="espalda">Espalda</button>
-                <button class="filter-btn" data-filter="pierna">Pierna</button>
-                <button class="filter-btn" data-filter="libre">Peso Libre</button>
-            </div>
-
-            <div class="equipment-grid">
-                <!-- Equipment Items -->
-                <div class="equipment-item" data-category="cardio">
-                    <div class="eq-image cardio-img"></div>
-                    <div class="eq-info">
-                        <h3>Zona de Cardio</h3>
-                        <p>Caminadoras, elípticas y bicicletas estáticas de alta tecnología.</p>
-                    </div>
-                </div>
-                <div class="equipment-item" data-category="pecho">
-                    <div class="eq-image pecho-img"></div>
-                    <div class="eq-info">
-                        <h3>Máquinas de Pecho</h3>
-                        <p>Prensas convergentes, pec deck y poleas especializadas.</p>
-                    </div>
-                </div>
-                <div class="equipment-item" data-category="espalda">
-                    <div class="eq-image espalda-img"></div>
-                    <div class="eq-info">
-                        <h3>Máquinas de Espalda</h3>
-                        <p>Remos gironda, jalones al pecho y máquinas dorsales.</p>
-                    </div>
-                </div>
-                <div class="equipment-item" data-category="pierna">
-                    <div class="eq-image pierna-img"></div>
-                    <div class="eq-info">
-                        <h3>Zona de Pierna</h3>
-                        <p>Prensas de 45°, hack squat, extensiones y curls femorales.</p>
-                    </div>
-                </div>
-                <div class="equipment-item" data-category="libre">
-                    <div class="eq-image libre-img"></div>
-                    <div class="eq-info">
-                        <h3>Peso Libre</h3>
-                        <p>Mancuernas hasta 60kg, racks de sentadilla, bancos ajustables.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Coaches & Appointments Section -->
-    <section id="coaches" class="section coaches-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">ENTRENA CON LOS <span>MEJORES</span></h2>
-                <p class="section-desc">Nuestros coaches personales te ayudarán a alcanzar tus metas. Conoce a nuestro equipo y agenda una cita.</p>
-            </div>
-
-            <div class="coaches-wrapper">
-                <div class="coaches-list">
-                    <div class="coach-card" onclick="selectCoach('Alex R.', 'Hipertrofia y Fuerza')">
-                        <div class="coach-img alex-img"></div>
-                        <div class="coach-info">
-                            <h3>Alex Ramírez</h3>
-                            <p class="coach-specialty">Hipertrofia y Fuerza</p>
-                        </div>
-                    </div>
-                    <div class="coach-card" onclick="selectCoach('Sarah M.', 'Pérdida de Peso y Cardio')">
-                        <div class="coach-img sarah-img"></div>
-                        <div class="coach-info">
-                            <h3>Sarah Martínez</h3>
-                            <p class="coach-specialty">Pérdida de Peso y Acondicionamiento</p>
-                        </div>
-                    </div>
-                    <div class="coach-card" onclick="selectCoach('David C.', 'Rehabilitación y Movilidad')">
-                        <div class="coach-img david-img"></div>
-                        <div class="coach-info">
-                            <h3>David Cruz</h3>
-                            <p class="coach-specialty">Rehabilitación y Movilidad</p>
-                        </div>
-                    </div>
+        <!-- Info Section (Promotions, Enrollment, Hours) -->
+        <section id="info" class="section info-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">TODO LO QUE NECESITAS <span>SABER</span></h2>
+                    <p class="section-desc">Conoce nuestros horarios, cómo inscribirte y las increíbles promociones que tenemos para ti.</p>
                 </div>
 
-                <div class="appointment-form-container glass-card">
-                    <h3>Agendar Cita con <span id="selected-coach-name">un Coach</span></h3>
-                    <form id="appointment-form" class="appointment-form">
-                        <div class="form-group">
-                            <label for="coach-select">Coach Seleccionado</label>
-                            <select id="coach-select" required>
-                                <option value="" disabled selected>Selecciona un Coach...</option>
-                                <option value="Alex R.">Alex Ramírez</option>
-                                <option value="Sarah M.">Sarah Martínez</option>
-                                <option value="David C.">David Cruz</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="user-name">Tu Nombre</label>
-                            <input type="text" id="user-name" placeholder="Ej. Juan Pérez" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="user-phone">Teléfono de Contacto</label>
-                            <input type="tel" id="user-phone" placeholder="Ej. 555-123-4567" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="appointment-date">Fecha Deseada</label>
-                            <input type="date" id="appointment-date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="appointment-time">Hora Deseada</label>
-                            <input type="time" id="appointment-time" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Confirmar Cita</button>
-                    </form>
-                    <div id="appointment-success" class="success-message" style="display: none;">
-                        <i class="fas fa-check-circle"></i> ¡Cita solicitada con éxito! Te contactaremos pronto para confirmar.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Nutrition Calculator Section -->
-    <section id="calculator" class="section calculator-section">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2 class="section-title">CALCULADORA <span>NUTRICIONAL</span></h2>
-                <p class="section-desc">Descubre cuántas calorías y macronutrientes necesitas diariamente para alcanzar tus objetivos físicos.</p>
-            </div>
-
-            <div class="calculator-wrapper">
-                <!-- Left Column: Input Form -->
-                <div class="calc-input-panel glass-card">
-                    <form id="nutrition-form" class="nutrition-form">
-                        
-                        <div class="form-row">
-                            <div class="form-group half">
-                                <label for="calc-age"><i class="fas fa-calendar-alt"></i> Edad</label>
-                                <input type="number" id="calc-age" placeholder="Años" min="15" max="100" required>
-                            </div>
-                            <div class="form-group half">
-                                <label for="calc-gender"><i class="fas fa-venus-mars"></i> Género</label>
-                                <div class="select-wrapper">
-                                    <select id="calc-gender" required>
-                                        <option value="male">Masculino</option>
-                                        <option value="female">Femenino</option>
-                                    </select>
-                                    <i class="fas fa-chevron-down select-icon"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group half">
-                                <label for="calc-weight"><i class="fas fa-weight"></i> Peso (kg)</label>
-                                <input type="number" id="calc-weight" placeholder="Ej. 75" step="0.1" min="30" max="250" required>
-                            </div>
-                            <div class="form-group half">
-                                <label for="calc-height"><i class="fas fa-ruler-vertical"></i> Altura (cm)</label>
-                                <input type="number" id="calc-height" placeholder="Ej. 175" min="100" max="250" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="calc-activity"><i class="fas fa-running"></i> Nivel de Actividad Física</label>
-                            <div class="select-wrapper">
-                                <select id="calc-activity" required>
-                                    <option value="1.2">Sedentario (Poco o ningún ejercicio)</option>
-                                    <option value="1.375">Ligero (Ejercicio 1-3 días a la semana)</option>
-                                    <option value="1.55">Moderado (Ejercicio 3-5 días a la semana)</option>
-                                    <option value="1.725">Activo (Ejercicio intenso 6-7 días a la semana)</option>
-                                </select>
-                                <i class="fas fa-chevron-down select-icon"></i>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="calc-goal"><i class="fas fa-bullseye"></i> Tu Objetivo</label>
-                            <div class="select-wrapper">
-                                <select id="calc-goal" required>
-                                    <option value="lose">Perder Peso (Déficit)</option>
-                                    <option value="maintain">Mantener Peso (Mantenimiento)</option>
-                                    <option value="gain">Ganar Masa Muscular (Superávit)</option>
-                                </select>
-                                <i class="fas fa-chevron-down select-icon"></i>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-calc-submit w-100 mt-4">
-                            CALCULAR MIS MACROS
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Right Column: Results Panel -->
-                <div class="calc-results-panel" id="calc-results" style="display: none;">
-                    <div class="results-header">
-                        <h3>TUS RESULTADOS ESTIMADOS</h3>
-                    </div>
-
-                    <div class="calories-panel">
-                        <h4>CALORÍAS DIARIAS RECOMENDADAS</h4>
-                        <div class="calories-display">
-                            <div class="calories-circle">
-                                <span id="res-calories" class="cal-number">0</span>
-                                <span class="cal-label">Kcal</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="macros-grid">
-                        <div class="macro-card protein-card">
-                            <div class="macro-header">
-                                <span><i class="fas fa-drumstick-bite"></i> Proteínas</span>
-                                <span id="res-pro-pct">30%</span>
-                            </div>
-                            <div class="macro-value"><span id="res-pro-g">0</span>g</div>
-                            <div class="progress-bar-bg"><div class="progress-bar" id="bar-pro"></div></div>
-                        </div>
-
-                        <div class="macro-card carbs-card">
-                            <div class="macro-header">
-                                <span><i class="fas fa-bread-slice"></i> Carbohidratos</span>
-                                <span id="res-carb-pct">40%</span>
-                            </div>
-                            <div class="macro-value"><span id="res-carb-g">0</span>g</div>
-                            <div class="progress-bar-bg"><div class="progress-bar" id="bar-carb"></div></div>
-                        </div>
-
-                        <div class="macro-card fats-card">
-                            <div class="macro-header">
-                                <span><i class="fas fa-cheese"></i> Grasas</span>
-                                <span id="res-fat-pct">30%</span>
-                            </div>
-                            <div class="macro-value"><span id="res-fat-g">0</span>g</div>
-                            <div class="progress-bar-bg"><div class="progress-bar" id="bar-fat"></div></div>
-                        </div>
-                    </div>
-
-                    <div class="meal-breakdown">
-                        <h4>DESGLOSE SUGERIDO DEL PLAN</h4>
-                        <ul class="meal-list">
-                            <li><i class="fas fa-coffee"></i> <strong>Desayuno:</strong> <span id="meal-1">0</span> kcal</li>
-                            <li><i class="fas fa-utensils"></i> <strong>Almuerzo:</strong> <span id="meal-2">0</span> kcal</li>
-                            <li><i class="fas fa-apple-alt"></i> <strong>Snacks:</strong> <span id="meal-3">0</span> kcal</li>
-                            <li><i class="fas fa-moon"></i> <strong>Cena:</strong> <span id="meal-4">0</span> kcal</li>
+                <div class="info-grid">
+                    <!-- Horarios -->
+                    <div class="glass-card info-card">
+                        <div class="card-icon"><i class="fas fa-clock"></i></div>
+                        <h3>Horarios de Atención</h3>
+                        <ul class="hours-list">
+                            <li><span>Lunes a Viernes:</span> <span id="hour-weekday">5:00 AM - 11:00 PM</span></li>
+                            <li><span>Sábados:</span> <span id="hour-sat">6:00 AM - 8:00 PM</span></li>
+                            <li><span>Domingos:</span> <span id="hour-sun">7:00 AM - 2:00 PM</span></li>
+                            <li><span>Días Festivos:</span> Consultar en recepción</li>
                         </ul>
                     </div>
 
-                    <button class="btn btn-outline w-100 mt-4 btn-generate-plan">GENERAR PLAN COMPLETO</button>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <!-- Inscripción -->
+                    <div class="glass-card info-card">
+                        <div class="card-icon"><i class="fas fa-user-plus"></i></div>
+                        <h3>Cómo Inscribirte</h3>
+                        <ol class="steps-list">
+                            <li>Elige tu plan ideal de membresía en línea.</li>
+                            <li>Realiza tu pago seguro desde nuestra plataforma.</li>
+                            <li>Agenda tu cita para la entrega del acceso biométrico.</li>
+                            <li>¡Recibe tu credencial QR digital y empieza a entrenar!</li>
+                        </ol>
+                    </div>
 
-    <!-- Gallery & 360 Tour Section -->
-    <section id="gallery" class="section gallery-section">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2 class="section-title">CONOCE NUESTRAS <span>INSTALACIONES</span></h2>
-                <p class="section-desc">Explora el gimnasio a través de nuestra galería y realiza un recorrido virtual en 360°.</p>
-            </div>
-
-            <!-- 360 Viewer -->
-            <div class="tour-360-container glass-card">
-                <div class="tour-header">
-                    <h3><i class="fas fa-vr-cardboard"></i> Recorrido Virtual 360°</h3>
-                    <p>Arrastra la imagen para explorar el área como si estuvieras ahí.</p>
-                </div>
-                <div id="panorama" class="panorama-viewer">
-                    <!-- Pannellum viewer will be injected here -->
-                    <div class="panorama-placeholder">
-                        <i class="fas fa-circle-notch fa-spin"></i> Cargando Visor 360°...
+                    <!-- Promociones -->
+                    <div class="glass-card info-card promo-card" id="join">
+                        <div class="card-icon"><i class="fas fa-tags"></i></div>
+                        <h3>Promociones Actuales</h3>
+                        <div class="promo-content">
+                            <h4 id="promo-title">🔥 PROMO INAUGURAL 🔥</h4>
+                            <p id="promo-text">Inscríbete hoy en línea y llévate tu primer mes con <strong>500 Puntos de Regalo</strong> en tu monedero de recompensas.</p>
+                            <a href="#memberships" class="btn btn-primary mt-2 w-100 text-center">Ver Planes</a>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Image Gallery -->
-            <div class="gallery-grid mt-4">
-                <div class="gallery-item"><div class="g-img g-1"></div></div>
-                <div class="gallery-item"><div class="g-img g-2"></div></div>
-                <div class="gallery-item"><div class="g-img g-3"></div></div>
-                <div class="gallery-item"><div class="g-img g-4"></div></div>
-                <div class="gallery-item"><div class="g-img g-5"></div></div>
-                <div class="gallery-item"><div class="g-img g-6"></div></div>
+        <!-- Membership Section (NEW) -->
+        <section id="memberships" class="section memberships-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">NUESTROS <span>PLANES</span></h2>
+                    <p class="section-desc">Selecciona la membresía que mejor se adapte a tus metas. Contrata en minutos y accede al instante.</p>
+                </div>
+
+                <div class="memberships-grid">
+                    <!-- Plan Básico -->
+                    <div class="glass-card plan-card">
+                        <div class="plan-header">
+                            <h3>Plan Básico</h3>
+                            <div class="plan-price"><span id="val-price-basico">$399</span>/mes</div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Acceso a zona de pesas y peso libre</li>
+                            <li><i class="fas fa-check"></i> Zona de cardio general</li>
+                            <li><i class="fas fa-check"></i> Casilleros y regaderas</li>
+                            <li><i class="fas fa-times restriction-icon"></i> <span class="restriction-text">Restricción: Horario limitado (12:00 PM - 5:00 PM)</span></li>
+                            <li><i class="fas fa-times restriction-icon"></i> <span class="restriction-text">No incluye clases grupales ni visitas multi-club</span></li>
+                            <li><i class="fas fa-times restriction-icon"></i> <span class="restriction-text">Puntos de recompensa base (1x)</span></li>
+                        </ul>
+                        <button class="btn btn-outline w-100 plan-btn" onclick="startPurchaseFlow('Plan Básico')">Contratar Plan</button>
+                    </div>
+
+                    <!-- Plan Black -->
+                    <div class="glass-card plan-card featured-plan">
+                        <div class="plan-badge">RECOMENDADO</div>
+                        <div class="plan-header">
+                            <h3>Plan Black</h3>
+                            <div class="plan-price"><span id="val-price-black">$599</span>/mes</div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Acceso total sin límite de horario (5 AM - 11 PM)</li>
+                            <li><i class="fas fa-check"></i> Acceso a todas nuestras sucursales (Multi-club)</li>
+                            <li><i class="fas fa-check"></i> Clases grupales ilimitadas (Yoga, Zumba, CrossFit)</li>
+                            <li><i class="fas fa-check"></i> 1 pase de amigo mensual gratis</li>
+                            <li><i class="fas fa-check"></i> Recorrido virtual 360° y visor nutricional premium</li>
+                            <li><i class="fas fa-check"></i> Acumulación de puntos estándar</li>
+                        </ul>
+                        <button class="btn btn-primary w-100 plan-btn" onclick="startPurchaseFlow('Plan Black')">Contratar Plan</button>
+                    </div>
+
+                    <!-- Plan VIP Alliance -->
+                    <div class="glass-card plan-card vip-plan">
+                        <div class="plan-header">
+                            <h3>Plan VIP Alliance</h3>
+                            <div class="plan-price"><span id="val-price-vip">$899</span>/mes</div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Acceso ilimitado a todas las áreas y sucursales</li>
+                            <li><i class="fas fa-check"></i> Área VIP exclusiva con bebidas hidratantes y toalla</li>
+                            <li><i class="fas fa-check"></i> Coach personal y evaluación corporal ilimitada</li>
+                            <li><i class="fas fa-check"></i> Cabina de crioterapia y masajes (2 por mes)</li>
+                            <li><i class="fas fa-check"></i> Pases de amigo ilimitados (1 por visita)</li>
+                            <li><i class="fas fa-check"></i> <strong>Multiplicador de puntos 1.5x</strong></li>
+                        </ul>
+                        <button class="btn btn-outline w-100 plan-btn" onclick="startPurchaseFlow('Plan VIP Alliance')">Contratar VIP</button>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- TikTok Section -->
-    <section id="tiktok" class="section tiktok-section">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2 class="section-title">NUESTROS MEJORES <span>TIKTOKS</span></h2>
-                <p class="section-desc">Síguenos en TikTok y descubre rutinas, tips y la mejor motivación.</p>
+        <!-- Equipment Section -->
+        <section id="equipment" class="section equipment-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">NUESTRA <span>MAQUINARIA</span></h2>
+                    <p class="section-desc">Contamos con equipo de última generación dividido por zonas especializadas para optimizar tu entrenamiento.</p>
+                </div>
+
+                <div class="equipment-filters">
+                    <button class="filter-btn active" data-filter="all">Todo</button>
+                    <button class="filter-btn" data-filter="cardio">Cardio</button>
+                    <button class="filter-btn" data-filter="pecho">Pecho</button>
+                    <button class="filter-btn" data-filter="espalda">Espalda</button>
+                    <button class="filter-btn" data-filter="pierna">Pierna</button>
+                    <button class="filter-btn" data-filter="libre">Peso Libre</button>
+                </div>
+
+                <div class="equipment-grid">
+                    <!-- Equipment Items -->
+                    <a href="maquinaria.html?category=cardio" class="equipment-item" data-category="cardio" style="display: block; color: inherit;">
+                        <div class="eq-image cardio-img"></div>
+                        <div class="eq-info">
+                            <h3>Zona de Cardio</h3>
+                            <p>Caminadoras, elípticas y bicicletas estáticas de alta tecnología.</p>
+                        </div>
+                    </a>
+                    <a href="maquinaria.html?category=pecho" class="equipment-item" data-category="pecho" style="display: block; color: inherit;">
+                        <div class="eq-image pecho-img"></div>
+                        <div class="eq-info">
+                            <h3>Máquinas de Pecho</h3>
+                            <p>Prensas convergentes, pec deck y poleas especializadas.</p>
+                        </div>
+                    </a>
+                    <a href="maquinaria.html?category=espalda" class="equipment-item" data-category="espalda" style="display: block; color: inherit;">
+                        <div class="eq-image espalda-img"></div>
+                        <div class="eq-info">
+                            <h3>Máquinas de Espalda</h3>
+                            <p>Remos gironda, jalones al pecho y máquinas dorsales.</p>
+                        </div>
+                    </a>
+                    <a href="maquinaria.html?category=pierna" class="equipment-item" data-category="pierna" style="display: block; color: inherit;">
+                        <div class="eq-image pierna-img"></div>
+                        <div class="eq-info">
+                            <h3>Zona de Pierna</h3>
+                            <p>Prensas de 45°, hack squat, extensiones y curls femorales.</p>
+                        </div>
+                    </a>
+                    <a href="maquinaria.html?category=libre" class="equipment-item" data-category="libre" style="display: block; color: inherit;">
+                        <div class="eq-image libre-img"></div>
+                        <div class="eq-info">
+                            <h3>Peso Libre</h3>
+                            <p>Mancuernas hasta 60kg, racks de sentadilla, bancos ajustables.</p>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Coaches & Appointments Section -->
+        <section id="coaches" class="section coaches-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">ENTRENA CON LOS <span>MEJORES</span></h2>
+                    <p class="section-desc">Nuestros coaches personales te ayudarán a alcanzar tus metas. Conoce a nuestro equipo y agenda una cita.</p>
+                </div>
+
+                <div class="coaches-wrapper">
+                    <div class="coaches-list">
+                        <div class="coach-card" onclick="selectCoach('Alex R.', 'Hipertrofia y Fuerza')">
+                            <div class="coach-img alex-img"></div>
+                            <div class="coach-info">
+                                <h3>Alex Ramírez</h3>
+                                <p class="coach-specialty">Hipertrofia y Fuerza</p>
+                            </div>
+                        </div>
+                        <div class="coach-card" onclick="selectCoach('Sarah M.', 'Pérdida de Peso y Cardio')">
+                            <div class="coach-img sarah-img"></div>
+                            <div class="coach-info">
+                                <h3>Sarah Martínez</h3>
+                                <p class="coach-specialty">Pérdida de Peso y Acondicionamiento</p>
+                            </div>
+                        </div>
+                        <div class="coach-card" onclick="selectCoach('David C.', 'Rehabilitación y Movilidad')">
+                            <div class="coach-img david-img"></div>
+                            <div class="coach-info">
+                                <h3>David Cruz</h3>
+                                <p class="coach-specialty">Rehabilitación y Movilidad</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="appointment-form-container glass-card">
+                        <h3>Agendar Cita con <span id="selected-coach-name">un Coach</span></h3>
+                        <form id="appointment-form" class="appointment-form">
+                            <div class="form-group">
+                                <label for="coach-select">Coach Seleccionado</label>
+                                <select id="coach-select" required>
+                                    <option value="" disabled selected>Selecciona un Coach...</option>
+                                    <option value="Alex R.">Alex Ramírez</option>
+                                    <option value="Sarah M.">Sarah Martínez</option>
+                                    <option value="David C.">David Cruz</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="user-name">Tu Nombre</label>
+                                <input type="text" id="user-name" placeholder="Ej. Juan Pérez" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="user-phone">Teléfono de Contacto</label>
+                                <input type="tel" id="user-phone" placeholder="Ej. 555-123-4567" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-date">Fecha Deseada</label>
+                                <input type="date" id="appointment-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-time">Hora Deseada</label>
+                                <input type="time" id="appointment-time" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Confirmar Cita</button>
+                        </form>
+                        <div id="appointment-success" class="success-message" style="display: none;">
+                            <i class="fas fa-check-circle"></i> ¡Cita solicitada con éxito! Te contactaremos pronto para confirmar.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Opiniones & Reseñas Section (NEW) -->
+        <section id="reviews-section" class="section reviews-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">LO QUE DICEN NUESTROS <span>SOCIOS</span></h2>
+                    <p class="section-desc">La opinión de nuestra comunidad avala el esfuerzo de nuestros coaches y la calidad de nuestras instalaciones.</p>
+                </div>
+
+                <div class="ratings-summary-container glass-card">
+                    <div class="rating-overall">
+                        <div class="rating-big" id="avg-gym-rating">4.9</div>
+                        <div class="stars" id="avg-gym-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="rating-label">Promedio del Gimnasio</p>
+                    </div>
+                    <div class="rating-breakdown">
+                        <div class="breakdown-row">
+                            <span class="breakdown-label">Instalaciones</span>
+                            <div class="breakdown-bar-bg"><div class="breakdown-bar" style="width: 98%;"></div></div>
+                            <span class="breakdown-val" id="avg-gym-val">4.9</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <span class="breakdown-label">Coaches</span>
+                            <div class="breakdown-bar-bg"><div class="breakdown-bar" style="width: 96%;"></div></div>
+                            <span class="breakdown-val" id="avg-coaches-val">4.8</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <span class="breakdown-label">Recepción / Staff</span>
+                            <div class="breakdown-bar-bg"><div class="breakdown-bar" style="width: 94%;"></div></div>
+                            <span class="breakdown-val" id="avg-staff-val">4.7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lista de Opiniones públicas -->
+                <div class="reviews-list-wrapper mt-4">
+                    <h3 class="mb-4"><i class="fas fa-comments"></i> Opiniones de la Comunidad</h3>
+                    <div class="reviews-grid-list" id="public-reviews-list">
+                        <!-- Opiniones cargadas dinámicamente -->
+                    </div>
+                    <div class="text-center mt-4" id="reviews-login-promo">
+                        <p class="mb-2 text-muted">¿Quieres dejar tu valoración o ver opiniones de coaches específicos?</p>
+                        <button class="btn btn-outline" onclick="openAuthModal()">Iniciar Sesión para Valorar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery & Zonas Corporales Section -->
+        <section id="gallery" class="section gallery-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">NUESTRAS <span>INSTALACIONES</span></h2>
+                    <p class="section-desc">Explora nuestras áreas de entrenamiento y equipamiento premium con nuestro recorrido interactivo de 360°.</p>
+                </div>
+
+                <!-- 360 Viewer -->
+                <div class="tour-360-container glass-card mb-4">
+                    <div class="tour-header">
+                        <h3><i class="fas fa-vr-cardboard"></i> Recorrido Virtual 360°</h3>
+                        <p>Arrastra la imagen para explorar el área como si estuvieras ahí.</p>
+                    </div>
+                    <div id="panorama" class="panorama-viewer">
+                        <!-- Pannellum viewer will be injected here -->
+                        <div class="panorama-placeholder">
+                            <i class="fas fa-circle-notch fa-spin"></i> Cargando Visor 360°...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location" class="section location-section" style="background-color: var(--bg-dark);">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">NUESTRA <span>UBICACIÓN</span></h2>
+                    <p class="section-desc">Visítanos y comienza a entrenar hoy mismo. ¡Te esperamos en ALLIANCE GYM Chimalhuacán!</p>
+                </div>
+                <div class="map-container glass-card" style="padding: 10px; overflow: hidden;">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=ALLIANCE+GYM+CHIMALHUACAN&t=m&z=16&output=embed&iwloc=near" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0; border-radius: 8px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- REORGANIZED FOOTER (Smart Fit Structure) -->
+        <footer class="footer">
+            <div class="container footer-content-grid">
+                <div class="footer-brand-col">
+                    <div class="footer-logo">
+                        <img src="img/logo.png" alt="Alliance GYM Logo" class="footer-logo-img">
+                        <h2>ALLIANCE <span>GYM</span></h2>
+                    </div>
+                    <p>Forjando campeones, un entrenamiento a la vez. Únete a la mejor comunidad fitness de la región.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/alliancegym1/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/share/19sP5ZLt6U/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@alliancegymchimalhuacan" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-link-col">
+                    <h3>Alliance GYM</h3>
+                    <ul>
+                        <li><a href="#" onclick="goToSection('home')">¿Quiénes somos?</a></li>
+                        <li><a href="#" onclick="alert('Funcionalidad de Franquicias próximamente disponible.')">Franquicias</a></li>
+                        <li><a href="#" onclick="alert('Bolsa de trabajo: Envía tu CV a empleos@alliancegym.com')">Bolsa de Trabajo</a></li>
+                        <li><a href="#" onclick="alert('Trabaja con nosotros: Ponte en contacto con recepción.')">Trabaja con Nosotros</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-link-col">
+                    <h3>Planes</h3>
+                    <ul>
+                        <li><a href="#memberships">Membresías</a></li>
+                        <li><a href="#info">Promociones</a></li>
+                        <li><a href="#" onclick="alert('Aceptamos tarjetas de crédito/débito Visa, MasterCard y American Express, transferencias SPEI y efectivo.')">Métodos de Pago</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-link-col">
+                    <h3>Compañía</h3>
+                    <ul>
+                        <li><a href="https://wa.me/525567659004" target="_blank">Contacto</a></li>
+                        <li><a href="#location">Indicar un Local</a></li>
+                        <li><a href="#" onclick="alert('Términos y Condiciones: La membresía es personal e intransferible. Los reembolsos se gestionan directamente en recepción.')">Términos y Condiciones</a></li>
+                        <li><a href="#" onclick="alert('Aviso de Privacidad: Tus datos están resguardados localmente bajo políticas de privacidad y protección de datos personales.')">Aviso de Privacidad</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Alliance GYM. Todos los derechos reservados. Diseñado bajo estándares de excelencia.</p>
+            </div>
+        </footer>
+    </div>
+
+
+    <!-- CLIENT DASHBOARD VIEW (Oculto por defecto) -->
+    <div id="client-dashboard" class="dashboard-container" style="display: none;">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-logo">
+                <img src="img/logo.png" alt="Alliance GYM Logo" class="logo-img">
+                <span>ALLIANCE <span>PORTAL</span></span>
             </div>
             
-            <div class="swiper tiktok-swiper">
-                <div class="swiper-wrapper">
-                    <!-- Slide 1 -->
-                    <div class="swiper-slide">
-                        <a href="https://www.tiktok.com/@alliancegymchimalhuacan?is_from_webapp=1&sender_device=pc" target="_blank" class="tiktok-card">
-                            <div class="tiktok-img t-1"></div>
-                            <div class="tiktok-overlay">
-                                <i class="fab fa-tiktok tiktok-icon"></i>
-                                <div class="tiktok-play"><i class="fas fa-play"></i></div>
-                                <div class="tiktok-info">
-                                    <h4>@alliancegymchimalhuacan</h4>
-                                    <p>Rutina de pierna 🔥 #gym #fitness</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="swiper-slide">
-                        <a href="https://www.tiktok.com/@alliancegymchimalhuacan?is_from_webapp=1&sender_device=pc" target="_blank" class="tiktok-card">
-                            <div class="tiktok-img t-2"></div>
-                            <div class="tiktok-overlay">
-                                <i class="fab fa-tiktok tiktok-icon"></i>
-                                <div class="tiktok-play"><i class="fas fa-play"></i></div>
-                                <div class="tiktok-info">
-                                    <h4>@alliancegymchimalhuacan</h4>
-                                    <p>Técnica correcta de press 💯</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="swiper-slide">
-                        <a href="https://www.tiktok.com/@alliancegymchimalhuacan?is_from_webapp=1&sender_device=pc" target="_blank" class="tiktok-card">
-                            <div class="tiktok-img t-3"></div>
-                            <div class="tiktok-overlay">
-                                <i class="fab fa-tiktok tiktok-icon"></i>
-                                <div class="tiktok-play"><i class="fas fa-play"></i></div>
-                                <div class="tiktok-info">
-                                    <h4>@alliancegymchimalhuacan</h4>
-                                    <p>Motivación diaria 💪 #alliancegym</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Slide 4 -->
-                    <div class="swiper-slide">
-                        <a href="https://www.tiktok.com/@alliancegymchimalhuacan?is_from_webapp=1&sender_device=pc" target="_blank" class="tiktok-card">
-                            <div class="tiktok-img t-4"></div>
-                            <div class="tiktok-overlay">
-                                <i class="fab fa-tiktok tiktok-icon"></i>
-                                <div class="tiktok-play"><i class="fas fa-play"></i></div>
-                                <div class="tiktok-info">
-                                    <h4>@alliancegymchimalhuacan</h4>
-                                    <p>Transformaciones reales 🚀</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Slide 5 -->
-                    <div class="swiper-slide">
-                        <a href="https://www.tiktok.com/@alliancegymchimalhuacan?is_from_webapp=1&sender_device=pc" target="_blank" class="tiktok-card">
-                            <div class="tiktok-img t-5"></div>
-                            <div class="tiktok-overlay">
-                                <i class="fab fa-tiktok tiktok-icon"></i>
-                                <div class="tiktok-play"><i class="fas fa-play"></i></div>
-                                <div class="tiktok-info">
-                                    <h4>@alliancegymchimalhuacan</h4>
-                                    <p>Nuestro equipo de cardio 🏃‍♂️</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+            <div class="user-summary-badge">
+                <div class="user-avatar-placeholder"><i class="fas fa-user"></i></div>
+                <div class="user-meta">
+                    <h4 id="dash-client-name">Cargando...</h4>
+                    <p id="dash-client-email">Email</p>
                 </div>
-                <!-- Pagination -->
-                <div class="swiper-pagination"></div>
-                <!-- Navigation -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
             </div>
-            <div class="text-center mt-4">
-                <a href="https://www.tiktok.com/@alliancegymchimalhuacan?is_from_webapp=1&sender_device=pc" target="_blank" class="btn btn-primary"><i class="fab fa-tiktok"></i> Seguir en TikTok</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Location Section -->
-    <section id="location" class="section location-section" style="background-color: var(--bg-dark);">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2 class="section-title">NUESTRA <span>UBICACIÓN</span></h2>
-                <p class="section-desc">Visítanos y comienza a entrenar hoy mismo. ¡Te esperamos en ALLIANCE GYM Chimalhuacán!</p>
-            </div>
-            <div class="map-container glass-card" style="padding: 10px; overflow: hidden;">
-                <iframe 
-                    src="https://maps.google.com/maps?q=ALLIANCE+GYM+CHIMALHUACAN&t=m&z=16&output=embed&iwloc=near" 
-                    width="100%" 
-                    height="450" 
-                    style="border:0; border-radius: 8px;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-brand">
-                <div class="footer-logo">
-                    <img src="img/logo.png" alt="Alliance GYM Logo" class="footer-logo-img">
-                    <h2>ALLIANCE <span>GYM</span></h2>
-                </div>
-                <p>Forjando campeones, un entrenamiento a la vez. Únete a la mejor comunidad fitness.</p>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/alliancegym1/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.facebook.com/share/19sP5ZLt6U/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.tiktok.com/@alliancegymchimalhuacan" target="_blank"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-            <div class="footer-links">
-                <h3>Enlaces Rápidos</h3>
+            <nav class="sidebar-menu">
                 <ul>
-                    <li><a href="#home">Inicio</a></li>
-                    <li><a href="#info">Servicios</a></li>
-                    <li><a href="#coaches">Coaches</a></li>
-                    <li><a href="#tiktok">TikTok</a></li>
+                    <li class="menu-item active" data-tab="client-summary"><i class="fas fa-chart-line"></i> Resumen</li>
+                    <li class="menu-item" data-tab="client-qr"><i class="fas fa-qrcode"></i> Credencial Digital QR</li>
+                    <li class="menu-item" data-tab="client-appointments"><i class="fas fa-calendar-check"></i> Mis Citas</li>
+                    <li class="menu-item" data-tab="client-points"><i class="fas fa-gem"></i> Club de Puntos</li>
+                    <li class="menu-item" data-tab="client-payments"><i class="fas fa-file-invoice-dollar"></i> Pagos y Facturas</li>
+                    <li class="menu-item" data-tab="client-feedback"><i class="fas fa-star"></i> Valoraciones y Buzón</li>
                 </ul>
-            </div>
-            <div class="footer-contact">
-                <h3>Contacto</h3>
-                <p><i class="fas fa-map-marker-alt"></i> ALLIANCE GYM, Chimalhuacán</p>
-                <p><i class="fab fa-whatsapp" style="color: #25D366; margin-top: 2px;"></i> <a href="https://wa.me/525567659004" target="_blank" style="transition: color 0.3s;" onmouseover="this.style.color='#25D366'" onmouseout="this.style.color=''">55 6765 9004</a></p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Alliance GYM. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+            </nav>
 
-    <!-- Pannellum 360 Library -->
+            <div class="sidebar-footer">
+                <button class="btn btn-outline w-100 mb-2" onclick="exitDashboard()"><i class="fas fa-arrow-left"></i> Volver a la Web</button>
+                <button class="btn btn-primary w-100" onclick="logoutSession()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <main class="dashboard-content">
+            <header class="dash-content-header">
+                <h2 id="dash-title">Resumen de Cuenta</h2>
+                <div class="dash-header-widgets">
+                    <div class="points-indicator">
+                        <i class="fas fa-gem"></i> <span id="header-points-val">0</span> pts
+                    </div>
+                </div>
+            </header>
+
+            <!-- TABS CLIENTE -->
+            <!-- Tab 1: Resumen -->
+            <section id="tab-client-summary" class="dash-tab-section">
+                <div class="dash-widgets-grid">
+                    <!-- Tarjeta de Membresía -->
+                    <div class="glass-card widget-card m-status-widget">
+                        <h3><i class="fas fa-id-card"></i> Estado de Membresía</h3>
+                        <div class="m-status-detail mt-2">
+                            <span class="badge" id="m-status-badge">ACTIVA</span>
+                            <h4 class="mt-2" id="m-plan-title">Plan Black</h4>
+                            <p class="text-muted" id="m-expiry-text">Vence el: --/--/----</p>
+                            
+                            <div class="expiry-progress-container mt-4">
+                                <div class="progress-bar-bg"><div class="progress-bar" id="m-expiry-progress" style="width: 70%;"></div></div>
+                                <span class="days-remaining" id="m-days-remaining-label">Quedan -- días</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Citas Rápidas -->
+                    <div class="glass-card widget-card">
+                        <h3><i class="fas fa-calendar-alt"></i> Próxima Cita</h3>
+                        <div class="mt-2" id="summary-next-appointment-box">
+                            <p class="text-muted">No tienes ninguna cita agendada próximamente.</p>
+                            <button class="btn btn-primary mt-4 btn-sm" onclick="switchClientTab('client-appointments')">Agendar Cita</button>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Monedero -->
+                    <div class="glass-card widget-card text-center">
+                        <h3><i class="fas fa-wallet"></i> Monedero Club</h3>
+                        <div class="points-circle-widget mt-2">
+                            <div class="points-number" id="summary-points-val">0</div>
+                            <div class="points-lbl">Puntos Acumulados</div>
+                        </div>
+                        <button class="btn btn-outline w-100 mt-2 btn-sm" onclick="switchClientTab('client-points')">Ir a Tienda de Recompensas</button>
+                    </div>
+                </div>
+
+                <!-- Actividades recientes y Tips -->
+                <div class="dashboard-layout-row mt-4">
+                    <div class="glass-card main-row-col flex-2">
+                        <h3><i class="fas fa-bolt"></i> ¿Cómo acumular puntos?</h3>
+                        <ul class="activity-points-list mt-2">
+                            <li><span class="act-point">+50 pts</span> <strong>Asistencia diaria:</strong> Asiste y valida tu acceso en recepción.</li>
+                            <li><span class="act-point">+500 pts</span> <strong>Renovación de membresía:</strong> Renueva puntualmente mes con mes.</li>
+                            <li><span class="act-point">+300 pts</span> <strong>Superar retos:</strong> Participa en los retos mensuales publicados en el gimnasio.</li>
+                            <li><span class="act-point">+200 pts</span> <strong>Recomendar amigos:</strong> Invita a un amigo a inscribirse en línea.</li>
+                            <li><span class="act-point">+50 pts</span> <strong>Valorar el personal:</strong> Opina sobre tus entrenadores (máx. 1 vez por semana).</li>
+                        </ul>
+                    </div>
+
+                    <div class="glass-card main-row-col flex-1 promo-widget-vip">
+                        <h3>👑 Reto de la Semana</h3>
+                        <p class="mt-2"><strong>¡Completa 5 minutos de Plancha!</strong></p>
+                        <p class="text-muted text-sm mt-1">Pide a tu coach que certifique tu reto para recibir +150 puntos directo a tu cuenta.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 2: Credencial QR -->
+            <section id="tab-client-qr" class="dash-tab-section" style="display: none;">
+                <div class="qr-credential-flex">
+                    <div class="digital-pass-card">
+                        <div class="pass-brand">
+                            <img src="img/logo.png" alt="Logo" class="pass-logo-img">
+                            <h4>ALLIANCE <span>GYM</span></h4>
+                        </div>
+                        <div class="pass-status-indicator" id="pass-status-indicator">SOCIO ACTIVO</div>
+                        
+                        <div class="pass-qr-box">
+                            <div id="qrcode-canvas"></div>
+                        </div>
+                        
+                        <div class="pass-user-info">
+                            <h3 id="pass-user-name">Carlos Pérez</h3>
+                            <p class="pass-id-number" id="pass-user-id">ID: ALLIANCE-9821</p>
+                            <p class="pass-plan-name" id="pass-user-plan">Plan Black</p>
+                        </div>
+                        
+                        <div class="pass-footer">
+                            <p>Vigente al: <strong id="pass-user-expiry">2026-07-01</strong></p>
+                        </div>
+                    </div>
+                    
+                    <div class="qr-instructions-card glass-card">
+                        <h3>Uso de Credencial QR</h3>
+                        <p class="mt-2">Tu credencial digital es tu llave de acceso al gimnasio. Presenta este código QR en la pantalla de la recepción al ingresar.</p>
+                        
+                        <div class="alert-info-box mt-4">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Cada vez que escanees tu código en la entrada, nuestro sistema sumará **50 puntos** automáticamente a tu monedero de recompensas.</p>
+                        </div>
+                        
+                        <div class="manual-code-box mt-4">
+                            <label>Código alfanumérico alternativo:</label>
+                            <div class="copy-code-container mt-1">
+                                <input type="text" id="manual-qr-code-val" value="ALLIANCE-MOCK-CODE" readonly>
+                                <button class="btn btn-primary" onclick="copyManualCode()"><i class="fas fa-copy"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 3: Citas -->
+            <section id="tab-client-appointments" class="dash-tab-section" style="display: none;">
+                <div class="dashboard-layout-row">
+                    <!-- Nueva cita -->
+                    <div class="glass-card flex-1">
+                        <h3><i class="fas fa-calendar-plus"></i> Agendar Cita</h3>
+                        <form id="dash-appointment-form" class="appointment-form mt-2">
+                            <div class="form-group">
+                                <label for="dash-app-type">Tipo de Cita</label>
+                                <select id="dash-app-type" required>
+                                    <option value="Evaluación Corporal Inicial">Evaluación Corporal Inicial / Primera Visita</option>
+                                    <option value="Entrenamiento Guiado">Sesión con Coach Personalizado</option>
+                                    <option value="Rehabilitación Física">Rehabilitación y Movilidad</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dash-app-coach">Coach Solicitado</label>
+                                <select id="dash-app-coach" required>
+                                    <option value="Alex Ramírez">Alex Ramírez (Fuerza e Hipertrofia)</option>
+                                    <option value="Sarah Martínez">Sarah Martínez (Pérdida de Peso)</option>
+                                    <option value="David Cruz">David Cruz (Movilidad y Terapias)</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group half">
+                                    <label for="dash-app-date">Fecha</label>
+                                    <input type="date" id="dash-app-date" required>
+                                </div>
+                                <div class="form-group half">
+                                    <label for="dash-app-time">Hora</label>
+                                    <input type="time" id="dash-app-time" min="06:00" max="21:00" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Agendar Cita en Calendario</button>
+                        </form>
+                    </div>
+
+                    <!-- Listado de citas -->
+                    <div class="glass-card flex-2">
+                        <h3><i class="fas fa-list"></i> Citas Programadas</h3>
+                        <div class="table-container mt-2">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                        <th>Tipo</th>
+                                        <th>Coach</th>
+                                        <th>Estatus</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="client-appointments-list">
+                                    <!-- Cargado por JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 4: Recompensas -->
+            <section id="tab-client-points" class="dash-tab-section" style="display: none;">
+                <div class="points-catalog-intro glass-card">
+                    <div>
+                        <h2>Club de Recompensas Alliance</h2>
+                        <p class="mt-1">Canjea tus puntos por productos oficiales, descuentos exclusivos y mensualidades o anualidades gratis.</p>
+                    </div>
+                    <div class="points-large-badge">
+                        <span>PUNTOS DISPONIBLES</span>
+                        <div class="points-large-number" id="rewards-points-val">0</div>
+                    </div>
+                </div>
+
+                <h3 class="mt-4 mb-2"><i class="fas fa-store"></i> Catálogo de Recompensas</h3>
+                <div class="rewards-store-grid" id="rewards-catalog-list">
+                    <!-- Catálogo dinámico cargado por JS -->
+                </div>
+
+                <div class="dashboard-layout-row mt-4">
+                    <div class="glass-card flex-1">
+                        <h3><i class="fas fa-history"></i> Historial de Puntos</h3>
+                        <div class="table-container mt-2">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Puntos</th>
+                                        <th>Descripción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="client-points-history">
+                                    <!-- JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card flex-1">
+                        <h3><i class="fas fa-gift"></i> Premios Canjeados</h3>
+                        <div class="table-container mt-2">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Recompensa</th>
+                                        <th>Puntos</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="client-redeemed-history">
+                                    <!-- JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 5: Pagos -->
+            <section id="tab-client-payments" class="dash-tab-section" style="display: none;">
+                <div class="glass-card">
+                    <h3><i class="fas fa-receipt"></i> Historial de Transacciones</h3>
+                    <p class="text-muted">Consulta los pagos realizados para tu membresía y descarga comprobantes fiscales simplificados.</p>
+                    
+                    <div class="table-container mt-4">
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Transacción</th>
+                                    <th>Fecha de Pago</th>
+                                    <th>Concepto</th>
+                                    <th>Monto</th>
+                                    <th>Estatus</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="client-payments-list">
+                                <!-- JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 6: Valoraciones -->
+            <section id="tab-client-feedback" class="dash-tab-section" style="display: none;">
+                <div class="dashboard-layout-row">
+                    <!-- Formulario opiniones -->
+                    <div class="glass-card flex-1">
+                        <h3><i class="fas fa-star"></i> Valorar Personal y Gimnasio</h3>
+                         <p class="text-muted mb-4">Tu retroalimentación nos ayuda a mejorar la experiencia. Valorar te otorga **50 puntos** (máximo una vez por semana).</p>
+                        
+                        <form id="feedback-form" class="appointment-form">
+                            <div class="form-group">
+                                <label for="feedback-target">¿A quién deseas evaluar?</label>
+                                <select id="feedback-target" required>
+                                    <option value="general">Instalaciones del Gimnasio (General)</option>
+                                    <option value="Recepcionista Lucía">Recepcionista Lucía</option>
+                                    <option value="Alex Ramírez">Entrenador Alex Ramírez</option>
+                                    <option value="Sarah Martínez">Entrenadora Sarah Martínez</option>
+                                    <option value="David Cruz">Entrenador David Cruz</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Calificación (Estrellas)</label>
+                                <div class="rating-stars-input" id="stars-selector">
+                                    <i class="far fa-star star-btn" data-value="1"></i>
+                                    <i class="far fa-star star-btn" data-value="2"></i>
+                                    <i class="far fa-star star-btn" data-value="3"></i>
+                                    <i class="far fa-star star-btn" data-value="4"></i>
+                                    <i class="far fa-star star-btn" data-value="5"></i>
+                                </div>
+                                <input type="hidden" id="feedback-rating-val" value="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="feedback-comment">Comentarios</label>
+                                <textarea id="feedback-comment" rows="4" placeholder="Comparte tu opinión..." required style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--glass-border); border-radius:6px; color:#fff; padding:10px; font-family:var(--font-body); outline:none;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Enviar Calificación</button>
+                        </form>
+                    </div>
+
+                    <!-- Sugerencias y Quejas -->
+                    <div class="glass-card flex-1">
+                        <h3><i class="fas fa-envelope-open-text"></i> Buzón de Sugerencias y Quejas</h3>
+                        <p class="text-muted mb-4">Escríbenos tus quejas, sugerencias o felicitaciones de forma directa y privada al equipo administrativo.</p>
+                        
+                        <form id="suggestion-form" class="appointment-form">
+                            <div class="form-row">
+                                <div class="form-group half">
+                                    <label for="sug-type">Tipo de Mensaje</label>
+                                    <select id="sug-type" required>
+                                        <option value="Sugerencia">Sugerencia</option>
+                                        <option value="Queja">Queja</option>
+                                        <option value="Felicitación">Felicitación</option>
+                                    </select>
+                                </div>
+                                <div class="form-group half">
+                                    <label for="sug-identity">Identidad</label>
+                                    <select id="sug-identity" required>
+                                        <option value="public">Firmar con mi nombre</option>
+                                        <option value="anonymous">Enviar como Anónimo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sug-subject">Asunto</label>
+                                <input type="text" id="sug-subject" placeholder="Ej. Temperatura del agua, Nuevas mancuernas" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sug-message">Mensaje</label>
+                                <textarea id="sug-message" rows="4" placeholder="Escribe detalladamente tu mensaje aquí..." required style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--glass-border); border-radius:6px; color:#fff; padding:10px; font-family:var(--font-body); outline:none;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-outline w-100">Enviar al Buzón Directivo</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+
+    <!-- STAFF DASHBOARD VIEW (Oculto por defecto) -->
+    <div id="staff-dashboard" class="dashboard-container staff-theme" style="display: none;">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-logo">
+                <img src="img/logo.png" alt="Alliance Logo" class="logo-img">
+                <span>ALLIANCE <span>STAFF</span></span>
+            </div>
+            
+            <div class="user-summary-badge staff-badge">
+                <div class="user-avatar-placeholder"><i class="fas fa-user-shield"></i></div>
+                <div class="user-meta">
+                    <h4 id="dash-staff-name">Cargando...</h4>
+                    <p id="dash-staff-role">Recepcionista</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <ul>
+                    <li class="menu-item active" data-tab="staff-checkin"><i class="fas fa-fingerprint"></i> Validación de Acceso QR</li>
+                    <li class="menu-item" data-tab="staff-opinions"><i class="fas fa-inbox"></i> Buzón e Informes</li>
+                    <li class="menu-item" data-tab="staff-appointments"><i class="fas fa-calendar-alt"></i> Citas Programadas</li>
+                    <li class="menu-item" data-tab="staff-employees"><i class="fas fa-users-cog"></i> Control de Empleados</li>
+                    <!-- Solo visible para administradores -->
+                    <li class="menu-item" data-tab="staff-webconfig" id="menu-item-webconfig" style="display: none;"><i class="fas fa-cogs"></i> Modificaciones Web</li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn btn-outline w-100 mb-2" onclick="exitDashboard()"><i class="fas fa-arrow-left"></i> Volver a la Web</button>
+                <button class="btn btn-primary w-100" onclick="logoutSession()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <main class="dashboard-content">
+            <header class="dash-content-header">
+                <h2 id="dash-staff-title">Registro y Validación de Accesos</h2>
+                <div class="dash-header-widgets">
+                    <span class="badge staff-online-badge"><i class="fas fa-circle text-green"></i> Recepción Activa</span>
+                </div>
+            </header>
+
+            <!-- TABS STAFF -->
+            <!-- Tab 1: Validación QR -->
+            <section id="tab-staff-checkin" class="dash-tab-section">
+                <div class="dashboard-layout-row">
+                    <!-- Scanner panel -->
+                    <div class="glass-card flex-1 scanner-simulator-card">
+                        <h3><i class="fas fa-qrcode"></i> Validador de Acceso</h3>
+                        <p class="text-muted mt-1">Ingresa el código alfanumérico QR de la credencial digital o el correo del socio.</p>
+                        
+                        <div class="scanner-input-container mt-4">
+                            <input type="text" id="staff-qr-input" placeholder="ALLIANCE-XXXX-XXXX-XXXX o email..." style="width:100%; padding:15px; background:#000; border:2px solid var(--glass-border); border-radius:8px; color:#fff; font-size:1.1rem; outline:none; text-align:center; letter-spacing:1px;">
+                            <div class="scanner-actions mt-2">
+                                <button class="btn btn-primary w-100" onclick="handleQRValidation()"><i class="fas fa-check"></i> Validar Acceso</button>
+                            </div>
+                        </div>
+
+                        <!-- Panel de resultados -->
+                        <div id="scanner-result" class="scanner-result-box mt-4" style="display: none;">
+                            <!-- Dinámico por JS -->
+                        </div>
+                    </div>
+
+                    <!-- Historial Asistencias -->
+                    <div class="glass-card flex-2">
+                        <h3><i class="fas fa-history"></i> Historial de Accesos Recientes (Hoy)</h3>
+                        <div class="table-container mt-2">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Socio</th>
+                                        <th>Correo</th>
+                                        <th>Fecha</th>
+                                        <th>Hora Entrada</th>
+                                        <th>Estatus Acceso</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="staff-checkin-logs-list">
+                                    <!-- JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 2: Buzón e Informes -->
+            <section id="tab-staff-opinions" class="dash-tab-section" style="display: none;">
+                <div class="dashboard-layout-row">
+                    <!-- Quejas y Sugerencias -->
+                    <div class="glass-card flex-2">
+                        <h3><i class="fas fa-mail-bulk"></i> Buzón de Sugerencias y Quejas</h3>
+                        <div class="table-container mt-2">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Socio</th>
+                                        <th>Tipo</th>
+                                        <th>Asunto</th>
+                                        <th>Mensaje</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="staff-suggestions-list">
+                                    <!-- JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Opiniones Públicas Recientes -->
+                    <div class="glass-card flex-1">
+                        <h3><i class="fas fa-star"></i> Calificaciones de Clientes</h3>
+                        <div class="staff-reviews-breakdown-list mt-2" id="staff-reviews-list">
+                            <!-- JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 3: Citas Consolidadas -->
+            <section id="tab-staff-appointments" class="dash-tab-section" style="display: none;">
+                <div class="glass-card">
+                    <h3><i class="fas fa-calendar-check"></i> Control de Citas y Visitas</h3>
+                    <p class="text-muted">Agenda de evaluaciones corporativas, inducciones y consultas con entrenadores personales.</p>
+                    
+                    <div class="table-container mt-4">
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Socio</th>
+                                    <th>Correo</th>
+                                    <th>Tipo de Cita</th>
+                                    <th>Coach Asignado</th>
+                                    <th>Estatus</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staff-appointments-list">
+                                <!-- JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 4: Control de Personal -->
+            <section id="tab-staff-employees" class="dash-tab-section" style="display: none;">
+                <div class="glass-card">
+                    <h3><i class="fas fa-id-card-alt"></i> Organigrama y Permisos del Personal</h3>
+                    <p class="text-muted">Estructura administrativa de Alliance GYM Chimalhuacán y asignación de permisos del sistema.</p>
+                    
+                    <div class="table-container mt-4">
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre del Empleado</th>
+                                    <th>Puesto / Rol</th>
+                                    <th>Correo Institucional</th>
+                                    <th>Permisos en Sistema</th>
+                                    <th>Estatus</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staff-employees-list">
+                                <!-- JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 5: Modificaciones de la Página (Solo Admin) -->
+            <section id="tab-staff-webconfig" class="dash-tab-section" style="display: none;">
+                <div class="glass-card">
+                    <h3><i class="fas fa-tools"></i> Modificaciones y Configuración del Sitio</h3>
+                    <p class="text-muted">Aquí puedes modificar los precios de membresías, horarios y mensajes promocionales de la web.</p>
+                    
+                    <form id="webconfig-form" class="appointment-form mt-4">
+                        <div class="form-row" style="display: flex; gap: 30px; flex-wrap: wrap;">
+                            <div class="form-group flex-1" style="min-width: 250px; flex: 1;">
+                                <h4 class="mb-3 text-primary" style="color: var(--primary-color); font-family: var(--font-heading);"><i class="fas fa-dollar-sign"></i> Precios de Membresías</h4>
+                                <div class="form-group">
+                                    <label for="cfg-price-basico">Precio Plan Básico ($)</label>
+                                    <input type="number" id="cfg-price-basico" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-price-black">Precio Plan Black ($)</label>
+                                    <input type="number" id="cfg-price-black" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-price-vip">Precio Plan VIP ($)</label>
+                                    <input type="number" id="cfg-price-vip" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group flex-1" style="min-width: 250px; flex: 1;">
+                                <h4 class="mb-3 text-primary" style="color: var(--primary-color); font-family: var(--font-heading);"><i class="fas fa-clock"></i> Horarios de Atención</h4>
+                                <div class="form-group">
+                                    <label for="cfg-hours-weekday">Lunes a Viernes</label>
+                                    <input type="text" id="cfg-hours-weekday" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-hours-sat">Sábados</label>
+                                    <input type="text" id="cfg-hours-sat" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-hours-sun">Domingos</label>
+                                    <input type="text" id="cfg-hours-sun" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <h4 class="mb-3 text-primary" style="color: var(--primary-color); font-family: var(--font-heading);"><i class="fas fa-tags"></i> Promoción Destacada</h4>
+                            <div class="form-group">
+                                <label for="cfg-promo-title">Título de la Promoción</label>
+                                <input type="text" id="cfg-promo-title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cfg-promo-desc">Descripción / Beneficio de la Promoción</label>
+                                <textarea id="cfg-promo-desc" rows="3" required style="width:100%; background:rgba(0,0,0,0.5); border:1px solid var(--glass-border); border-radius:6px; color:#fff; padding:10px; font-family:var(--font-body); outline:none;"></textarea>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 mt-2"><i class="fas fa-save"></i> Guardar Cambios en la Web</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+
+    <!-- AUTHENTICATION MODAL (LOGIN / REGISTER) -->
+    <div id="auth-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-container glass-card">
+            <button class="modal-close-btn" onclick="closeAuthModal()">&times;</button>
+            <div class="modal-auth-tabs">
+                <button class="auth-tab-btn active" id="btn-tab-login" onclick="switchAuthTab('login')">Iniciar Sesión</button>
+                <button class="auth-tab-btn" id="btn-tab-register" onclick="switchAuthTab('register')">Crear Cuenta</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="auth-login-form" class="appointment-form mt-4">
+                <div class="form-group">
+                    <label for="login-email">Correo Electrónico</label>
+                    <input type="email" id="login-email" placeholder="socio@alliance.com o staff@alliance.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+                <div class="auth-demo-tip">
+                    <p>💡 <strong>Cuentas Demo:</strong></p>
+                    <p>Socio: <code>socio@alliance.com</code> / <code>socio123</code></p>
+                    <p>Personal: <code>staff@alliance.com</code> / <code>staff123</code></p>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-2">Ingresar al Portal</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="auth-register-form" class="appointment-form mt-4" style="display: none;">
+                <div class="form-group">
+                    <label for="register-name">Nombre Completo</label>
+                    <input type="text" id="register-name" placeholder="Ej. Juan Pérez" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Correo Electrónico</label>
+                    <input type="email" id="register-email" placeholder="correo@ejemplo.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Contraseña</label>
+                    <input type="password" id="register-password" placeholder="Min. 6 caracteres" minlength="6" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4">Registrarme</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- BUY / CHECKOUT WIZARD MODAL -->
+    <div id="checkout-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-container checkout-wizard-container glass-card">
+            <button class="modal-close-btn" onclick="closeCheckoutModal()">&times;</button>
+            
+            <div class="checkout-steps-indicator">
+                <div class="step-indicator active" id="step-ind-1">1. Registro</div>
+                <div class="step-indicator" id="step-ind-2">2. Pago Seguro</div>
+                <div class="step-indicator" id="step-ind-3">3. Agenda</div>
+                <div class="step-indicator" id="step-ind-4">4. Código QR</div>
+            </div>
+
+            <!-- Paso 1: Registro rápido si no está logueado -->
+            <div class="checkout-step-panel" id="checkout-step-1">
+                <h3 class="mb-2">Crear tu cuenta Alliance</h3>
+                <p class="text-muted text-sm mb-4">Para asociar tu membresía y generar tu credencial digital, regístrate a continuación.</p>
+                
+                <form id="checkout-register-form" class="appointment-form">
+                    <div class="form-group">
+                        <label for="check-reg-name">Nombre Completo</label>
+                        <input type="text" id="check-reg-name" placeholder="Ej. Juan Pérez" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="check-reg-email">Correo Electrónico</label>
+                        <input type="email" id="check-reg-email" placeholder="juan@ejemplo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="check-reg-password">Contraseña</label>
+                        <input type="password" id="check-reg-password" placeholder="Crear contraseña..." minlength="6" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-2">Continuar al Pago</button>
+                </form>
+            </div>
+
+            <!-- Paso 2: Pago en línea -->
+            <div class="checkout-step-panel" id="checkout-step-2" style="display: none;">
+                <h3 class="mb-1">Pasarela de Pago Segura</h3>
+                <p class="text-muted text-sm mb-2" id="checkout-plan-summary">Plan seleccionado: Plan Black - $599/mes</p>
+                
+                <div class="checkout-payment-flex">
+                    <div class="credit-card-preview-card">
+                        <div class="card-chip"><i class="fas fa-microchip"></i></div>
+                        <div class="card-brand"><i class="fab fa-cc-visa"></i></div>
+                        <div class="card-preview-number" id="preview-card-number">•••• •••• •••• ••••</div>
+                        <div class="card-preview-flex">
+                            <div class="col">
+                                <label>Titular</label>
+                                <div class="val" id="preview-card-holder">NOMBRE DEL TITULAR</div>
+                            </div>
+                            <div class="col">
+                                <label>Vence</label>
+                                <div class="val" id="preview-card-expiry">MM/AA</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form id="checkout-pay-form" class="appointment-form flex-1">
+                        <div class="form-group">
+                            <label for="card-holder">Nombre en la Tarjeta</label>
+                            <input type="text" id="card-holder" placeholder="Ej. Juan Pérez" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="card-number">Número de Tarjeta</label>
+                            <input type="text" id="card-number" placeholder="4000 1234 5678 9010" maxlength="19" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label for="card-expiry">Vencimiento</label>
+                                <input type="text" id="card-expiry" placeholder="MM/AA" maxlength="5" required>
+                            </div>
+                            <div class="form-group half">
+                                <label for="card-cvv">CVV</label>
+                                <input type="password" id="card-cvv" placeholder="123" maxlength="3" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" id="btn-pay-submit">Confirmar Pago y Activar Membresía</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Paso 3: Agendar Primera Cita -->
+            <div class="checkout-step-panel" id="checkout-step-3" style="display: none;">
+                <h3 class="mb-2"><i class="fas fa-calendar-check"></i> Agendar primera visita / inducción</h3>
+                <p class="text-muted text-sm mb-4">¡Pago procesado con éxito! Programa tu primera visita con un coach para la entrega de tu acceso biométrico y tu rutina de inducción.</p>
+                
+                <form id="checkout-booking-form" class="appointment-form">
+                    <div class="form-group">
+                        <label for="checkout-coach">Seleccionar Coach Personal</label>
+                        <select id="checkout-coach" required>
+                            <option value="Alex Ramírez">Alex Ramírez (Fuerza e Hipertrofia)</option>
+                            <option value="Sarah Martínez">Sarah Martínez (Acondicionamiento y Cardio)</option>
+                            <option value="David Cruz">David Cruz (Movilidad y Ajuste)</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="checkout-date">Fecha de Cita</label>
+                            <input type="date" id="checkout-date" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="checkout-time">Hora de Cita</label>
+                            <input type="time" id="checkout-time" min="06:00" max="21:00" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-2">Agendar y Obtener QR de Acceso</button>
+                </form>
+            </div>
+
+            <!-- Paso 4: Confirmación y Ticket QR -->
+            <div class="checkout-step-panel text-center" id="checkout-step-4" style="display: none;">
+                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                <h2 class="mb-1">¡Bienvenido a Alliance GYM!</h2>
+                <p class="text-muted text-sm mb-4" id="checkout-final-sub">Tu inscripción ha sido confirmada. Ya eres socio activo.</p>
+                
+                <div class="ticket-qr-container">
+                    <div class="ticket-header">
+                        <h4>ALLIANCE PASS</h4>
+                        <span id="ticket-plan-name">PLAN BLACK</span>
+                    </div>
+                    <div class="ticket-body">
+                        <div id="checkout-qrcode-canvas" style="display: inline-block; padding: 10px; background: #fff; border-radius: 8px; margin: 15px 0;"></div>
+                        <h4 id="ticket-user-name">Juan Pérez</h4>
+                        <p class="ticket-code" id="ticket-user-code">ALLIANCE-JUAN-BLACK-1289</p>
+                    </div>
+                    <div class="ticket-footer">
+                        <p>Cita programada: <strong id="ticket-appointment-detail">15 de Junio a las 10:00 AM</strong></p>
+                    </div>
+                </div>
+
+                <div class="alert-info-box mt-4">
+                    <i class="fas fa-mobile-alt"></i>
+                    <p>Hemos guardado este pase digital en tu panel personal. Puedes presentarlo desde tu teléfono en recepción al llegar.</p>
+                </div>
+
+                <button class="btn btn-primary w-100 mt-4" onclick="finishCheckoutFlow()">Ir a Mi Panel de Socio</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- PANELLUM & SWIPER CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
-    
-    <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    
+    <!-- QR CODE GENERATOR CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-    <!-- Custom JS -->
+    <!-- SYSTEM MODULES -->
+    <script src="js/auth.js"></script>
+    <script src="js/points.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/staff.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

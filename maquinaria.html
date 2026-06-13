@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alliance GYM | Equipamiento Premium</title>
+    <meta name="description" content="Conoce la maquinaria premium de Alliance GYM. Equipamiento de última generación para llevar tu físico al siguiente nivel.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .machinery-hero {
+            height: 40vh;
+            background: linear-gradient(rgba(18, 19, 22, 0.7), rgba(18, 19, 22, 0.95)), 
+                        url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1200') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .machinery-title {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .machinery-container {
+            padding: 60px 0;
+            background-color: var(--bg-dark);
+            min-height: 80vh;
+        }
+
+        .gallery-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .gallery-nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .gallery-nav-btn:hover, .gallery-nav-btn.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(230, 43, 46, 0.3);
+        }
+
+        .machinery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .machine-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .machine-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(230, 43, 46, 0.15);
+        }
+
+        .machine-img-holder {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .machine-muscle-badge {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid var(--primary-color);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .machine-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .machine-name {
+            font-size: 1.25rem;
+            font-family: var(--font-heading);
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .machine-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .machine-safety {
+            background: rgba(255, 122, 0, 0.05);
+            border-left: 3px solid #ff7a00;
+            padding: 10px;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.8rem;
+            color: #eee;
+        }
+
+        .machine-safety strong {
+            color: #ff7a00;
+        }
+
+        .back-home-container {
+            margin-top: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar Simple -->
+    <nav class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Alliance GYM Logo" class="logo-img">
+                ALLIANCE <span>GYM</span>
+            </a>
+            <div class="nav-auth-buttons">
+                <a href="index.html" class="btn btn-outline nav-portal-btn"><i class="fas fa-arrow-left"></i> Volver al Inicio</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero de Maquinaria -->
+    <header class="machinery-hero">
+        <div class="container">
+            <h1 class="machinery-title">EQUIPAMIENTO <span>PREMIUM</span></h1>
+            <p class="section-desc" style="margin: 10px auto 0 auto; color: #fff;">Conoce a detalle la maquinaria biomecánica que Alliance GYM tiene para forjar tu físico.</p>
+        </div>
+    </header>
+
+    <!-- Galería Interactiva -->
+    <main class="machinery-container">
+        <div class="container">
+            
+            <!-- Botones de Navegación del Catálogo -->
+            <div class="gallery-nav" id="gallery-filter-bar">
+                <button class="gallery-nav-btn active" data-filter="all">Todo</button>
+                <button class="gallery-nav-btn" data-filter="pecho">Pecho</button>
+                <button class="gallery-nav-btn" data-filter="espalda">Espalda</button>
+                <button class="gallery-nav-btn" data-filter="pierna">Piernas</button>
+                <button class="gallery-nav-btn" data-filter="cardio">Cardio</button>
+                <button class="gallery-nav-btn" data-filter="brazos">Brazos y Hombros</button>
+                <button class="gallery-nav-btn" data-filter="libre">Peso Libre y Accesorios</button>
+            </div>
+
+            <!-- Grilla de Máquinas -->
+            <div class="machinery-grid" id="machinery-cards-container">
+                
+                <!-- PECHO -->
+                <div class="machine-card" data-category="pecho">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=400');">
+                            <span class="machine-muscle-badge">Pectorales</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Prensa Convergente de Pecho</h3>
+                            <p class="machine-desc">Aísla el pectoral mayor imitando el empuje libre pero manteniendo un recorrido biomecánico guiado sumamente seguro.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Ajusta el asiento de modo que los manerales queden alineados con la altura de tus pezones. Evita estirar los codos por completo al final del empuje.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="pecho">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=400');">
+                            <span class="machine-muscle-badge">Pectoral Interno</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Máquina Pec Deck (Fly)</h3>
+                            <p class="machine-desc">Diseñada específicamente para realizar aperturas de pecho, aislando los deltoides y concentrando la tensión en la zona esternal e interna.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Mantén una flexión muy sutil en tus codos durante todo el recorrido. Controla la fase excéntrica regresando lentamente sin sobre-estirar el hombro.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="pecho">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=400');">
+                            <span class="machine-muscle-badge">Pectorales / Hombros</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Poleas Cruzadas Ajustables</h3>
+                            <p class="machine-desc">Estación de cables regulables en altura que ofrece tensión continua a lo largo de todo el movimiento, ideal para cruces ascendentes, descendentes u horizontales.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Da un paso al frente para tensionar los cables antes de iniciar. Cruza las muñecas ligeramente en el centro para una contracción pico máxima.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="pecho">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=400');">
+                            <span class="machine-muscle-badge">Pectoral Mayor</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Press de Banca Olímpico Plano</h3>
+                            <p class="machine-desc">Banca reforzada de nivel comercial para desarrollo básico de empuje horizontal y fuerza de empuje general con barra libre.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Mantén los hombros retraídos hacia la banca y apoya firmemente los pies en el piso (Leg Drive). No rebotes la barra contra tu pecho.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESPALDA -->
+                <div class="machine-card" data-category="espalda">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?q=80&w=400');">
+                            <span class="machine-muscle-badge">Dorsal Ancho</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Jalón al Pecho (Lat Pulldown)</h3>
+                            <p class="machine-desc">Máquina de polea alta excelente para desarrollar amplitud de espalda. Permite regular el rodillo de soporte para las piernas.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Inclina tu torso unos 10 grados hacia atrás y jala la barra hacia la parte superior de tu pecho, dirigiendo el esfuerzo con tus codos, no tus manos.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="espalda">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=400');">
+                            <span class="machine-muscle-badge">Espalda Media / Trapecio</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Remo Gironda (Cable Low Row)</h3>
+                            <p class="machine-desc">Estación de polea baja para remo sentado con soporte de pies. Fomenta el desarrollo del grosor de la espalda media.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> No te balancees hacia adelante y atrás. Mantén la espalda recta, jala el maneral al abdomen bajo y junta las escápulas atrás.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="espalda">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=400');">
+                            <span class="machine-muscle-badge">Dorsal / Redondo Mayor</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Remo Convergente Articulado</h3>
+                            <p class="machine-desc">Remo de placas libre articulado que simula el remo inclinado con barra. Permite trabajo unilateral para corregir asimetrías musculares.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Apoya el pecho completamente en la almohadilla y jala de manera controlada apretando la espalda 1 segundo en la máxima contracción.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="espalda">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1605296867304-46d5465a25f1?q=80&w=400');">
+                            <span class="machine-muscle-badge">Lumbares / Isquiotibiales</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Banco de Hiperextensiones a 45°</h3>
+                            <p class="machine-desc">Estructura metálica ergonómica para fortalecimiento de la espalda baja (erectores espinales), glúteos e isquiotibiales.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Ajusta el rodillo debajo de tu cadera. Baja lentamente con la espalda neutra y sube hasta formar una línea recta con tu cuerpo. No hiperextiendas de más.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PIERNAS -->
+                <div class="machine-card" data-category="pierna">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=400');">
+                            <span class="machine-muscle-badge">Cuádriceps / Glúteos</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Prensa de Piernas a 45 Grados</h3>
+                            <p class="machine-desc">Prensa inclinada para carga masiva. Permite estimular las piernas de forma intensa sin comprometer ni comprimir la columna lumbar.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Coloca tus pies al ancho de tus hombros en la plataforma. Baja controladamente hasta formar un ángulo de 90° con las rodillas. NUNCA bloquees tus rodillas al subir.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="pierna">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=400');">
+                            <span class="machine-muscle-badge">Cuádriceps / Femorales</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Máquina Sentadilla Hack</h3>
+                            <p class="machine-desc">Excelente alternativa a la sentadilla libre con barras. El respaldo inclinado mantiene fija la columna, permitiendo una flexión profunda de rodillas.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Apoya firmemente tu espalda en el cojín. No despegues los talones de la plataforma y empuja desde el talón del pie.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="pierna">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=400');">
+                            <span class="machine-muscle-badge">Cuádriceps</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Extensión de Piernas Sentado</h3>
+                            <p class="machine-desc">Máquina de aislamiento puro para cuádriceps. Regula el cojinete sobre los tobillos y ajusta el respaldo trasero.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Asegura tu cadera bien pegada al respaldo agarrándote fuerte de las manijas laterales. Haz una pausa de 1 segundo arriba sosteniendo el peso con los cuádriceps.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="pierna">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=400');">
+                            <span class="machine-muscle-badge">Isquiotibiales (Femorales)</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Curl Femoral Acostado</h3>
+                            <p class="machine-desc">Aísla los bíceps femorales y semitendinosos de forma eficiente. El ángulo de flexión del banco protege la cadera durante el esfuerzo.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Coloca el cojinete justo encima del talón de Aquiles. Flexiona intentando tocar tus glúteos con los talones y mantén los muslos apoyados en el cojín.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARDIO -->
+                <div class="machine-card" data-category="cardio">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=400');">
+                            <span class="machine-muscle-badge">Resistencia Cardiovascular</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Caminadora Profesional Elite</h3>
+                            <p class="machine-desc">Caminadora de última generación con tapete amortiguador de impactos, inclinación electrónica hasta 15% y programas de intervalos integrados.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Usa la llave de seguridad roja enganchada a tu ropa. Mantén la vista al frente y el abdomen contraído para cuidar la postura de tu espalda.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="cardio">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=400');">
+                            <span class="machine-muscle-badge">Bajo Impacto Articular</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Elíptica Comercial de Resistencia</h3>
+                            <p class="machine-desc">Proporciona un entrenamiento cardiovascular de cuerpo completo sin impacto en articulaciones. Mueve manerales para incorporar hombros y brazos.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Apoya toda la planta del pie en el pedal, no solo los dedos. Mantén el pecho erguido y evita encorvar tus hombros.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="cardio">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=400');">
+                            <span class="machine-muscle-badge">Cardio / Piernas</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Bicicleta Estática Profesional</h3>
+                            <p class="machine-desc">Bicicleta de spinning con freno magnético ultra silencioso y volante de inercia pesado que simula fielmente la resistencia del ciclismo de ruta.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Ajusta la altura del sillín a nivel de la cresta ilíaca (cadera). Al pedalear, tu rodilla debe quedar con una sutil flexión al final del descenso.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="cardio">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=400');">
+                            <span class="machine-muscle-badge">Cardio / Glúteos</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Escaladora Vertical Continuada</h3>
+                            <p class="machine-desc">Máquina de escaleras rotatorias para un alto consumo calórico. Excelente para fortalecer glúteos, gemelos e isquiotibiales de forma activa.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> No te recuestes sobre los descansabrazos cargando tu peso. Empuja los escalones con la fuerza de tus piernas manteniendo el torso recto.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BRAZOS -->
+                <div class="machine-card" data-category="brazos">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=400');">
+                            <span class="machine-muscle-badge">Bíceps</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Banco Predicador (Preacher Curl)</h3>
+                            <p class="machine-desc">Banco ergonómico para flexión de bíceps con barra Z o mancuernas. Elimina por completo el balanceo del cuerpo aislando el músculo.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Apoya tus axilas y la parte trasera del brazo completamente sobre la almohadilla inclinada. No estires los codos al 100% abajo para prevenir lesiones de tendones.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="brazos">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=400');">
+                            <span class="machine-muscle-badge">Tríceps</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Extensión de Tríceps en Polea</h3>
+                            <p class="machine-desc">Polea alta con agarre de soga o barra recta. Aísla las cabezas lateral y medial del tríceps con tensión vertical continua.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Pega los codos firmemente a tus costados y fija los hombros. Extiende los brazos empujando hacia abajo únicamente moviendo el antebrazo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="brazos">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=400');">
+                            <span class="machine-muscle-badge">Deltoides Anterior / Medio</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Press de Hombros Sentado</h3>
+                            <p class="machine-desc">Prensa con trayectoria convergente hacia arriba que fortalece y expande la articulación del hombro con empujes verticales estables.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Apoya por completo la espalda en el respaldo. Mantén los codos ligeramente hacia el frente en el plano escapular (no totalmente abiertos a los lados).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="brazos">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1534438097545-a4c8407cd294?q=80&w=400');">
+                            <span class="machine-muscle-badge">Deltoides Lateral</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Elevaciones Laterales en Polea</h3>
+                            <p class="machine-desc">Polea baja cruzada que proporciona tensión lateral constante desde el inicio del rango del movimiento, donde las mancuernas no ejercen fuerza de gravedad.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Sostén la polea cruzando el cable frente a ti. Eleva la mano hasta la altura del hombro, manteniendo el meñique ligeramente inclinado hacia arriba.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIBRE -->
+                <div class="machine-card" data-category="libre">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1638536532686-d610adfc8e5c?q=80&w=400');">
+                            <span class="machine-muscle-badge">Fuerza Libre</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Rack Completo de Mancuernas</h3>
+                            <p class="machine-desc">Kit completo de mancuernas sólidas de poliuretano premium que van desde 5kg hasta un impresionante peso de 60kg, con agarres ergonómicos moleteados.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Regresa las mancuernas a su respectivo rack tras su uso. Usa seguros y mantén el control en la fase de bajada, no las dejes caer bruscamente.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="libre">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=400');">
+                            <span class="machine-muscle-badge">Fuerza Multiarticular</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Rack de Sentadillas y Power Cages</h3>
+                            <p class="machine-desc">Jaulas de potencia comerciales reforzadas con ganchos ajustables, soportes de seguridad inferiores para levantamientos libres como sentadilla, press militar o encogimientos.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Ajusta los soportes de seguridad laterales justo por debajo del punto más bajo de tu levantamiento para que actúen como salva-vidas en caso de fallo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="libre">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=400');">
+                            <span class="machine-muscle-badge">Multifuncional</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Bancos Ajustables Multi-posición</h3>
+                            <p class="machine-desc">Bancos profesionales con ajustes independientes en respaldo y asiento que permiten entrenar en ángulos planos, inclinados y declinados.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Asegura que el pasador de bloqueo esté bien encajado en la ranura antes de sentarte con carga pesada.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="machine-card" data-category="libre">
+                    <div>
+                        <div class="machine-img-holder" style="background-image: url('https://images.unsplash.com/photo-1583454122781-8cf8f5af9d2b?q=80&w=400');">
+                            <span class="machine-muscle-badge">Funcional / Core</span>
+                        </div>
+                        <div class="machine-body">
+                            <h3 class="machine-name">Set de Kettlebells y Balones</h3>
+                            <p class="machine-desc">Gama de pesas rusas de hierro fundido y balones medicinales de impacto ideales para entrenamientos de potencia, estabilidad y fuerza funcional del core.</p>
+                            <div class="machine-safety">
+                                <strong>💡 Tip de Uso:</strong> Realiza los balanceos (swings) impulsándote desde una bisagra de cadera y apretando los glúteos, evitando jalar con los hombros o arquear la espalda.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="back-home-container">
+                <a href="index.html" class="btn btn-primary"><i class="fas fa-home"></i> Regresar al Inicio</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Simple -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2026 Alliance GYM. Todos los derechos reservados. Diseñado bajo estándares de excelencia.</p>
+        </div>
+    </footer>
+
+    <!-- Script de filtrado interactivo -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtns = document.querySelectorAll('.gallery-nav-btn');
+            const cards = document.querySelectorAll('.machine-card');
+
+            function filterGallery(category) {
+                // Sincronizar botones activos
+                filterBtns.forEach(btn => {
+                    if (btn.getAttribute('data-filter') === category) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                // Mostrar/Ocultar tarjetas
+                cards.forEach(card => {
+                    const cardCat = card.getAttribute('data-category');
+                    if (category === 'all' || cardCat === category) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            }
+
+            // Bind de clicks en botones de filtro
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filterValue = btn.getAttribute('data-filter');
+                    filterGallery(filterValue);
+                    // Actualizar URL sin recargar
+                    const url = new URL(window.location);
+                    url.searchParams.set('category', filterValue);
+                    window.history.pushState({}, '', url);
+                });
+            });
+
+            // Leer categoría inicial de URL o Hash
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialCategory = urlParams.get('category') || 'all';
+            
+            // Ejecutar filtro inicial
+            filterGallery(initialCategory);
+        });
+    </script>
+</body>
+</html>
