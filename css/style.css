@@ -1005,7 +1005,8 @@ ul {
 
 /* Credito card preview */
 .credit-card-preview-card {
-    width: 260px;
+    width: 100%;
+    max-width: 280px;
     height: 165px;
     background: linear-gradient(135deg, #1b1c20 0%, #08090b 100%);
     border: 1px solid var(--glass-border);
@@ -1073,7 +1074,8 @@ ul {
 
 /* Ticket digital */
 .ticket-qr-container {
-    width: 290px;
+    width: 100%;
+    max-width: 290px;
     background: #fff;
     color: #000;
     border-radius: 12px;
@@ -1433,7 +1435,8 @@ ul {
 }
 
 .digital-pass-card {
-    width: 310px;
+    width: 100%;
+    max-width: 310px;
     background: #000;
     border: 2px solid var(--primary-color);
     box-shadow: 0 0 25px rgba(230, 43, 46, 0.3);
@@ -1604,6 +1607,70 @@ ul {
     color: var(--text-muted);
     margin: 10px 0 15px 0;
     line-height: 1.4;
+}
+
+/* Points Intro & Large Badge Styles */
+.points-catalog-intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding: 30px !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.08) 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    margin-bottom: 30px;
+}
+
+.points-large-badge {
+    background: linear-gradient(135deg, #E62B2E 0%, #ff7a00 100%);
+    border-radius: 14px;
+    padding: 20px 30px;
+    text-align: center;
+    min-width: 180px;
+    box-shadow: 0 8px 25px rgba(230, 43, 46, 0.4);
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.points-large-badge::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transform: rotate(45deg);
+    transition: 0.8s;
+}
+
+.points-large-badge:hover::before {
+    left: 100%;
+}
+
+.points-large-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(230, 43, 46, 0.6);
+}
+
+.points-large-badge span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin-bottom: 5px;
+}
+
+.points-large-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    font-family: var(--font-heading);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Staff Theme adjustments */
@@ -1788,6 +1855,7 @@ ul {
     }
     .credit-card-preview-card {
         width: 100%;
+        max-width: 280px;
     }
     .footer-content-grid {
         grid-template-columns: 1fr;
@@ -2356,6 +2424,7 @@ ul {
         display: flex !important;
         align-items: center !important;
         justify-content: flex-end !important;
+        flex-wrap: wrap !important;
     }
     .dashboard-table td:last-child {
         border-bottom: none !important;
@@ -2377,6 +2446,23 @@ ul {
         padding: 14px 18px !important;
         font-size: 0.95rem !important;
         border-radius: 10px !important;
+    }
+    
+    .dashboard-layout-row {
+        gap: 20px !important;
+    }
+    
+    .points-catalog-intro {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 20px !important;
+        padding: 25px 20px !important;
+    }
+    
+    .points-large-badge {
+        width: 100% !important;
+        max-width: 260px !important;
+        margin: 0 auto !important;
     }
 }
 
