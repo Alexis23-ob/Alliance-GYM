@@ -2069,7 +2069,29 @@ ul {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
+    .nav-links {
+        gap: 15px;
+    }
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+    .logo {
+        font-size: 1.5rem;
+    }
+    .logo-img {
+        height: 38px;
+    }
+    .nav-auth-buttons {
+        gap: 10px;
+    }
+    .nav-portal-btn, .nav-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 1100px) {
     .nav-links {
         position: absolute;
         top: 100%;
@@ -2085,6 +2107,7 @@ ul {
         opacity: 0;
         pointer-events: none;
         transition: var(--transition);
+        border-bottom: 1px solid var(--glass-border);
     }
     .nav-links.active {
         transform: translateY(0);
@@ -2097,6 +2120,9 @@ ul {
     .hamburger {
         display: block;
     }
+}
+
+@media (max-width: 768px) {
     .hero-title {
         font-size: 3rem;
     }
