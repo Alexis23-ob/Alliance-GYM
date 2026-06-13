@@ -493,15 +493,15 @@
 
         <main class="dashboard-content">
             <header class="dash-content-header">
-                <div class="dash-header-left">
+                <div class="dash-header-top-bar">
                     <button class="dash-menu-toggle" onclick="toggleDashboardDrawer()"><i class="fas fa-bars"></i></button>
-                    <h2 id="dash-title">Resumen de Cuenta</h2>
-                </div>
-                <div class="dash-header-widgets">
-                    <div class="points-indicator">
-                        <i class="fas fa-gem"></i> <span id="header-points-val">0</span> pts
+                    <div class="dash-header-widgets">
+                        <div class="points-indicator">
+                            <i class="fas fa-gem"></i> <span id="header-points-val">0</span> pts
+                        </div>
                     </div>
                 </div>
+                <h2 id="dash-title">Resumen de Cuenta</h2>
             </header>
 
             <!-- TABS CLIENTE -->
@@ -866,13 +866,13 @@
 
         <main class="dashboard-content">
             <header class="dash-content-header">
-                <div class="dash-header-left">
+                <div class="dash-header-top-bar">
                     <button class="dash-menu-toggle" onclick="toggleDashboardDrawer()"><i class="fas fa-bars"></i></button>
-                    <h2 id="dash-staff-title">Registro y Validación de Accesos</h2>
+                    <div class="dash-header-widgets">
+                        <span class="badge staff-online-badge"><i class="fas fa-circle text-green"></i> Recepción Activa</span>
+                    </div>
                 </div>
-                <div class="dash-header-widgets">
-                    <span class="badge staff-online-badge"><i class="fas fa-circle text-green"></i> Recepción Activa</span>
-                </div>
+                <h2 id="dash-staff-title">Registro y Validación de Accesos</h2>
             </header>
 
             <!-- TABS STAFF -->

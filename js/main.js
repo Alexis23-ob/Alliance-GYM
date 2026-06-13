@@ -1025,11 +1025,11 @@ function updateClientDashboardUI(user) {
             let badgeClass = a.status === 'Programada' ? 'badge-inactive' : (a.status === 'Completada' ? 'badge-active' : 'badge-expired');
             appointmentsList.innerHTML += `
                 <tr>
-                    <td>${a.date}</td>
-                    <td>${a.time} hrs</td>
-                    <td>${a.type}</td>
-                    <td>${a.coach}</td>
-                    <td><span class="badge ${badgeClass}">${a.status}</span></td>
+                    <td data-label="Fecha">${a.date}</td>
+                    <td data-label="Hora">${a.time} hrs</td>
+                    <td data-label="Tipo">${a.type}</td>
+                    <td data-label="Coach">${a.coach}</td>
+                    <td data-label="Estatus"><span class="badge ${badgeClass}">${a.status}</span></td>
                 </tr>
             `;
         });
@@ -1073,9 +1073,9 @@ function updateClientDashboardUI(user) {
             const prefix = isPositive ? '+' : '';
             pointsHistory.innerHTML += `
                 <tr>
-                    <td>${h.date}</td>
-                    <td class="${pointsClass}"><strong>${prefix}${h.points} pts</strong></td>
-                    <td>${h.description}</td>
+                    <td data-label="Fecha">${h.date}</td>
+                    <td data-label="Puntos" class="${pointsClass}"><strong>${prefix}${h.points} pts</strong></td>
+                    <td data-label="Descripción">${h.description}</td>
                 </tr>
             `;
         });
@@ -1102,10 +1102,10 @@ function updateClientDashboardUI(user) {
 
             redeemedHistory.innerHTML += `
                 <tr>
-                    <td>${r.date}</td>
-                    <td>${r.rewardName}</td>
-                    <td class="text-danger">-${r.points} pts</td>
-                    <td>${statusHTML}</td>
+                    <td data-label="Fecha">${r.date}</td>
+                    <td data-label="Recompensa">${r.rewardName}</td>
+                    <td data-label="Puntos" class="text-danger">-${r.points} pts</td>
+                    <td data-label="Estado">${statusHTML}</td>
                 </tr>
             `;
         });
@@ -1120,12 +1120,12 @@ function updateClientDashboardUI(user) {
         user.paymentHistory.forEach(p => {
             paymentsList.innerHTML += `
                 <tr>
-                    <td><code>${p.id}</code></td>
-                    <td>${p.date}</td>
-                    <td>${p.description}</td>
-                    <td>$${p.amount} MXN</td>
-                    <td><span class="badge badge-active">${p.status}</span></td>
-                    <td><button class="btn btn-outline btn-sm" onclick="mockDownloadInvoice('${p.id}', ${p.amount}, '${p.date}')"><i class="fas fa-file-pdf"></i> PDF</button></td>
+                    <td data-label="ID Transacción"><code>${p.id}</code></td>
+                    <td data-label="Fecha">${p.date}</td>
+                    <td data-label="Concepto">${p.description}</td>
+                    <td data-label="Monto">$${p.amount} MXN</td>
+                    <td data-label="Estatus"><span class="badge badge-active">${p.status}</span></td>
+                    <td data-label="Acción"><button class="btn btn-outline btn-sm" onclick="mockDownloadInvoice('${p.id}', ${p.amount}, '${p.date}')"><i class="fas fa-file-pdf"></i> PDF</button></td>
                 </tr>
             `;
         });
@@ -1251,11 +1251,11 @@ function updateStaffDashboardUI(staffUser) {
         const badgeClass = isPermitted ? 'badge-active' : 'badge-expired';
         logsList.innerHTML += `
             <tr>
-                <td><strong>${l.userName}</strong></td>
-                <td>${l.userEmail}</td>
-                <td>${l.date}</td>
-                <td>${l.time}</td>
-                <td><span class="badge ${badgeClass}">${l.status}</span></td>
+                <td data-label="Socio"><strong>${l.userName}</strong></td>
+                <td data-label="Correo">${l.userEmail}</td>
+                <td data-label="Fecha">${l.date}</td>
+                <td data-label="Hora Entrada">${l.time}</td>
+                <td data-label="Estatus Acceso"><span class="badge ${badgeClass}">${l.status}</span></td>
             </tr>
         `;
     });
@@ -1268,13 +1268,13 @@ function updateStaffDashboardUI(staffUser) {
     suggestions.forEach(s => {
         suggestionsList.innerHTML += `
             <tr>
-                <td>${s.date}</td>
-                <td><strong>${s.userName}</strong></td>
-                <td>${s.type}</td>
-                <td>${s.subject}</td>
-                <td><span class="text-sm">"${s.message}"</span></td>
-                <td><span class="badge ${s.status === 'Resuelto' ? 'badge-active' : 'badge-inactive'}">${s.status}</span></td>
-                <td>
+                <td data-label="Fecha">${s.date}</td>
+                <td data-label="Socio"><strong>${s.userName}</strong></td>
+                <td data-label="Tipo">${s.type}</td>
+                <td data-label="Asunto">${s.subject}</td>
+                <td data-label="Mensaje"><span class="text-sm">"${s.message}"</span></td>
+                <td data-label="Estado"><span class="badge ${s.status === 'Resuelto' ? 'badge-active' : 'badge-inactive'}">${s.status}</span></td>
+                <td data-label="Acciones">
                     <select class="status-dropdown" onchange="changeTicketStatus('${s.id}', this.value)">
                         <option value="Recibido" ${s.status === 'Recibido' ? 'selected' : ''}>Recibido</option>
                         <option value="Leído" ${s.status === 'Leído' ? 'selected' : ''}>Leído</option>
@@ -1330,14 +1330,14 @@ function updateStaffDashboardUI(staffUser) {
 
             staffAppsList.innerHTML += `
                 <tr>
-                    <td>${a.date}</td>
-                    <td>${a.time} hrs</td>
-                    <td><strong>${a.userName}</strong></td>
-                    <td>${a.userEmail}</td>
-                    <td>${a.type}</td>
-                    <td>${a.coach}</td>
-                    <td><span class="badge ${badgeClass}">${a.status}</span></td>
-                    <td>${actionsHTML}</td>
+                    <td data-label="Fecha">${a.date}</td>
+                    <td data-label="Hora">${a.time} hrs</td>
+                    <td data-label="Socio"><strong>${a.userName}</strong></td>
+                    <td data-label="Correo">${a.userEmail}</td>
+                    <td data-label="Tipo de Cita">${a.type}</td>
+                    <td data-label="Coach Asignado">${a.coach}</td>
+                    <td data-label="Estatus"><span class="badge ${badgeClass}">${a.status}</span></td>
+                    <td data-label="Acciones">${actionsHTML}</td>
                 </tr>
             `;
         });
@@ -1358,11 +1358,11 @@ function updateStaffDashboardUI(staffUser) {
 
         employeesList.innerHTML += `
             <tr>
-                <td><strong>${e.name}</strong></td>
-                <td>${e.role}</td>
-                <td><code>${e.email}</code></td>
-                <td>${permissionsHTML}</td>
-                <td><span class="badge badge-active">Activo</span></td>
+                <td data-label="Nombre del Empleado"><strong>${e.name}</strong></td>
+                <td data-label="Puesto / Rol">${e.role}</td>
+                <td data-label="Correo Institucional"><code>${e.email}</code></td>
+                <td data-label="Permisos en Sistema">${permissionsHTML}</td>
+                <td data-label="Estatus"><span class="badge badge-active">Activo</span></td>
             </tr>
         `;
     });
