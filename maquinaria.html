@@ -155,6 +155,35 @@
             margin-top: 40px;
             text-align: center;
         }
+
+        @media (max-width: 768px) {
+            .gallery-nav {
+                display: flex;
+                justify-content: flex-start;
+                gap: 10px;
+                margin-bottom: 30px;
+                overflow-x: auto;
+                white-space: nowrap;
+                flex-wrap: nowrap;
+                padding: 10px 20px;
+                margin-left: -20px;
+                margin-right: -20px;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .gallery-nav::-webkit-scrollbar {
+                display: none;
+            }
+            .gallery-nav-btn {
+                flex-shrink: 0;
+            }
+            .machinery-title {
+                font-size: 2rem;
+            }
+            .machinery-hero {
+                height: 30vh;
+            }
+        }
     </style>
 </head>
 <body>

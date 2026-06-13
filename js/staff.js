@@ -42,7 +42,96 @@
     function validateQR(qrCodeInput) {
         initLogs();
         const users = window.AllianceAuth.getUsers();
-        
+        const cleanInput = qrCodeInput.trim().toUpperCase();
+
+        // Normalizar código si se ingresó sin prefijo
+        let normalizedInput = cleanInput;
+        if (cleanInput.length === 6 && !cleanInput.includes('-')) {
+            normalizedInput = 'ALLIANCE-RW-' + cleanInput;
+        } else if (cleanInput.startsWith('RW-')) {
+            normalizedInput = 'ALLIANCE-' + cleanInput;
+        }
+
+        // 1. Verificar si corresponde a un código de recompensa (ALLIANCE-RW-XXXXXX)
+        if (normalizedInput.startsWith('ALLIANCE-RW-')) {
+            let foundUser = null;
+            let foundReward = null;
+            let foundUserIndex = -1;
+
+            for (let i = 0; i < users.length; i++) {
+                const u = users[i];
+                if (u.redeemedRewards) {
+                    const r = u.redeemedRewards.find(item => item.code && item.code.toUpperCase() === normalizedInput);
+                    if (r) {
+                        foundUser = u;
+                        foundReward = r;
+                        foundUserIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (!foundUser || !foundReward) {
+                return { success: false, message: 'Código de recompensa no válido o no encontrado.' };
+            }
+
+            if (foundReward.status !== 'Pendiente') {
+                return { success: false, message: `Esta recompensa ya fue validada previamente el ${foundReward.date}.` };
+            }
+
+            // Validar la recompensa
+            foundReward.status = 'Entregado/Aplicado';
+            foundReward.date = new Date().toISOString().split('T')[0]; // Guardar fecha de validación
+
+            let benefitMessage = '';
+            if (foundReward.category === 'membership') {
+                const currentEndDate = new Date(foundUser.membership.endDate || new Date());
+                currentEndDate.setDate(currentEndDate.getDate() + (foundReward.value || 30));
+                foundUser.membership.endDate = currentEndDate.toISOString().split('T')[0];
+                foundUser.membership.active = true;
+                foundUser.membership.status = 'active';
+                benefitMessage = `Membresía extendida por ${foundReward.value} días (Vence el ${foundUser.membership.endDate}).`;
+            } else if (foundReward.category === 'discount') {
+                benefitMessage = `Descuento del ${Math.round((foundReward.value || 0.20) * 100)}% aplicado a su cuenta.`;
+            } else {
+                benefitMessage = `Entregar producto físico al socio: ${foundReward.rewardName}.`;
+            }
+
+            // Guardar cambios en el usuario
+            users[foundUserIndex] = foundUser;
+            localStorage.setItem('alliance_gym_users', JSON.stringify(users));
+
+            // Sincronizar sesión activa si es el mismo usuario
+            const currentUser = window.AllianceAuth.getCurrentUser();
+            if (currentUser && currentUser.id === foundUser.id) {
+                localStorage.setItem('alliance_gym_current_user', JSON.stringify(foundUser));
+            }
+
+            // Registrar acción en logs de recepción
+            const checkinLogs = getCheckinLogs();
+            const today = new Date().toISOString().split('T')[0];
+            const nowTime = new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+            checkinLogs.unshift({
+                id: 'log_' + Date.now(),
+                userName: foundUser.name,
+                userEmail: foundUser.email,
+                date: today,
+                time: nowTime,
+                status: `Canje Validado: ${foundReward.rewardName}`
+            });
+            localStorage.setItem('alliance_gym_checkins', JSON.stringify(checkinLogs));
+
+            return {
+                success: true,
+                isReward: true,
+                user: foundUser,
+                rewardName: foundReward.rewardName,
+                code: foundReward.code,
+                benefitMessage: benefitMessage,
+                message: `¡Recompensa Canjeada con Éxito! Socio: ${foundUser.name}. Premio: ${foundReward.rewardName}. Detalle: ${benefitMessage}`
+            };
+        }
+
         // Buscar usuario por su código QR o por su correo
         const user = users.find(u => 
             (u.qrCode && u.qrCode.toLowerCase() === qrCodeInput.trim().toLowerCase()) ||

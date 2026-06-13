@@ -711,6 +711,10 @@ function checkActiveSession() {
 
 window.openDashboard = function(user) {
     document.getElementById('public-site').style.display = 'none';
+    const navbarEl = document.getElementById('navbar');
+    if (navbarEl) {
+        navbarEl.style.display = 'none';
+    }
     
     if (user.role === 'client') {
         document.getElementById('client-dashboard').style.display = 'flex';
@@ -726,9 +730,14 @@ window.openDashboard = function(user) {
 };
 
 window.exitDashboard = function() {
+    closeDashboardDrawer();
     document.getElementById('public-site').style.display = 'block';
     document.getElementById('client-dashboard').style.display = 'none';
     document.getElementById('staff-dashboard').style.display = 'none';
+    const navbarEl = document.getElementById('navbar');
+    if (navbarEl) {
+        navbarEl.style.display = '';
+    }
     checkActiveSession();
 };
 
@@ -821,6 +830,7 @@ function bindDashboardTabs() {
             
             const tabName = item.getAttribute('data-tab');
             switchClientTab(tabName);
+            closeDashboardDrawer();
         });
     });
 
@@ -833,6 +843,7 @@ function bindDashboardTabs() {
             
             const tabName = item.getAttribute('data-tab');
             switchStaffTab(tabName);
+            closeDashboardDrawer();
         });
     });
 }
@@ -1077,12 +1088,24 @@ function updateClientDashboardUI(user) {
     redeemedHistory.innerHTML = '';
     if (user.redeemedRewards && user.redeemedRewards.length > 0) {
         user.redeemedRewards.forEach(r => {
+            let statusHTML = '';
+            if (r.status === 'Pendiente') {
+                statusHTML = `
+                    <span class="badge" style="background: rgba(255, 122, 0, 0.2); border: 1px solid #ff7a00; color: #ff7a00;">Pendiente</span>
+                    <button class="btn btn-outline btn-sm" onclick="showRewardQR('${r.code}', '${r.rewardName.replace(/'/g, "\\'")}', 'Pendiente')" style="padding: 2px 8px; font-size: 0.75rem; margin-left: 8px;">
+                        <i class="fas fa-qrcode"></i> Ver QR
+                    </button>
+                `;
+            } else {
+                statusHTML = `<span class="badge badge-active">${r.status}</span>`;
+            }
+
             redeemedHistory.innerHTML += `
                 <tr>
                     <td>${r.date}</td>
                     <td>${r.rewardName}</td>
                     <td class="text-danger">-${r.points} pts</td>
-                    <td><span class="badge badge-active">${r.status}</span></td>
+                    <td>${statusHTML}</td>
                 </tr>
             `;
         });
@@ -1121,6 +1144,13 @@ window.redeemStoreItem = function(rewardId, pointsCost) {
             showToast(res.message, 'success');
             // Refrescar
             updateClientDashboardUI(window.AllianceAuth.getCurrentUser());
+
+            // Abrir automáticamente el modal del código QR del premio recién canjeado
+            const freshUser = window.AllianceAuth.getCurrentUser();
+            const newReward = freshUser.redeemedRewards[0]; // El último canje está al inicio
+            if (newReward && newReward.code) {
+                showRewardQR(newReward.code, newReward.rewardName, newReward.status);
+            }
         } else {
             showToast(res.message, 'error');
         }
@@ -1155,6 +1185,45 @@ window.copyManualCode = function() {
     copyText.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText.value);
     showToast("Código copiado al portapapeles.", "success");
+};
+
+// Mostrar QR de recompensa canjeada
+window.showRewardQR = function(code, rewardName, status) {
+    document.getElementById('reward-modal-item-name').innerText = rewardName;
+    document.getElementById('reward-modal-code').innerText = code;
+    
+    const statusBadge = document.getElementById('reward-modal-status-badge');
+    statusBadge.innerText = status === 'Pendiente' ? 'Pendiente de Validar' : status;
+    if (status === 'Pendiente') {
+        statusBadge.style.background = 'rgba(255, 122, 0, 0.2)';
+        statusBadge.style.borderColor = '#ff7a00';
+        statusBadge.style.color = '#ff7a00';
+    } else {
+        statusBadge.style.background = 'rgba(46, 213, 115, 0.2)';
+        statusBadge.style.borderColor = '#2ed573';
+        statusBadge.style.color = '#2ed573';
+    }
+
+    const qrContainer = document.getElementById('reward-qrcode-canvas');
+    qrContainer.innerHTML = '';
+    try {
+        new QRCode(qrContainer, {
+            text: code,
+            width: 140,
+            height: 140,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    } catch (e) {
+        qrContainer.innerHTML = `<div style="padding: 10px; border: 1px solid #000; font-weight: bold; font-size: 0.8rem;">${code}</div>`;
+    }
+
+    document.getElementById('reward-modal').style.display = 'flex';
+};
+
+window.closeRewardModal = function() {
+    document.getElementById('reward-modal').style.display = 'none';
 };
 
 // ----------------- TAB CONTROL STAFF -----------------
@@ -1313,19 +1382,37 @@ window.handleQRValidation = function() {
     resultBox.style.display = 'block';
     
     if (res.success) {
-        resultBox.className = 'scanner-result-box result-success';
-        resultBox.innerHTML = `
-            <div class="result-layout">
-                <div class="result-icon-big"><i class="fas fa-check-circle"></i></div>
-                <h3>ACCESO PERMITIDO</h3>
-                <h4 class="mt-2">${res.user.name}</h4>
-                <p class="text-sm mt-1">Membresía activa: <strong>${res.user.membership.planName}</strong></p>
-                <p class="text-sm text-green">Vence el: ${res.user.membership.endDate}</p>
-                <p class="text-sm mt-2">Asistencia registrada. Se le sumaron +50 puntos.</p>
-            </div>
-        `;
-        document.getElementById('staff-qr-input').value = '';
-        showToast('Acceso validado con éxito.', 'success');
+        if (res.isReward) {
+            resultBox.className = 'scanner-result-box result-success';
+            resultBox.innerHTML = `
+                <div class="result-layout" style="border-left: 5px solid #ffd700; padding-left: 15px;">
+                    <div class="result-icon-big" style="color: #ffd700;"><i class="fas fa-gift"></i></div>
+                    <h3 style="color: #ffd700;">RECOMPENSA VALIDADA</h3>
+                    <h4 class="mt-2">${res.user.name}</h4>
+                    <p class="text-sm mt-1">Premio: <strong>${res.rewardName}</strong></p>
+                    <p class="text-sm">Código: <code>${res.code}</code></p>
+                    <p class="text-sm text-green mt-3" style="font-weight: bold; font-size: 0.95rem; background: rgba(46, 213, 115, 0.1); padding: 8px; border-radius: 4px; border: 1px solid rgba(46, 213, 115, 0.2);">
+                        <i class="fas fa-info-circle"></i> Acción: ${res.benefitMessage}
+                    </p>
+                </div>
+            `;
+            document.getElementById('staff-qr-input').value = '';
+            showToast('Recompensa validada con éxito.', 'success');
+        } else {
+            resultBox.className = 'scanner-result-box result-success';
+            resultBox.innerHTML = `
+                <div class="result-layout">
+                    <div class="result-icon-big"><i class="fas fa-check-circle"></i></div>
+                    <h3>ACCESO PERMITIDO</h3>
+                    <h4 class="mt-2">${res.user.name}</h4>
+                    <p class="text-sm mt-1">Membresía activa: <strong>${res.user.membership.planName}</strong></p>
+                    <p class="text-sm text-green">Vence el: ${res.user.membership.endDate}</p>
+                    <p class="text-sm mt-2">Asistencia registrada. Se le sumaron +50 puntos.</p>
+                </div>
+            `;
+            document.getElementById('staff-qr-input').value = '';
+            showToast('Acceso validado con éxito.', 'success');
+        }
     } else {
         resultBox.className = 'scanner-result-box result-danger';
         resultBox.innerHTML = `
@@ -1489,6 +1576,36 @@ window.filterEquipmentFromOutside = function(filterValue) {
                 item.style.display = 'none';
             }
         });
+    }
+};
+
+// Funciones globales de Drawer en Dashboard para móviles
+window.toggleDashboardDrawer = function() {
+    const isClientVisible = document.getElementById('client-dashboard').style.display === 'flex';
+    const isStaffVisible = document.getElementById('staff-dashboard').style.display === 'flex';
+    
+    let activeSidebar = null;
+    if (isClientVisible) {
+        activeSidebar = document.querySelector('#client-dashboard .dashboard-sidebar');
+    } else if (isStaffVisible) {
+        activeSidebar = document.querySelector('#staff-dashboard .dashboard-sidebar');
+    }
+    
+    if (activeSidebar) {
+        activeSidebar.classList.toggle('drawer-open');
+        const overlay = document.getElementById('dash-drawer-overlay');
+        if (overlay) {
+            overlay.classList.toggle('active');
+        }
+    }
+};
+
+window.closeDashboardDrawer = function() {
+    const sidebars = document.querySelectorAll('.dashboard-sidebar');
+    sidebars.forEach(s => s.classList.remove('drawer-open'));
+    const overlay = document.getElementById('dash-drawer-overlay');
+    if (overlay) {
+        overlay.classList.remove('active');
     }
 };
 

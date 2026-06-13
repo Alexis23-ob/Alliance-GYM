@@ -34,8 +34,10 @@
                 <li><a href="#reviews-section">Opiniones</a></li>
                 <li><a href="#gallery">Instalaciones</a></li>
                 <li><a href="#location">Ubicación</a></li>
+                <li class="mobile-only"><a href="#memberships" class="nav-mobile-join-btn">Únete Ahora</a></li>
+                <li class="mobile-only"><a href="#" onclick="openAuthModal()"><i class="fas fa-user-circle"></i> Mi Cuenta</a></li>
             </ul>
-            <div class="nav-auth-buttons">
+            <div class="nav-auth-buttons main-nav-buttons">
                 <a href="#memberships" class="btn btn-primary nav-btn" id="nav-join-btn">Únete Ahora</a>
                 <button class="btn btn-outline nav-portal-btn" id="nav-portal-btn" onclick="openAuthModal()"><i class="fas fa-user-circle"></i> Mi Cuenta</button>
             </div>
@@ -491,7 +493,10 @@
 
         <main class="dashboard-content">
             <header class="dash-content-header">
-                <h2 id="dash-title">Resumen de Cuenta</h2>
+                <div class="dash-header-left">
+                    <button class="dash-menu-toggle" onclick="toggleDashboardDrawer()"><i class="fas fa-bars"></i></button>
+                    <h2 id="dash-title">Resumen de Cuenta</h2>
+                </div>
                 <div class="dash-header-widgets">
                     <div class="points-indicator">
                         <i class="fas fa-gem"></i> <span id="header-points-val">0</span> pts
@@ -861,7 +866,10 @@
 
         <main class="dashboard-content">
             <header class="dash-content-header">
-                <h2 id="dash-staff-title">Registro y Validación de Accesos</h2>
+                <div class="dash-header-left">
+                    <button class="dash-menu-toggle" onclick="toggleDashboardDrawer()"><i class="fas fa-bars"></i></button>
+                    <h2 id="dash-staff-title">Registro y Validación de Accesos</h2>
+                </div>
                 <div class="dash-header-widgets">
                     <span class="badge staff-online-badge"><i class="fas fa-circle text-green"></i> Recepción Activa</span>
                 </div>
@@ -1245,6 +1253,32 @@
 
                 <button class="btn btn-primary w-100 mt-4" onclick="finishCheckoutFlow()">Ir a Mi Panel de Socio</button>
             </div>
+    </div>
+    </div>
+
+    <!-- REWARD VALIDATION MODAL -->
+    <div id="reward-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-container glass-card text-center" style="max-width: 420px; padding: 30px;">
+            <button class="modal-close-btn" onclick="closeRewardModal()">&times;</button>
+            <div class="success-icon" style="color: var(--primary-color); font-size: 3rem; margin-bottom: 15px;"><i class="fas fa-gift"></i></div>
+            <h3 class="mb-2" id="reward-modal-title" style="font-family: var(--font-heading); color: #fff;">¡Premio Canjeado!</h3>
+            <p class="text-muted text-sm mb-4">Muestra este código QR o proporciona el código alfanumérico en recepción para reclamar tu recompensa.</p>
+            
+            <div class="ticket-qr-container" style="background: #fff; color: #000; border-radius: 12px; padding: 20px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #ddd; text-align: center; max-width: 320px;">
+                <div class="ticket-header" style="border-bottom: 2px dashed #000; padding-bottom: 12px; margin-bottom: 12px;">
+                    <h4 style="font-family: var(--font-heading); letter-spacing: 1px; margin: 0; color: #000;">ALLIANCE REWARD</h4>
+                    <span id="reward-modal-item-name" style="font-size: 0.85rem; color: var(--primary-color); font-weight: 700;">Premio</span>
+                </div>
+                <div class="ticket-body">
+                    <div id="reward-qrcode-canvas" style="display: inline-block; padding: 10px; background: #fff; border-radius: 8px; margin: 10px 0;"></div>
+                    <h4 class="ticket-code" id="reward-modal-code" style="font-family: monospace; font-size: 1.2rem; letter-spacing: 1px; color: #000; font-weight: bold; margin-top: 5px; margin-bottom: 0;">RW-XXXXXX</h4>
+                </div>
+                <div class="ticket-footer" style="border-top: 1px solid #eee; padding-top: 10px; font-size: 0.8rem; color: #333; margin-top: 12px;">
+                    <p style="margin: 0;">Estado: <strong id="reward-modal-status-badge">Pendiente</strong></p>
+                </div>
+            </div>
+
+            <button class="btn btn-primary w-100 mt-4" onclick="closeRewardModal()">Cerrar</button>
         </div>
     </div>
 
@@ -1263,5 +1297,6 @@
     <script src="js/reviews.js"></script>
     <script src="js/staff.js"></script>
     <script src="js/main.js"></script>
+    <div id="dash-drawer-overlay" class="dash-drawer-overlay" onclick="closeDashboardDrawer()"></div>
 </body>
 </html>

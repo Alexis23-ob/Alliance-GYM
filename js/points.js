@@ -70,30 +70,39 @@
             description: `Canje de recompensa: ${reward.name}`
         });
 
-        // Aplicar beneficio especial si es membresía o descuento
-        if (reward.category === 'membership') {
-            const currentEndDate = new Date(user.membership.endDate || new Date());
-            currentEndDate.setDate(currentEndDate.getDate() + reward.value);
-            user.membership.endDate = currentEndDate.toISOString().split('T')[0];
-            user.membership.active = true;
-            user.membership.status = 'active';
+        // Generar un código alfanumérico único para el canje
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let randomCode = '';
+        for (let i = 0; i < 6; i++) {
+            randomCode += chars.charAt(Math.floor(Math.random() * chars.length));
         }
+        const fullCode = `ALLIANCE-RW-${randomCode}`;
 
         // Registrar canje en un listado interno
         if (!user.redeemedRewards) user.redeemedRewards = [];
         user.redeemedRewards.unshift({
             id: 'red_' + Date.now(),
             date: new Date().toISOString().split('T')[0],
+            rewardId: reward.id,
             rewardName: reward.name,
             points: reward.points,
-            status: 'Entregado/Aplicado'
+            category: reward.category,
+            value: reward.value || null,
+            code: fullCode,
+            status: 'Pendiente'
         });
 
         // Guardar cambios
         users[userIndex] = user;
         localStorage.setItem('alliance_gym_users', JSON.stringify(users));
 
-        return { success: true, message: `¡Canje exitoso! Has obtenido: ${reward.name}`, user: user };
+        // Actualizar sesión activa
+        const currentUser = window.AllianceAuth.getCurrentUser();
+        if (currentUser && currentUser.id === userId) {
+            localStorage.setItem('alliance_gym_current_user', JSON.stringify(user));
+        }
+
+        return { success: true, message: `¡Canje exitoso! Presenta tu código QR o alfanumérico en recepción para reclamarlo: ${reward.name}`, user: user, code: fullCode };
     }
 
     // Exponer API global de puntos
