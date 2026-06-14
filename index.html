@@ -98,10 +98,22 @@
                     <div class="glass-card info-card promo-card" id="join">
                         <div class="card-icon"><i class="fas fa-tags"></i></div>
                         <h3>Promociones Actuales</h3>
-                        <div class="promo-content">
-                            <h4 id="promo-title">🔥 PROMO INAUGURAL 🔥</h4>
-                            <p id="promo-text">Inscríbete hoy en línea y llévate tu primer mes con <strong>500 Puntos de Regalo</strong> en tu monedero de recompensas.</p>
-                            <a href="#memberships" class="btn btn-primary mt-2 w-100 text-center">Ver Planes</a>
+                        <div class="promo-content" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                            <h4 id="promo-title" style="color: var(--primary-color);">🎓 PROMO ESTUDIANTES</h4>
+                            <p>Mensualidad a precio especial de <strong>$380</strong>. <br><small>*Requiere presentar credencial vigente en recepción.</small></p>
+                            <button class="btn btn-primary mt-2 mb-3 w-100" onclick="startPurchaseFlow('Promo Estudiante')">Aprovechar Promo</button>
+                            
+                            <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
+                            
+                            <h4 style="color: var(--primary-color);">👔 DÍA DEL PADRE</h4>
+                            <p><strong>¡Inscripción GRATIS!</strong> Paquetes:<br>1 Persona: $450 | 2 Personas: $800 | 3 Personas: $1150<br><small>*Vigencia: 03 de Julio</small></p>
+                            <button class="btn btn-outline mt-2 mb-3 w-100 text-center" onclick="startPurchaseFlow('Promo Día del Padre')">Promo Familiar</button>
+                            
+                            <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
+
+                            <h4>🔥 PROMO INAUGURAL</h4>
+                            <p id="promo-text">Inscríbete hoy en línea y llévate tu primer mes con <strong>500 Puntos de Regalo</strong> en tu monedero.</p>
+                            <a href="#memberships" class="btn btn-outline mt-2 w-100 text-center">Ver Planes Base</a>
                         </div>
                     </div>
                 </div>
@@ -117,56 +129,51 @@
                 </div>
 
                 <div class="memberships-grid">
-                    <!-- Plan Básico -->
+                    <!-- Plan Mensualidad -->
                     <div class="glass-card plan-card">
                         <div class="plan-header">
-                            <h3>Plan Básico</h3>
-                            <div class="plan-price"><span id="val-price-basico">$399</span>/mes</div>
+                            <h3>Mensualidad</h3>
+                            <div class="plan-price"><span>$550</span>/mes</div>
                         </div>
                         <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> Acceso a zona de pesas y peso libre</li>
-                            <li><i class="fas fa-check"></i> Zona de cardio general</li>
-                            <li><i class="fas fa-check"></i> Casilleros y regaderas</li>
-                            <li><i class="fas fa-times restriction-icon"></i> <span class="restriction-text">Restricción: Horario limitado (12:00 PM - 5:00 PM)</span></li>
-                            <li><i class="fas fa-times restriction-icon"></i> <span class="restriction-text">No incluye clases grupales ni visitas multi-club</span></li>
-                            <li><i class="fas fa-times restriction-icon"></i> <span class="restriction-text">Puntos de recompensa base (1x)</span></li>
+                            <li><i class="fas fa-check"></i> <strong>Inscripción única:</strong> $150</li>
+                            <li><i class="fas fa-check"></i> Acceso a todas las instalaciones</li>
+                            <li><i class="fas fa-check"></i> Horario de uso ilimitado</li>
+                            <li><i class="fas fa-check"></i> Sin plazos forzosos</li>
                         </ul>
-                        <button class="btn btn-outline w-100 plan-btn" onclick="startPurchaseFlow('Plan Básico')">Contratar Plan</button>
+                        <button class="btn btn-outline w-100 plan-btn" onclick="startPurchaseFlow('Plan Mensual')">Contratar Mensualidad</button>
                     </div>
 
-                    <!-- Plan Black -->
+                    <!-- Plan Semestral -->
                     <div class="glass-card plan-card featured-plan">
-                        <div class="plan-badge">RECOMENDADO</div>
+                        <div class="plan-badge">MÁS POPULAR</div>
                         <div class="plan-header">
-                            <h3>Plan Black</h3>
-                            <div class="plan-price"><span id="val-price-black">$599</span>/mes</div>
+                            <h3>Semestre</h3>
+                            <div class="plan-price"><span>$2600</span>/6 meses</div>
                         </div>
                         <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> Acceso total sin límite de horario (5 AM - 11 PM)</li>
-                            <li><i class="fas fa-check"></i> Acceso a todas nuestras sucursales (Multi-club)</li>
-                            <li><i class="fas fa-check"></i> Clases grupales ilimitadas (Yoga, Zumba, CrossFit)</li>
-                            <li><i class="fas fa-check"></i> 1 pase de amigo mensual gratis</li>
-                            <li><i class="fas fa-check"></i> Recorrido virtual 360° y visor nutricional premium</li>
-                            <li><i class="fas fa-check"></i> Acumulación de puntos estándar</li>
+                            <li><i class="fas fa-check"></i> <strong>Inscripción única:</strong> $150</li>
+                            <li><i class="fas fa-check"></i> Equivalente a $433 al mes</li>
+                            <li><i class="fas fa-check"></i> Acceso a todas las instalaciones</li>
+                            <li><i class="fas fa-check"></i> Horario de uso ilimitado</li>
                         </ul>
-                        <button class="btn btn-primary w-100 plan-btn" onclick="startPurchaseFlow('Plan Black')">Contratar Plan</button>
+                        <button class="btn btn-primary w-100 plan-btn" onclick="startPurchaseFlow('Plan Semestral')">Contratar Semestre</button>
                     </div>
 
-                    <!-- Plan VIP Alliance -->
+                    <!-- Plan Anualidad -->
                     <div class="glass-card plan-card vip-plan">
+                        <div class="plan-badge">MEJOR AHORRO</div>
                         <div class="plan-header">
-                            <h3>Plan VIP Alliance</h3>
-                            <div class="plan-price"><span id="val-price-vip">$899</span>/mes</div>
+                            <h3>Anualidad</h3>
+                            <div class="plan-price"><span>$5000</span>/año</div>
                         </div>
                         <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> Acceso ilimitado a todas las áreas y sucursales</li>
-                            <li><i class="fas fa-check"></i> Área VIP exclusiva con bebidas hidratantes y toalla</li>
-                            <li><i class="fas fa-check"></i> Coach personal y evaluación corporal ilimitada</li>
-                            <li><i class="fas fa-check"></i> Cabina de crioterapia y masajes (2 por mes)</li>
-                            <li><i class="fas fa-check"></i> Pases de amigo ilimitados (1 por visita)</li>
-                            <li><i class="fas fa-check"></i> <strong>Multiplicador de puntos 1.5x</strong></li>
+                            <li><i class="fas fa-check"></i> <strong>Inscripción única:</strong> $150</li>
+                            <li><i class="fas fa-check"></i> Equivalente a $416 al mes</li>
+                            <li><i class="fas fa-check"></i> El mejor precio mensual garantizado</li>
+                            <li><i class="fas fa-check"></i> Acceso ininterrumpido todo el año</li>
                         </ul>
-                        <button class="btn btn-outline w-100 plan-btn" onclick="startPurchaseFlow('Plan VIP Alliance')">Contratar VIP</button>
+                        <button class="btn btn-outline w-100 plan-btn" onclick="startPurchaseFlow('Plan Anual')">Contratar Anualidad</button>
                     </div>
                 </div>
 

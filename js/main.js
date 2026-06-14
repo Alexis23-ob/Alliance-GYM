@@ -415,21 +415,22 @@ window.switchAuthTab = function(tabName) {
 let selectedPlanData = { name: '', price: 0 };
 
 window.startPurchaseFlow = function(planName) {
-    const saved = JSON.parse(localStorage.getItem('alliance_gym_config')) || {};
-    const config = {
-        plans: {
-            basico: { price: 399 },
-            black: { price: 599 },
-            vip: { price: 899 },
-            ...(saved.plans || {})
-        }
-    };
-    let price = 399;
-    if (planName.includes('Básico')) price = config.plans.basico.price;
-    else if (planName.includes('Black')) price = config.plans.black.price;
-    else if (planName.includes('VIP')) price = config.plans.vip.price;
+    let baseMsg = '';
+    
+    if (planName === 'Plan Mensual') {
+        baseMsg = `Hola, solicito información para inscribirme a Alliance GYM con la Mensualidad regular de $550 y cómo realizar el pago de inscripción.`;
+    } else if (planName === 'Plan Semestral') {
+        baseMsg = `Hola, solicito información para inscribirme a Alliance GYM con el Plan Semestral de $2600 y cómo realizar el pago.`;
+    } else if (planName === 'Plan Anual') {
+        baseMsg = `Hola, solicito información para inscribirme a Alliance GYM con la Anualidad de $5000 y cómo realizar el pago.`;
+    } else if (planName === 'Promo Estudiante') {
+        baseMsg = `Hola, me interesa la Promo Estudiantes con mensualidad de $380 en Alliance GYM. Cuento con mi credencial vigente, ¿cómo realizo mi pago?`;
+    } else if (planName === 'Promo Día del Padre') {
+        baseMsg = `Hola, quiero aprovechar la Promo Día del Padre en Alliance GYM con inscripción gratis. ¿Me podrían dar información de los costos por persona y cómo inscribirme?`;
+    } else {
+        baseMsg = `Hola, solicito información para inscribirme a Alliance GYM con el ${planName} y cómo realizar mi pago.`;
+    }
 
-    const baseMsg = `Hola, solicito información para inscribirme a Alliance GYM con el ${planName} de $${price}/mes y cómo realizar mi pago.`;
     const encodedMsg = encodeURIComponent(baseMsg);
     const whatsappUrl = `https://wa.me/525567659004?text=${encodedMsg}`;
     window.open(whatsappUrl, '_blank');
