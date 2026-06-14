@@ -701,11 +701,11 @@ function checkActiveSession() {
     const joinBtn = document.getElementById('nav-join-btn');
 
     if (user) {
-        navBtn.innerHTML = `<i class="fas fa-user-shield"></i> ${user.name.split(' ')[0]}`;
-        joinBtn.style.display = 'none';
+        if (navBtn) navBtn.innerHTML = `<i class="fas fa-user-shield"></i> ${user.name.split(' ')[0]}`;
+        if (joinBtn) joinBtn.style.display = 'none';
     } else {
-        navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Mi Cuenta';
-        joinBtn.style.display = 'inline-block';
+        if (navBtn) navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Mi Cuenta';
+        if (joinBtn) joinBtn.style.display = 'inline-block';
     }
 }
 
