@@ -7,12 +7,12 @@
     const STORAGE_REVIEWS_KEY = 'alliance_gym_reviews';
     const STORAGE_SUGGESTIONS_KEY = 'alliance_gym_suggestions';
 
-    // Opiniones semilla iniciales
+    // Opiniones semilla iniciales (Simulando reseñas de Google Maps)
     const seedReviews = [
-        { id: 'rev_1', userName: 'Miguel Ángel', rating: 5, target: 'general', comment: 'Las mejores instalaciones de la zona. Excelente equipo y el visor 360 me convenció de inscribirme.', date: '2026-06-05' },
-        { id: 'rev_2', userName: 'Sofía Ruiz', rating: 5, target: 'Alex Ramírez', comment: 'Alex es un entrenador de primera. Sus rutinas de fuerza realmente me han ayudado a avanzar.', date: '2026-06-08' },
-        { id: 'rev_3', userName: 'David León', rating: 4, target: 'Recepcionista Lucía', comment: 'La atención en recepción es muy buena y rápida al validar el acceso, a veces se llena un poco en horas pico.', date: '2026-06-11' },
-        { id: 'rev_4', userName: 'Laura G.', rating: 5, target: 'Sarah Martínez', comment: 'Sarah es súper motivadora, bajé 5 kilos en mi primer mes de entrenamiento personalizado.', date: '2026-06-12' }
+        { id: 'rev_1', userName: 'Miguel Ángel', rating: 5, target: 'general', comment: 'Las mejores instalaciones de la zona. Excelente equipo y el ambiente es muy motivador. ¡Totalmente recomendado!', date: '2026-06-05' },
+        { id: 'rev_2', userName: 'Sofía Ruiz', rating: 5, target: 'general', comment: 'Llevo 3 meses entrenando aquí y los coaches siempre están atentos para ayudarte con tus rutinas.', date: '2026-06-08' },
+        { id: 'rev_3', userName: 'David León', rating: 4, target: 'general', comment: 'Muy buen gimnasio, buenas máquinas y limpieza. Se llena un poco por las tardes pero es normal.', date: '2026-06-11' },
+        { id: 'rev_4', userName: 'Laura G.', rating: 5, target: 'general', comment: 'Me encanta que tienen visor 360 en su web, fui a conocerlo y es tal cual. 5 estrellas a la atención en recepción.', date: '2026-06-12' }
     ];
 
     // Buzón semilla inicial

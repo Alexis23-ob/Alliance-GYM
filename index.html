@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Swiper CSS -->
@@ -57,65 +57,6 @@
                 <div class="hero-actions">
                     <a href="#memberships" class="btn btn-primary btn-large">Comenzar Hoy</a>
                     <a href="#gallery" class="btn btn-outline btn-large">Ver Instalaciones</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Info Section (Promotions, Enrollment, Hours) -->
-        <section id="info" class="section info-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">TODO LO QUE NECESITAS <span>SABER</span></h2>
-                    <p class="section-desc">Conoce nuestros horarios, cómo inscribirte y las increíbles promociones que tenemos para ti.</p>
-                </div>
-
-                <div class="info-grid">
-                    <!-- Horarios -->
-                    <div class="glass-card info-card">
-                        <div class="card-icon"><i class="fas fa-clock"></i></div>
-                        <h3>Horarios de Atención</h3>
-                        <ul class="hours-list">
-                            <li><span>Lunes a Viernes:</span> <span id="hour-weekday">5:00 AM - 11:00 PM</span></li>
-                            <li><span>Sábados:</span> <span id="hour-sat">6:00 AM - 8:00 PM</span></li>
-                            <li><span>Domingos:</span> <span id="hour-sun">7:00 AM - 2:00 PM</span></li>
-                            <li><span>Días Festivos:</span> Consultar en recepción</li>
-                        </ul>
-                    </div>
-
-                    <!-- Inscripción -->
-                    <div class="glass-card info-card">
-                        <div class="card-icon"><i class="fas fa-user-plus"></i></div>
-                        <h3>Cómo Inscribirte</h3>
-                        <ol class="steps-list">
-                            <li>Elige tu plan ideal de membresía en línea.</li>
-                            <li>Realiza tu pago seguro desde nuestra plataforma.</li>
-                            <li>Agenda tu cita para la entrega del acceso biométrico.</li>
-                            <li>¡Recibe tu credencial QR digital y empieza a entrenar!</li>
-                        </ol>
-                    </div>
-
-                    <!-- Promociones -->
-                    <div class="glass-card info-card promo-card" id="join">
-                        <div class="card-icon"><i class="fas fa-tags"></i></div>
-                        <h3>Promociones Actuales</h3>
-                        <div class="promo-content" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
-                            <h4 id="promo-title" style="color: var(--primary-color);">🎓 PROMO ESTUDIANTES</h4>
-                            <p>Mensualidad a precio especial de <strong>$380</strong>. <br><small>*Requiere presentar credencial vigente en recepción.</small></p>
-                            <button class="btn btn-primary mt-2 mb-3 w-100" onclick="startPurchaseFlow('Promo Estudiante')">Aprovechar Promo</button>
-                            
-                            <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
-                            
-                            <h4 style="color: var(--primary-color);">👔 DÍA DEL PADRE</h4>
-                            <p><strong>¡Inscripción GRATIS!</strong> Paquetes:<br>1 Persona: $450 | 2 Personas: $800 | 3 Personas: $1150<br><small>*Vigencia: 03 de Julio</small></p>
-                            <button class="btn btn-outline mt-2 mb-3 w-100 text-center" onclick="startPurchaseFlow('Promo Día del Padre')">Promo Familiar</button>
-                            
-                            <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
-
-                            <h4>🔥 PROMO INAUGURAL</h4>
-                            <p id="promo-text">Inscríbete hoy en línea y llévate tu primer mes con <strong>500 Puntos de Regalo</strong> en tu monedero.</p>
-                            <a href="#memberships" class="btn btn-outline mt-2 w-100 text-center">Ver Planes Base</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -180,6 +121,62 @@
             </div>
         </section>
 
+        <!-- Opiniones & Reseñas Section (NEW) -->
+        <section id="reviews-section" class="section reviews-section" style="background-color: var(--bg-section-alt);">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">LO QUE DICEN NUESTROS <span>SOCIOS</span></h2>
+                    <p class="section-desc">La opinión de nuestra comunidad avala el esfuerzo de nuestros coaches y la calidad de nuestras instalaciones en Google Maps.</p>
+                </div>
+
+                <div class="ratings-summary-container glass-card">
+                    <div class="rating-overall">
+                        <div class="rating-big" id="avg-gym-rating">4.9</div>
+                        <div class="stars" id="avg-gym-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="rating-label">Promedio en Google</p>
+                    </div>
+                    <div class="rating-breakdown">
+                        <div class="breakdown-row">
+                            <span class="breakdown-label">Instalaciones</span>
+                            <div class="breakdown-bar-bg"><div class="breakdown-bar" style="width: 98%;"></div></div>
+                            <span class="breakdown-val" id="avg-gym-val">4.9</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <span class="breakdown-label">Coaches</span>
+                            <div class="breakdown-bar-bg"><div class="breakdown-bar" style="width: 96%;"></div></div>
+                            <span class="breakdown-val" id="avg-coaches-val">4.8</span>
+                        </div>
+                        <div class="breakdown-row">
+                            <span class="breakdown-label">Atención</span>
+                            <div class="breakdown-bar-bg"><div class="breakdown-bar" style="width: 94%;"></div></div>
+                            <span class="breakdown-val" id="avg-staff-val">4.7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lista de Opiniones públicas -->
+                <div class="reviews-list-wrapper mt-4">
+                    <h3 class="mb-4"><i class="fab fa-google" style="color: #4285F4;"></i> Reseñas Destacadas</h3>
+                    <div class="reviews-grid-list" id="public-reviews-list">
+                        <!-- Opiniones cargadas dinámicamente -->
+                    </div>
+                    <div class="text-center mt-4" id="reviews-login-promo">
+                        <p class="mb-3 text-muted">¿Te gusta entrenar con nosotros? ¡Tu opinión nos ayuda a crecer!</p>
+                        <a href="https://maps.google.com/maps?q=ALLIANCE+GYM+CHIMALHUACAN" target="_blank" class="btn btn-primary" style="background-color: #4285F4; border-color: #4285F4; font-weight: bold; padding: 12px 24px; border-radius: 30px;">
+                            <i class="fab fa-google"></i> Déjanos tu reseña de 5 estrellas
+                        </a>
+                        <p class="text-muted mt-2" style="font-size: 0.85rem;">(Serás redirigido a Google Maps)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Equipment Section -->
         <section id="equipment" class="section equipment-section">
             <div class="container">
@@ -239,8 +236,91 @@
             </div>
         </section>
 
+        <!-- Gallery & Zonas Corporales Section -->
+        <section id="gallery" class="section gallery-section" style="background-color: var(--bg-section-alt);">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">NUESTRAS <span>INSTALACIONES</span></h2>
+                    <p class="section-desc">Explora nuestras áreas de entrenamiento y equipamiento premium con nuestro recorrido interactivo de 360°.</p>
+                </div>
+
+                <!-- 360 Viewer -->
+                <div class="tour-360-container glass-card mb-4">
+                    <div class="tour-header">
+                        <h3><i class="fas fa-vr-cardboard"></i> Recorrido Virtual 360°</h3>
+                        <p>Arrastra la imagen para explorar el área como si estuvieras ahí.</p>
+                    </div>
+                    <div id="panorama" class="panorama-viewer">
+                        <!-- Pannellum viewer will be injected here -->
+                        <div class="panorama-placeholder">
+                            <i class="fas fa-circle-notch fa-spin"></i> Cargando Visor 360°...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Section (Promotions, Enrollment, Hours) -->
+        <section id="info" class="section info-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">TODO LO QUE NECESITAS <span>SABER</span></h2>
+                    <p class="section-desc">Conoce nuestros horarios, cómo inscribirte y las increíbles promociones que tenemos para ti.</p>
+                </div>
+
+                <div class="info-grid">
+                    <!-- Horarios -->
+                    <div class="glass-card info-card">
+                        <div class="card-icon"><i class="fas fa-clock"></i></div>
+                        <h3>Horarios de Atención</h3>
+                        <ul class="hours-list">
+                            <li><span>Lunes a Viernes:</span> <span id="hour-weekday">5:00 AM - 11:00 PM</span></li>
+                            <li><span>Sábados:</span> <span id="hour-sat">6:00 AM - 8:00 PM</span></li>
+                            <li><span>Domingos:</span> <span id="hour-sun">7:00 AM - 2:00 PM</span></li>
+                            <li><span>Días Festivos:</span> Consultar en recepción</li>
+                        </ul>
+                    </div>
+
+                    <!-- Inscripción -->
+                    <div class="glass-card info-card">
+                        <div class="card-icon"><i class="fas fa-user-plus"></i></div>
+                        <h3>Cómo Inscribirte</h3>
+                        <ol class="steps-list">
+                            <li>Elige tu plan ideal de membresía en línea.</li>
+                            <li>Realiza tu pago seguro desde nuestra plataforma.</li>
+                            <li>Agenda tu cita para la entrega del acceso biométrico.</li>
+                            <li>¡Recibe tu credencial QR digital y empieza a entrenar!</li>
+                        </ol>
+                    </div>
+
+                    <!-- Promociones -->
+                    <div class="glass-card info-card promo-card" id="join">
+                        <div class="card-icon"><i class="fas fa-tags"></i></div>
+                        <h3>Promociones Actuales</h3>
+                        <div class="promo-content" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                            <h4 id="promo-title" style="color: var(--primary-color);">🎓 PROMO ESTUDIANTES</h4>
+                            <p>Mensualidad a precio especial de <strong>$380</strong>. <br><small>*Requiere presentar credencial vigente en recepción.</small></p>
+                            <button class="btn btn-primary mt-2 mb-3 w-100" onclick="startPurchaseFlow('Promo Estudiante')">Aprovechar Promo</button>
+                            
+                            <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
+                            
+                            <h4 style="color: var(--primary-color);">👔 DÍA DEL PADRE</h4>
+                            <p><strong>¡Inscripción GRATIS!</strong> Paquetes:<br>1 Persona: $450 | 2 Personas: $800 | 3 Personas: $1150<br><small>*Vigencia: 03 de Julio</small></p>
+                            <button class="btn btn-outline mt-2 mb-3 w-100 text-center" onclick="startPurchaseFlow('Promo Día del Padre')">Promo Familiar</button>
+                            
+                            <hr style="border-color: rgba(255,255,255,0.1); margin: 15px 0;">
+
+                            <h4>🔥 PROMO INAUGURAL</h4>
+                            <p id="promo-text">Inscríbete hoy en línea y llévate tu primer mes con <strong>500 Puntos de Regalo</strong> en tu monedero.</p>
+                            <a href="#memberships" class="btn btn-outline mt-2 w-100 text-center">Ver Planes Base</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Coaches & Appointments Section -->
-        <section id="coaches" class="section coaches-section">
+        <section id="coaches" class="section coaches-section" style="background-color: var(--bg-section-alt);">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">ENTRENA CON LOS <span>MEJORES</span></h2>
@@ -310,87 +390,10 @@
             </div>
         </section>
 
-
-
-        <!-- Opiniones & Reseñas Section (NEW) -->
-        <section id="reviews-section" class="section reviews-section">
-            <div class="container">
-                <div class="section-header text-center">
-                    <h2 class="section-title">LO QUE DICEN NUESTROS <span>SOCIOS</span></h2>
-                    <p class="section-desc">La opinión de nuestra comunidad avala el esfuerzo de nuestros coaches y la calidad de nuestras instalaciones.</p>
-                </div>
-
-                <div class="ratings-summary-container glass-card">
-                    <div class="rating-overall">
-                        <div class="rating-big" id="avg-gym-rating">4.9</div>
-                        <div class="stars" id="avg-gym-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <p class="rating-label">Promedio del Gimnasio</p>
-                    </div>
-                    <div class="rating-breakdown">
-                        <div class="breakdown-row">
-                            <span class="breakdown-label">Instalaciones</span>
-                            <div class="breakdown-bar-bg"><div class="breakdown-bar" style="width: 98%;"></div></div>
-                            <span class="breakdown-val" id="avg-gym-val">4.9</span>
-                        </div>
-                        <div class="breakdown-row">
-                            <span class="breakdown-label">Coaches</span>
-                            <div class="breakdown-bar-bg"><div class="breakdown-bar" style="width: 96%;"></div></div>
-                            <span class="breakdown-val" id="avg-coaches-val">4.8</span>
-                        </div>
-                        <div class="breakdown-row">
-                            <span class="breakdown-label">Recepción / Staff</span>
-                            <div class="breakdown-bar-bg"><div class="breakdown-bar" style="width: 94%;"></div></div>
-                            <span class="breakdown-val" id="avg-staff-val">4.7</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Lista de Opiniones públicas -->
-                <div class="reviews-list-wrapper mt-4">
-                    <h3 class="mb-4"><i class="fas fa-comments"></i> Opiniones de la Comunidad</h3>
-                    <div class="reviews-grid-list" id="public-reviews-list">
-                        <!-- Opiniones cargadas dinámicamente -->
-                    </div>
-                    <div class="text-center mt-4" id="reviews-login-promo">
-                        <p class="mb-2 text-muted">¿Quieres dejar tu valoración o ver opiniones de coaches específicos?</p>
-                        <button class="btn btn-outline" onclick="openAuthModal()">Iniciar Sesión para Valorar</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery & Zonas Corporales Section -->
-        <section id="gallery" class="section gallery-section">
-            <div class="container">
-                <div class="section-header text-center">
-                    <h2 class="section-title">NUESTRAS <span>INSTALACIONES</span></h2>
-                    <p class="section-desc">Explora nuestras áreas de entrenamiento y equipamiento premium con nuestro recorrido interactivo de 360°.</p>
-                </div>
-
-                <!-- 360 Viewer -->
-                <div class="tour-360-container glass-card mb-4">
-                    <div class="tour-header">
-                        <h3><i class="fas fa-vr-cardboard"></i> Recorrido Virtual 360°</h3>
-                        <p>Arrastra la imagen para explorar el área como si estuvieras ahí.</p>
-                    </div>
-                    <div id="panorama" class="panorama-viewer">
-                        <!-- Pannellum viewer will be injected here -->
-                        <div class="panorama-placeholder">
-                            <i class="fas fa-circle-notch fa-spin"></i> Cargando Visor 360°...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
 
         <!-- Location Section -->
-        <section id="location" class="section location-section" style="background-color: var(--bg-dark);">
+        <section id="location" class="section location-section" style="background-color: var(--bg-dark); color: var(--text-light);">
             <div class="container">
                 <div class="section-header text-center">
                     <h2 class="section-title">NUESTRA <span>UBICACIÓN</span></h2>
@@ -451,7 +454,7 @@
                     <ul>
                         <li><a href="https://wa.me/525567659004" target="_blank">Contacto</a></li>
                         <li><a href="#location">Indicar un Local</a></li>
-                        <li><a href="#" onclick="alert('Términos y Condiciones: La membresía es personal e intransferible. Los reembolsos se gestionan directamente en recepción.')">Términos y Condiciones</a></li>
+                        <li><a href="reglamento.html">Reglamento y Condiciones</a></li>
                         <li><a href="#" onclick="alert('Aviso de Privacidad: Tus datos están resguardados localmente bajo políticas de privacidad y protección de datos personales.')">Aviso de Privacidad</a></li>
                     </ul>
                 </div>

@@ -1,15 +1,18 @@
 :root {
-    --bg-dark: #121316; /* Basado en el fondo oscuro del escudo */
-    --bg-darker: #0d0e10;
-    --bg-card: rgba(255, 255, 255, 0.05);
-    --primary-color: #E62B2E; /* Rojo del logo */
+    --bg-page: #F0F2F5; /* Light gray background to highlight white cards */
+    --bg-section-alt: #FFFFFF; /* Blanco puro */
+    --bg-dark: #1A1A1A; /* Para el pie de página, footer y header */
+    --bg-darker: transparent;
+    --bg-card: #FFFFFF; /* Tarjetas blancas */
+    --primary-color: #E62B2E; /* Rojo Alliance */
     --primary-hover: #C52225;
-    --secondary-color: #8B8F94; /* Gris del borde interior */
-    --text-main: #f5f5f5;
-    --text-muted: #9aa0a6;
-    --glass-border: rgba(139, 143, 148, 0.2);
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --secondary-color: #DDDDDD; /* Gris neutro para bordes y detalles */
+    --text-main: #212529; /* Gris muy oscuro para texto principal (mejor legibilidad que negro puro) */
+    --text-muted: #6C757D; /* Gris medio para descripciones */
+    --text-light: #FFFFFF; /* Texto blanco sobre fondos oscuros */
+    --glass-border: #EAEAEA; /* Borde muy sutil para tarjetas blancas */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Roboto', sans-serif;
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -22,7 +25,7 @@
 
 body {
     font-family: var(--font-body);
-    background-color: var(--bg-dark);
+    background-color: var(--bg-page);
     color: var(--text-main);
     line-height: 1.6;
     overflow-x: hidden;
@@ -96,26 +99,27 @@ ul {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), #ff7a00);
+    background: var(--primary-color);
     color: #fff;
-    box-shadow: 0 4px 15px rgba(255, 77, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(230, 43, 46, 0.3);
 }
 
 .btn-primary:hover {
+    background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 77, 0, 0.5);
+    box-shadow: 0 6px 15px rgba(230, 43, 46, 0.4);
 }
 
 .btn-outline {
     background: transparent;
     color: var(--text-main);
-    border: 2px solid var(--glass-border);
-    backdrop-filter: blur(10px);
+    border: 2px solid var(--secondary-color);
 }
 
 .btn-outline:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
+    background: rgba(230, 43, 46, 0.05);
 }
 
 .btn-large {
@@ -129,20 +133,20 @@ ul {
 .mt-2 { margin-top: 1rem; }
 .mt-4 { margin-top: 2rem; }
 
-/* Glassmorphism */
+/* Solid Cards */
 .glass-card {
     background: var(--bg-card);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
-    border-radius: 20px;
+    border-radius: 12px;
     padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Lighter shadow */
     transition: var(--transition);
 }
 
 .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--secondary-color);
     transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 /* Navbar */
@@ -157,10 +161,13 @@ ul {
 }
 
 .navbar.scrolled {
-    background: rgba(5, 5, 5, 0.9);
-    backdrop-filter: blur(15px);
+    background: #111111; /* Always dark so white text and logo contrast */
     padding: 15px 0;
-    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.navbar {
+    color: var(--text-light);
 }
 
 .nav-container {
@@ -244,6 +251,16 @@ ul {
     align-items: center;
     position: relative;
     background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+    color: var(--text-light);
+}
+
+.hero .btn-outline {
+    color: #fff;
+    border-color: #fff;
+}
+.hero .btn-outline:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
 }
 
 .hero-overlay {
@@ -487,10 +504,10 @@ ul {
 .form-group input, .form-group select {
     width: 100%;
     padding: 12px 15px;
-    background: rgba(0, 0, 0, 0.5);
+    background: #fff;
     border: 1px solid var(--glass-border);
     border-radius: 6px;
-    color: #fff;
+    color: var(--text-main);
     font-family: var(--font-body);
     outline: none;
     transition: var(--transition);
@@ -551,7 +568,8 @@ ul {
 
 /* Footer */
 .footer {
-    background: #000;
+    background: #111;
+    color: var(--text-light);
     border-top: 1px solid var(--glass-border);
     padding: 60px 0 20px;
 }
@@ -583,8 +601,8 @@ ul {
 }
 
 .footer-brand-col p {
-    color: var(--text-muted);
-    margin-bottom: 20px;
+    color: #AAAAAA;
+    margin-bottom: 25px;
     max-width: 300px;
     font-size: 0.9rem;
 }
@@ -622,8 +640,7 @@ ul {
 }
 
 .footer-link-col ul li a {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    color: #AAAAAA;
     transition: var(--transition);
 }
 
@@ -662,7 +679,7 @@ ul {
 
 .plan-header h3 {
     font-size: 1.6rem;
-    color: #fff;
+    color: var(--text-main);
 }
 
 .plan-price {
@@ -674,7 +691,7 @@ ul {
 .plan-price span {
     font-size: 2.8rem;
     font-weight: 800;
-    color: #fff;
+    color: var(--text-main);
     font-family: var(--font-heading);
 }
 
@@ -689,7 +706,7 @@ ul {
     gap: 12px;
     margin-bottom: 15px;
     font-size: 0.95rem;
-    color: #eee;
+    color: var(--text-muted);
 }
 
 .plan-features li i {
@@ -762,7 +779,7 @@ ul {
 .rating-big {
     font-size: clamp(3rem, 10vw, 4.5rem);
     font-weight: 900;
-    color: #fff;
+    color: var(--text-main);
     line-height: 1;
     font-family: var(--font-heading);
 }
@@ -799,7 +816,7 @@ ul {
 .breakdown-bar-bg {
     flex-grow: 1;
     height: 8px;
-    background: #222;
+    background: #e0e0e0;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -813,7 +830,7 @@ ul {
 .breakdown-val {
     width: 30px;
     font-weight: 600;
-    color: #fff;
+    color: var(--text-main);
     text-align: right;
 }
 
@@ -845,7 +862,7 @@ ul {
 
 .rev-user {
     font-weight: 600;
-    color: #fff;
+    color: var(--text-main);
 }
 
 .rev-stars {
@@ -865,7 +882,7 @@ ul {
     margin-top: 15px;
     font-size: 0.75rem;
     color: var(--text-muted);
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid var(--glass-border);
     padding-top: 10px;
 }
 
@@ -911,6 +928,7 @@ ul {
     width: 100%;
     max-width: 500px;
     background: #0d0e10;
+    color: var(--text-light);
     border: 1px solid var(--glass-border);
     padding: 40px;
     border-radius: 16px;
@@ -1097,6 +1115,12 @@ ul {
     margin-bottom: 12px;
 }
 
+.nutrition-plan-card h3 {
+    font-family: var(--font-heading);
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
 .ticket-header h4 {
     font-family: var(--font-heading);
     letter-spacing: 1px;
@@ -1158,7 +1182,7 @@ ul {
     background: rgba(0,0,0,0.4);
     border: 1px solid var(--glass-border);
     border-radius: 4px;
-    color: #fff;
+    color: var(--text-main);
     padding: 8px;
     font-family: monospace;
     font-size: 0.9rem;
@@ -1223,7 +1247,7 @@ ul {
 
 .user-meta h4 {
     font-size: 0.95rem;
-    color: #fff;
+    color: #fff; /* It's in the dark sidebar! Keep #fff! Wait! Sidebar is dark. */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1292,7 +1316,13 @@ ul {
 
 .dash-content-header h2 {
     font-size: 2rem;
-    color: #fff;
+    color: var(--text-main);
+}
+
+.staff-dashboard-container h2 {
+    font-size: 2rem;
+    color: var(--text-main);
+    font-family: var(--font-heading);
 }
 
 .points-indicator {
@@ -1300,7 +1330,7 @@ ul {
     border: 1px solid var(--primary-color);
     padding: 8px 18px;
     border-radius: 30px;
-    color: #fff;
+    color: var(--text-main);
     font-weight: 700;
     font-family: var(--font-heading);
 }
@@ -1319,8 +1349,8 @@ ul {
 
 .widget-card h3 {
     font-size: 1.1rem;
-    color: #fff;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--text-main);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
@@ -1383,7 +1413,7 @@ ul {
 .points-number {
     font-size: 1.8rem;
     font-weight: 800;
-    color: #fff;
+    color: var(--text-main);
     font-family: var(--font-heading);
 }
 
@@ -1536,26 +1566,30 @@ ul {
     border-collapse: collapse;
     margin-top: 15px;
     font-size: 0.85rem;
-    color: #eee;
+    color: var(--text-main);
 }
 
 .dashboard-table th, .dashboard-table td {
     padding: 12px 15px;
     text-align: left;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .dashboard-table th {
-    background: rgba(0,0,0,0.3);
-    color: #fff;
+    background: rgba(0,0,0,0.05);
+    color: var(--text-main);
     font-weight: 600;
     text-transform: uppercase;
     font-size: 0.75rem;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+}
+
+.dashboard-table tbody tr {
+    transition: var(--transition);
 }
 
 .dashboard-table tbody tr:hover {
-    background: rgba(255,255,255,0.02);
+    background: rgba(0,0,0,0.02);
 }
 
 /* Rewards store grid */
@@ -1678,6 +1712,14 @@ ul {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.point.scanner-box h3 {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    text-shadow: none;
+}
+
 /* Staff Theme adjustments */
 .staff-theme .points-indicator {
     border-color: #00bcd4;
@@ -1703,6 +1745,13 @@ ul {
     border-radius: 8px;
     padding: 20px;
     color: #fff;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.scanner-result-box h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: var(--text-main);
     animation: fadeIn 0.4s ease-out;
 }
 
@@ -1932,8 +1981,9 @@ ul {
     padding-bottom: 15px;
 }
 
-.results-header h3 {
-    color: #fff;
+.result.dash-stat-row h3 {
+    margin: 0;
+    color: var(--text-main);
     font-size: 1.5rem;
     letter-spacing: 1px;
 }
@@ -2151,8 +2201,8 @@ ul {
     padding: 20px;
 }
 
-.meal-breakdown h4 {
-    color: #fff;
+.meal-card h4 {
+    color: var(--text-main);
     margin-bottom: 15px;
     font-size: 1.1rem;
     text-align: center;
