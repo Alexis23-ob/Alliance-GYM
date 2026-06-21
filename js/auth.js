@@ -1,4 +1,21 @@
 // LOGICA DE SUPABASE - SESIÓN GLOBAL
+
+// DUMMY OBJECT PARA EVITAR CRASHES EN MAIN.JS
+window.AllianceAuth = {
+    getCurrentUser: () => null,
+    getUsers: () => [],
+    login: () => ({success: false, message: 'Usar Supabase'}),
+    register: () => ({success: false, message: 'Usar Supabase'}),
+    purchaseMembership: () => ({success: false}),
+    logout: () => {}
+};
+
+// Sobrescribir función conflictiva de main.js
+window.openAuthModal = function(tab = 'login') {
+    document.getElementById('auth-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    window.switchAuthTab(tab);
+};
 supabase.auth.onAuthStateChange(async (event, session) => {
     const navBtn = document.getElementById('nav-portal-btn');
     const joinBtn = document.getElementById('nav-join-btn');
