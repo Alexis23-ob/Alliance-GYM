@@ -38,233 +38,113 @@
         return JSON.parse(localStorage.getItem(STORAGE_LOGS_KEY));
     }
 
-    // Validar acceso de un cliente mediante código de barras / QR
-    function validateQR(qrCodeInput) {
+    // Validar acceso de un cliente o canje de premio
+    async function validateQR(qrCodeInput) {
         initLogs();
-        const users = window.AllianceAuth.getUsers();
         const cleanInput = qrCodeInput.trim().toUpperCase();
-
-        // Normalizar código si se ingresó sin prefijo
+        
         let normalizedInput = cleanInput;
         if (cleanInput.length === 6 && !cleanInput.includes('-')) {
-            normalizedInput = 'ALLIANCE-RW-' + cleanInput;
-        } else if (cleanInput.startsWith('RW-')) {
-            normalizedInput = 'ALLIANCE-' + cleanInput;
+            normalizedInput = 'RW-' + cleanInput;
         }
 
-        // 1. Verificar si corresponde a un código de recompensa (ALLIANCE-RW-XXXXXX)
-        if (normalizedInput.startsWith('ALLIANCE-RW-')) {
-            let foundUser = null;
-            let foundReward = null;
-            let foundUserIndex = -1;
+        // 1. Verificar si corresponde a un código de recompensa corto (RW-XXXXXX)
+        if (normalizedInput.startsWith('RW-')) {
+            try {
+                // Llamar a la función de validación en Supabase (requiere rol de staff)
+                const { data, error } = await supabase.rpc('validate_reward_by_shortcode', {
+                    p_shortcode: normalizedInput
+                });
 
-            for (let i = 0; i < users.length; i++) {
-                const u = users[i];
-                if (u.redeemedRewards) {
-                    const r = u.redeemedRewards.find(item => item.code && item.code.toUpperCase() === normalizedInput);
-                    if (r) {
-                        foundUser = u;
-                        foundReward = r;
-                        foundUserIndex = i;
-                        break;
-                    }
+                if (error) throw error;
+
+                if (!data.success) {
+                    return { success: false, message: data.message };
                 }
-            }
 
-            if (!foundUser || !foundReward) {
-                return { success: false, message: 'Código de recompensa no válido o no encontrado.' };
-            }
-
-            if (foundReward.status !== 'Pendiente') {
-                return { success: false, message: `Esta recompensa ya fue validada previamente el ${foundReward.date}.` };
-            }
-
-            // Validar la recompensa
-            foundReward.status = 'Entregado/Aplicado';
-            foundReward.date = new Date().toISOString().split('T')[0]; // Guardar fecha de validación
-
-            let benefitMessage = '';
-            if (foundReward.category === 'membership') {
-                const currentEndDate = new Date(foundUser.membership.endDate || new Date());
-                currentEndDate.setDate(currentEndDate.getDate() + (foundReward.value || 30));
-                foundUser.membership.endDate = currentEndDate.toISOString().split('T')[0];
-                foundUser.membership.active = true;
-                foundUser.membership.status = 'active';
-                benefitMessage = `Membresía extendida por ${foundReward.value} días (Vence el ${foundUser.membership.endDate}).`;
-            } else if (foundReward.category === 'discount') {
-                benefitMessage = `Descuento del ${Math.round((foundReward.value || 0.20) * 100)}% aplicado a su cuenta.`;
-            } else {
-                benefitMessage = `Entregar producto físico al socio: ${foundReward.rewardName}.`;
-            }
-
-            // Guardar cambios en el usuario
-            users[foundUserIndex] = foundUser;
-            localStorage.setItem('alliance_gym_users', JSON.stringify(users));
-
-            // Sincronizar sesión activa si es el mismo usuario
-            const currentUser = window.AllianceAuth.getCurrentUser();
-            if (currentUser && currentUser.id === foundUser.id) {
-                localStorage.setItem('alliance_gym_current_user', JSON.stringify(foundUser));
-            }
-
-            // Registrar acción en logs de recepción
-            const checkinLogs = getCheckinLogs();
-            const today = new Date().toISOString().split('T')[0];
-            const nowTime = new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-            checkinLogs.unshift({
-                id: 'log_' + Date.now(),
-                userName: foundUser.name,
-                userEmail: foundUser.email,
-                date: today,
-                time: nowTime,
-                status: `Canje Validado: ${foundReward.rewardName}`
-            });
-            localStorage.setItem('alliance_gym_checkins', JSON.stringify(checkinLogs));
-
-            return {
-                success: true,
-                isReward: true,
-                user: foundUser,
-                rewardName: foundReward.rewardName,
-                code: foundReward.code,
-                benefitMessage: benefitMessage,
-                message: `¡Recompensa Canjeada con Éxito! Socio: ${foundUser.name}. Premio: ${foundReward.rewardName}. Detalle: ${benefitMessage}`
-            };
-        }
-
-        // Buscar usuario por su código QR o por su correo
-        const user = users.find(u => 
-            (u.qrCode && u.qrCode.toLowerCase() === qrCodeInput.trim().toLowerCase()) ||
-            u.email.toLowerCase() === qrCodeInput.trim().toLowerCase()
-        );
-
-        if (!user) {
-            return { success: false, message: 'El código QR o correo ingresado no corresponde a ningún socio registrado.' };
-        }
-
-        const today = new Date().toISOString().split('T')[0];
-        const nowTime = new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-        const checkinLogs = getCheckinLogs();
-
-        // Verificar estatus de membresía
-        const hasActiveMembership = user.membership && user.membership.active && user.membership.status === 'active';
-        
-        // Si el plan venció por fecha, actualizar estatus
-        if (hasActiveMembership && user.membership.endDate) {
-            const expDate = new Date(user.membership.endDate);
-            const todayDate = new Date();
-            if (todayDate > expDate) {
-                // Membresía vencida
-                user.membership.active = false;
-                user.membership.status = 'expired';
-                // Guardar cambios en el usuario
-                const userIndex = users.findIndex(u => u.id === user.id);
-                users[userIndex] = user;
-                localStorage.setItem('alliance_gym_users', JSON.stringify(users));
-                
-                // Registrar acceso denegado
-                const log = {
+                // Registrar acción en logs locales de recepción (para visualización rápida)
+                const checkinLogs = getCheckinLogs();
+                const today = new Date().toISOString().split('T')[0];
+                const nowTime = new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+                checkinLogs.unshift({
                     id: 'log_' + Date.now(),
-                    userName: user.name,
-                    userEmail: user.email,
+                    userName: data.memberName,
+                    userEmail: 'Socio: ' + data.memberNumber,
                     date: today,
                     time: nowTime,
-                    status: 'Acceso Denegado (Membresía Expirada)'
-                };
-                checkinLogs.unshift(log);
-                localStorage.setItem(STORAGE_LOGS_KEY, JSON.stringify(checkinLogs));
-
-                return { success: false, expired: true, user: user, message: `Acceso Denegado. La membresía de ${user.name} expiró el ${user.membership.endDate}.` };
-            }
-        }
-
-        if (!hasActiveMembership) {
-            // Registrar acceso denegado por inactividad
-            const log = {
-                id: 'log_' + Date.now(),
-                userName: user.name,
-                userEmail: user.email,
-                date: today,
-                time: nowTime,
-                status: 'Acceso Denegado (Sin Membresía Activa)'
-            };
-            checkinLogs.unshift(log);
-            localStorage.setItem(STORAGE_LOGS_KEY, JSON.stringify(checkinLogs));
-
-            return { success: false, user: user, message: `Acceso Denegado. El socio ${user.name} no cuenta con una membresía activa.` };
-        }
-
-        // Registrar acceso permitido
-        const log = {
-            id: 'log_' + Date.now(),
-            userName: user.name,
-            userEmail: user.email,
-            date: today,
-            time: nowTime,
-            status: `Acceso Permitido (${user.membership.planName})`
-        };
-        checkinLogs.unshift(log);
-        localStorage.setItem(STORAGE_LOGS_KEY, JSON.stringify(checkinLogs));
-
-        // Asignar puntos por asistencia (+50 puntos)
-        window.AlliancePoints.addPoints(user.id, 50, 'Asistencia diaria registrada en recepción');
-
-        return { 
-            success: true, 
-            user: user, 
-            message: `¡Acceso Permitido! Socio: ${user.name}. Plan: ${user.membership.planName}. Vigencia: al ${user.membership.endDate}. Se le otorgaron +50 puntos.` 
-        };
-    }
-
-    // Obtener todas las citas consolidadas de todos los usuarios
-    function getAllAppointments() {
-        const users = window.AllianceAuth.getUsers();
-        let allApps = [];
-        
-        users.forEach(user => {
-            if (user.appointments && Array.isArray(user.appointments)) {
-                user.appointments.forEach(app => {
-                    allApps.push({
-                        ...app,
-                        userId: user.id,
-                        userName: user.name,
-                        userEmail: user.email
-                    });
+                    status: `Canje Validado: ${data.rewardName}`
                 });
-            }
-        });
+                localStorage.setItem('alliance_gym_checkins', JSON.stringify(checkinLogs));
 
-        // Ordenar por fecha y hora más cercana
-        return allApps.sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
-    }
-
-    // Actualizar estatus de cita (Completada, Cancelada)
-    function updateAppointmentStatus(userId, appointmentId, newStatus) {
-        const users = window.AllianceAuth.getUsers();
-        const userIndex = users.findIndex(u => u.id === userId);
-
-        if (userIndex !== -1) {
-            const user = users[userIndex];
-            const appIndex = user.appointments.findIndex(a => a.id === appointmentId);
-            if (appIndex !== -1) {
-                user.appointments[appIndex].status = newStatus;
-                
-                // Si la cita de primera visita se completa, dar un premio de bienvenida de 100 puntos extra
-                if (newStatus === 'Completada' && user.appointments[appIndex].type.includes('visita')) {
-                    user.points = (user.points || 0) + 100;
-                    user.pointsHistory.unshift({
-                        date: new Date().toISOString().split('T')[0],
-                        points: 100,
-                        description: 'Primera visita completada - inducción técnica'
-                    });
-                }
-                
-                users[userIndex] = user;
-                localStorage.setItem('alliance_gym_users', JSON.stringify(users));
-                return { success: true };
+                return {
+                    success: true,
+                    isReward: true,
+                    user: { name: data.memberName },
+                    rewardName: data.rewardName,
+                    code: normalizedInput,
+                    benefitMessage: `Entregar producto/beneficio al socio.`,
+                    message: `¡Recompensa Canjeada con Éxito! Socio: ${data.memberName}. Premio: ${data.rewardName}.`
+                };
+            } catch (err) {
+                console.error("Error validando premio:", err);
+                return { success: false, message: "Error conectando a la base de datos o permisos insuficientes." };
             }
         }
-        return { success: false, message: 'No se encontró la cita.' };
+
+        // Si no es un código RW-, podríamos validar membresía (dejado como simulación por ahora)
+        return { success: false, message: 'La validación de membresías por código no está conectada a la base de datos en esta versión. Usa códigos de premio (RW-XXXXXX).' };
+    }
+
+    // Obtener todas las citas consolidadas de la base de datos
+    async function getAllAppointments() {
+        try {
+            const { data, error } = await supabase
+                .from('appointments')
+                .select(`
+                    id, 
+                    service_type, 
+                    appointment_date, 
+                    appointment_time, 
+                    coach, 
+                    status,
+                    member_number,
+                    members (full_name)
+                `)
+                .order('appointment_date', { ascending: true });
+
+            if (error) throw error;
+
+            return data.map(app => ({
+                id: app.id,
+                userId: app.member_number,
+                userName: app.members ? app.members.full_name : 'Desconocido',
+                userEmail: 'Socio: ' + app.member_number,
+                type: app.service_type,
+                date: app.appointment_date,
+                time: app.appointment_time || 'Por asignar',
+                coach: app.coach || 'Por asignar',
+                status: app.status
+            }));
+        } catch (err) {
+            console.error("Error obteniendo citas globales:", err);
+            return [];
+        }
+    }
+
+    // Actualizar estatus de cita (Completada, Cancelada) en Supabase
+    async function updateAppointmentStatus(userId, appointmentId, newStatus) {
+        try {
+            const { error } = await supabase
+                .from('appointments')
+                .update({ status: newStatus })
+                .eq('id', appointmentId);
+
+            if (error) throw error;
+            return { success: true };
+        } catch (err) {
+            console.error("Error actualizando cita:", err);
+            return { success: false, message: 'Error de base de datos.' };
+        }
     }
 
     // Exponer API global del personal

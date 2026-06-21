@@ -1228,7 +1228,7 @@ window.closeRewardModal = function() {
 };
 
 // ----------------- TAB CONTROL STAFF -----------------
-function updateStaffDashboardUI(staffUser) {
+async function updateStaffDashboardUI(staffUser) {
     document.getElementById('dash-staff-name').innerText = staffUser.name;
     document.getElementById('dash-staff-role').innerText = staffUser.staffRole;
 
@@ -1309,10 +1309,10 @@ function updateStaffDashboardUI(staffUser) {
         `;
     });
 
-    // Control de citas del personal
+// Control de citas del personal
     const staffAppsList = document.getElementById('staff-appointments-list');
     staffAppsList.innerHTML = '';
-    const apps = window.AllianceStaff.getAllAppointments();
+    const apps = await window.AllianceStaff.getAllAppointments();
 
     if (apps.length > 0) {
         apps.forEach(a => {
@@ -1370,7 +1370,7 @@ function updateStaffDashboardUI(staffUser) {
 }
 
 // Recepcionista valida QR
-window.handleQRValidation = function() {
+window.handleQRValidation = async function() {
     const inputVal = document.getElementById('staff-qr-input').value;
     const resultBox = document.getElementById('scanner-result');
 
@@ -1379,7 +1379,7 @@ window.handleQRValidation = function() {
         return;
     }
 
-    const res = window.AllianceStaff.validateQR(inputVal);
+    const res = await window.AllianceStaff.validateQR(inputVal);
     resultBox.style.display = 'block';
     
     if (res.success) {
@@ -1442,11 +1442,11 @@ window.changeTicketStatus = function(ticketId, newStatus) {
 };
 
 // Cambiar estatus de cita
-window.changeAppointmentState = function(userId, appointmentId, newState) {
-    const res = window.AllianceStaff.updateAppointmentStatus(userId, appointmentId, newState);
+window.changeAppointmentState = async function(userId, appointmentId, newState) {
+    const res = await window.AllianceStaff.updateAppointmentStatus(userId, appointmentId, newState);
     if (res.success) {
         showToast(`Cita marcada como: ${newState}.`, 'success');
-        updateStaffDashboardUI(window.AllianceAuth.getCurrentUser());
+        updateStaffDashboardUI({name: document.getElementById('dash-staff-name').innerText, staffRole: document.getElementById('dash-staff-role').innerText});
     } else {
         showToast(res.message, 'error');
     }

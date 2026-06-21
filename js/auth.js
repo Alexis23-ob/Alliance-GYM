@@ -31,19 +31,35 @@ supabase.auth.onAuthStateChange(async (event, session) => {
                 if (navbarEl) navbarEl.style.display = 'none';
                 
                 // Mostrar dashboard
-                document.getElementById('client-dashboard').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+                document.getElementById('client-dashboard').style.display = 'none';
+                document.getElementById('staff-dashboard').style.display = 'none';
+
                 window.scrollTo(0, 0);
                 
                 // Cargar datos
-                const { data: memberData } = await supabase.from('members').select('full_name, member_number').eq('id', session.user.id).single();
+                const { data: memberData } = await supabase.from('members').select('full_name, member_number, role').eq('id', session.user.id).single();
                 if (memberData) {
-                    document.getElementById('dash-client-name').innerText = memberData.full_name;
-                    document.getElementById('dash-client-email').innerText = 'Socio: ' + memberData.member_number;
-                }
+                    if (memberData.role === 'staff') {
+                        // Es administrador/staff
+                        document.getElementById('staff-dashboard').style.display = 'flex';
+                        document.getElementById('dash-staff-name').innerText = memberData.full_name;
+                        document.getElementById('dash-staff-role').innerText = 'Administrador';
+                        
+                        // Cargar scripts de staff conectados a Supabase
+                        window.updateStaffDashboardUI({
+                            name: memberData.full_name,
+                            staffRole: 'Administrador'
+                        });
+                    } else {
+                        // Es cliente normal
+                        document.getElementById('client-dashboard').style.display = 'flex';
+                        document.getElementById('dash-client-name').innerText = memberData.full_name;
+                        document.getElementById('dash-client-email').innerText = 'Socio: ' + memberData.member_number;
 
-                if (window.loadUserAppointments) window.loadUserAppointments();
-                if (window.loadUserRewards) window.loadUserRewards();
+                        if (window.loadUserAppointments) window.loadUserAppointments();
+                        if (window.loadUserRewards) window.loadUserRewards();
+                    }
+                }
             };
         }
         if (joinBtn) joinBtn.style.display = 'none';
