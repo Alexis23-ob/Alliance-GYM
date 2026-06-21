@@ -63,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 2. Cargar las citas del usuario al abrir el dashboard
-    // Se llamará externamente cuando el usuario inicie sesión o abra la pestaña
     window.loadUserAppointments = async function() {
         const listEl = document.getElementById('client-appointments-list');
         if (!listEl) return;
@@ -72,15 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const { data: { user } } = await supabase.auth.getUser();
-            if (!user) return;
+            if (!user) {
+                listEl.innerHTML = '<tr><td colspan="5" class="text-center text-danger">No has iniciado sesión.</td></tr>';
+                return;
+            }
 
-            const { data: memberData } = await supabase
+            const { data: memberData, error: memError } = await supabase
                 .from('members')
                 .select('member_number')
                 .eq('id', user.id)
                 .single();
 
-            if (!memberData) return;
+            if (memError || !memberData) {
+                listEl.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Error: Cuenta de socio no vinculada en la base de datos. Verifica tu panel de Supabase.</td></tr>';
+                return;
+            }
 
             // Buscar citas de este socio
             const { data: appointments, error } = await supabase

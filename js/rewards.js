@@ -40,13 +40,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) return;
 
-            const { data: memberData } = await supabase
+            const { data: memberData, error: memError } = await supabase
                 .from('members')
                 .select('member_number')
                 .eq('id', user.id)
                 .single();
 
-            if (!memberData) return;
+            if (memError || !memberData) {
+                historyEl.innerHTML = '<tr><td colspan="4" class="text-center text-danger">Error: Cuenta de socio no encontrada. Revisa la base de datos de Supabase.</td></tr>';
+                return;
+            }
 
             // Buscar canjes de este socio
             const { data: redemptions, error } = await supabase
