@@ -24,9 +24,24 @@ supabase.auth.onAuthStateChange(async (event, session) => {
         // Está logueado en Supabase
         if (navBtn) {
             navBtn.innerHTML = `<i class="fas fa-user-circle"></i> Mi Panel`;
-            navBtn.onclick = () => {
+            navBtn.onclick = async () => {
+                // Ocultar la página pública para mostrar el dashboard completo
+                document.getElementById('public-site').style.display = 'none';
+                const navbarEl = document.getElementById('navbar');
+                if (navbarEl) navbarEl.style.display = 'none';
+                
+                // Mostrar dashboard
                 document.getElementById('client-dashboard').style.display = 'flex';
                 document.body.style.overflow = 'hidden';
+                window.scrollTo(0, 0);
+                
+                // Cargar datos
+                const { data: memberData } = await supabase.from('members').select('full_name, member_number').eq('id', session.user.id).single();
+                if (memberData) {
+                    document.getElementById('dash-client-name').innerText = memberData.full_name;
+                    document.getElementById('dash-client-email').innerText = 'Socio: ' + memberData.member_number;
+                }
+
                 if (window.loadUserAppointments) window.loadUserAppointments();
                 if (window.loadUserRewards) window.loadUserRewards();
             };
@@ -142,8 +157,6 @@ document.getElementById('auth-login-form').addEventListener('submit', async (e) 
         if (error) throw error;
 
         alert('¡Bienvenido!');
-        closeAuthModal();
-        window.location.reload(); // Recargar para actualizar el dashboard
     } catch (error) {
         alert('Error al iniciar sesión: ' + error.message);
     } finally {
