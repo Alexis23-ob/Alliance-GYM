@@ -100,12 +100,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dateObj = new Date(red.redeemed_at);
                 const dateStr = dateObj.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
                 
+                let statusHTML = `<span class="badge badge-success">${red.status}</span>`;
+                if (red.status === 'Pendiente') {
+                    // Usamos el ID del registro en Supabase (UUID) como código de validación
+                    statusHTML = `
+                        <span class="badge badge-inactive">${red.status}</span>
+                        <button class="btn btn-outline btn-sm" onclick="showRewardQR('${red.id}', '${red.reward_name.replace(/'/g, "\\'")}', 'Pendiente')" style="padding: 2px 8px; font-size: 0.75rem; margin-left: 8px;">
+                            <i class="fas fa-qrcode"></i> Ver QR
+                        </button>
+                    `;
+                }
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${dateStr}</td>
                     <td><strong>${red.reward_name}</strong></td>
                     <td class="text-danger">-${red.cost} pts</td>
-                    <td><span class="badge badge-success">${red.status}</span></td>
+                    <td>${statusHTML}</td>
                 `;
                 historyEl.appendChild(tr);
             });
@@ -124,17 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // Mostrar estado de carga (podríamos bloquear la pantalla)
             alert("Procesando canje... por favor espera.");
 
             // Llamar a la función segura (RPC) en Supabase
-            const { data, error } = await supabase.rpc('redeem_reward_secure', {
+            const { error } = await supabase.rpc('redeem_reward_secure', {
                 p_reward_name: rewardName,
                 p_cost: cost
             });
 
             if (error) {
-                // Si la base de datos lanza la excepción 'Puntos insuficientes'
                 if (error.message.includes('Puntos insuficientes')) {
                     alert("❌ No tienes suficientes puntos para esta recompensa.");
                 } else {
@@ -143,13 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            alert(`✅ ¡Éxito! Has canjeado: ${rewardName}.`);
+            alert(`✅ ¡Éxito! Has canjeado: ${rewardName}. Revisa tu historial para obtener el código QR de validación.`);
             
-            // Recargar datos en la UI
-            if (window.loadUserAppointments) { // Reutilizamos el trigger principal del dashboard
-                // Recargamos la página entera para que se actualice todo el header y los puntos totales
-                window.location.reload(); 
-            }
+            // Recargar datos dinámicamente sin recargar la página
+            if (window.updateGlobalPoints) await window.updateGlobalPoints();
+            if (window.loadUserRewards) await window.loadUserRewards();
 
         } catch (error) {
             console.error("Error en el canje:", error);
