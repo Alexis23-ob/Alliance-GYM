@@ -321,9 +321,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Formulario de citas interno (Cliente)
     const clientAppForm = document.getElementById('dash-appointment-form');
-    if (clientAppForm) {
+    /* if (clientAppForm) {
         clientAppForm.addEventListener('submit', handleClientAppointmentSubmit);
-    }
+    } */
 
     // Formulario de Registro en Pasarela de Pago
     const checkoutRegisterForm = document.getElementById('checkout-register-form');

@@ -1,3 +1,29 @@
+// LOGICA DE SUPABASE - SESIÓN GLOBAL
+supabase.auth.onAuthStateChange(async (event, session) => {
+    const navBtn = document.getElementById('nav-portal-btn');
+    const joinBtn = document.getElementById('nav-join-btn');
+    
+    if (session && session.user) {
+        // Está logueado en Supabase
+        if (navBtn) {
+            navBtn.innerHTML = `<i class="fas fa-user-circle"></i> Mi Panel`;
+            navBtn.onclick = () => {
+                document.getElementById('client-dashboard').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                if (window.loadUserAppointments) window.loadUserAppointments();
+            };
+        }
+        if (joinBtn) joinBtn.style.display = 'none';
+    } else {
+        // No está logueado
+        if (navBtn) {
+            navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Mi Cuenta';
+            navBtn.onclick = () => openAuthModal();
+        }
+        if (joinBtn) joinBtn.style.display = 'inline-block';
+    }
+});
+
 // Funciones de navegación del modal de Auth
 function showForgotPassword() {
     document.getElementById('auth-login-form').style.display = 'none';
