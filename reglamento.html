@@ -44,8 +44,8 @@
             margin-left: auto;
             margin-right: auto;
         }
-        .qr-box img {
-            max-width: 200px;
+        .qr-box img#reglamento-qr {
+            max-width: 250px;
             margin-top: 15px;
             border: 5px solid #fff;
         }
@@ -235,10 +235,15 @@
 
                 <!-- QR Generator Box -->
                 <div class="qr-box">
-                    <h3 style="margin-top:0; color:#E62B2E; font-family:'Outfit', sans-serif;">CÓDIGO QR DEL REGLAMENTO</h3>
+                    <h3 style="margin-top:0; color:#E62B2E; font-family: var(--font-heading);">CÓDIGO QR DEL REGLAMENTO</h3>
                     <p style="font-size: 0.9rem; margin-bottom: 15px; color:#555;">Imprime este recuadro y colócalo en tu gimnasio. Al escanearlo, los socios podrán leer las normas en su celular.</p>
-                    <img id="reglamento-qr" src="" alt="Cargando Código QR...">
-                    <button class="btn btn-primary" style="margin-top: 20px; font-size: 0.8rem; padding: 10px 20px;" onclick="window.print()">Imprimir Código QR</button>
+                    
+                    <div style="position: relative; display: inline-block; margin-top: 15px;">
+                        <img id="reglamento-qr" src="" alt="Cargando Código QR..." style="border: 5px solid #fff; max-width: 250px; margin-top: 0; display: block;">
+                        <img src="img/logo.png" alt="Alliance Logo" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 55px; background: #fff; padding: 4px; border-radius: 8px; z-index: 10;">
+                    </div>
+
+                    <button class="btn btn-primary" style="margin-top: 20px; font-size: 0.8rem; padding: 10px 20px; display: block; margin-left: auto; margin-right: auto;" onclick="window.print()"><i class="fas fa-print"></i> Imprimir Código QR</button>
                 </div>
             </div>
         </div>
@@ -262,7 +267,8 @@
             }
             
             const qrImage = document.getElementById('reglamento-qr');
-            qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(targetUrl)}&color=000000&bgcolor=ffffff`;
+            // Usamos ecc=H (Error Correction High) para que el QR siga siendo legible aunque el logo tape el centro
+            qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&ecc=H&data=${encodeURIComponent(targetUrl)}&color=000000&bgcolor=ffffff`;
         });
     </script>
 </body>
