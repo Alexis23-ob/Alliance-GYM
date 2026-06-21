@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 0. Actualizar Puntos en toda la Interfaz
+    // 0. Actualizar Puntos en toda la Interfaz y dibujar el catálogo
     window.updateGlobalPoints = async function() {
         try {
             const { data: { user } } = await supabase.auth.getUser();
@@ -14,13 +14,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 .eq('id', user.id)
                 .single();
 
+            let pts = 0;
             if (memberData) {
-                const pts = memberData.points || 0;
+                pts = memberData.points || 0;
                 // Actualizar en el resumen y en la pestaña de recompensas
                 const summaryPts = document.getElementById('dash-points-balance');
                 const rewardsPts = document.getElementById('rewards-points-val');
                 if (summaryPts) summaryPts.innerText = pts;
                 if (rewardsPts) rewardsPts.innerText = pts;
+            }
+
+            // Dibujar el catálogo de recompensas usando los puntos actuales
+            if (window.AlliancePoints) {
+                const catalog = window.AlliancePoints.getCatalog();
+                const catalogList = document.getElementById('rewards-catalog-list');
+                if (catalogList) {
+                    catalogList.innerHTML = '';
+                    catalog.forEach(item => {
+                        const canRedeem = pts >= item.points;
+                        const btnClass = canRedeem ? 'btn-primary' : 'btn-outline';
+                        const btnDisabled = canRedeem ? '' : 'disabled style="opacity: 0.5; cursor: not-allowed;"';
+                        
+                        catalogList.innerHTML += `
+                            <div class="reward-item-card glass-card">
+                                <div>
+                                    <div class="reward-img-holder" style="background-image: url('${item.image || 'https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=200'}');"></div>
+                                    <h4 class="reward-name">${item.name}</h4>
+                                    <span class="reward-points-cost"><i class="fas fa-gem"></i> ${item.points} pts</span>
+                                    <p class="reward-desc">${item.description}</p>
+                                </div>
+                                <button class="btn ${btnClass} w-100" ${btnDisabled} onclick="redeemStoreItem('${item.id}', ${item.points})">
+                                    Canjear Premio
+                                </button>
+                            </div>
+                        `;
+                    });
+                }
             }
         } catch(e) {
             console.error("Error fetching points:", e);
