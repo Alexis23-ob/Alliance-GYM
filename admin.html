@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración | Alliance GYM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        body {
+            background-color: #f4f6f8;
+            color: #333;
+        }
+        .admin-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .file-upload-box {
+            border: 2px dashed #ccc;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+            background: #fafafa;
+        }
+        .log-console {
+            background: #111;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 8px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <img src="img/logo.png" alt="Logo" style="width: 80px; margin-bottom: 10px;">
+            <h1 style="font-family: var(--font-heading);">Portal de Staff</h1>
+            <p style="color: var(--text-muted);">Sincronizador de Base de Datos</p>
+        </div>
+
+        <h3>1. Actualizar Base de Datos desde Excel</h3>
+        <p style="font-size: 0.9rem; color: #666;">Selecciona el archivo Excel (.xlsx) exportado de Gym Hdelon. El sistema buscará la columna "ID" o "Numero" y actualizará los puntos de los socios.</p>
+        
+        <div class="file-upload-box">
+            <input type="file" id="excel-file" accept=".xlsx, .xls, .csv" style="display: none;">
+            <label for="excel-file" class="btn btn-primary" style="cursor: pointer;">
+                <i class="fas fa-file-excel"></i> Seleccionar Archivo Excel
+            </label>
+            <p id="file-name" style="margin-top: 15px; font-weight: bold; color: var(--primary-color);"></p>
+        </div>
+
+        <button id="btn-sync" class="btn btn-primary" style="width: 100%; display: none;" onclick="processExcel()">Comenzar Sincronización a Supabase</button>
+
+        <div class="log-console" id="log-console">
+            > Sistema listo. Esperando archivo...<br>
+        </div>
+    </div>
+
+    <!-- Librerías Necesarias -->
+    <!-- SheetJS para leer Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+
+    <script>
+        const fileInput = document.getElementById('excel-file');
+        const fileNameDisplay = document.getElementById('file-name');
+        const btnSync = document.getElementById('btn-sync');
+        const logConsole = document.getElementById('log-console');
+
+        let parsedData = [];
+
+        function log(message) {
+            logConsole.innerHTML += `> ${message}<br>`;
+            logConsole.scrollTop = logConsole.scrollHeight;
+        }
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            fileNameDisplay.innerText = "Archivo cargado: " + file.name;
+            log(`Leyendo archivo: ${file.name}...`);
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const data = new Uint8Array(event.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+                
+                // Asumimos que la información está en la primera hoja
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                
+                // Convertir a JSON
+                parsedData = XLSX.utils.sheet_to_json(worksheet);
+                
+                log(`Se encontraron ${parsedData.length} registros en el Excel.`);
+                log("¡Listo para sincronizar! Revisa si las columnas son correctas.");
+                
+                // Imprimir el primer registro como ejemplo para depurar las columnas
+                if (parsedData.length > 0) {
+                    log("Ejemplo de columnas detectadas: " + Object.keys(parsedData[0]).join(", "));
+                }
+
+                btnSync.style.display = 'block';
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        async function processExcel() {
+            if (parsedData.length === 0) return;
+            
+            btnSync.disabled = true;
+            btnSync.innerText = "Sincronizando...";
+            log("Iniciando subida a Supabase...");
+
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (let i = 0; i < parsedData.length; i++) {
+                const row = parsedData[i];
+                
+                // AQUI TENDREMOS QUE AJUSTAR LOS NOMBRES DE LAS COLUMNAS SEGÚN LO QUE EL USUARIO CONFIRME
+                // Supongamos que el Excel tiene columnas "NumeroSocio", "Nombre" y "Puntos"
+                const memberId = row['NumeroSocio'] || row['ID'] || row['id'] || row['Socio'] || row['Numero']; 
+                const points = row['Puntos'] || row['puntos'] || 0;
+                const name = row['Nombre'] || row['nombre'] || 'Socio ' + memberId;
+
+                if (!memberId) {
+                    log(`Fila ${i+1}: Ignorada. No se encontró Número de Socio.`);
+                    continue;
+                }
+
+                try {
+                    // Usamos UPSERT: Inserta si no existe, actualiza si ya existe
+                    const { error } = await supabase
+                        .from('members')
+                        .upsert({ 
+                            member_number: String(memberId), 
+                            points: parseInt(points) || 0,
+                            full_name: name
+                        }, { onConflict: 'member_number' });
+
+                    if (error) throw error;
+                    successCount++;
+                } catch (err) {
+                    errorCount++;
+                    console.error("Error al subir socio " + memberId, err);
+                }
+            }
+
+            log(`<b>PROCESO TERMINADO</b>`);
+            log(`Éxitos: ${successCount} | Errores: ${errorCount}`);
+            btnSync.disabled = false;
+            btnSync.innerText = "Comenzar Sincronización a Supabase";
+        }
+    </script>
+</body>
+</html>

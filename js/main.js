@@ -248,14 +248,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Eventos de Modales de Autenticación
     const authLoginForm = document.getElementById('auth-login-form');
-    if (authLoginForm) {
+    /* if (authLoginForm) {
         authLoginForm.addEventListener('submit', handleLogin);
-    }
+    } */
 
     const authRegisterForm = document.getElementById('auth-register-form');
-    if (authRegisterForm) {
+    /* if (authRegisterForm) {
         authRegisterForm.addEventListener('submit', handleRegister);
-    }
+    } */
 
     // Configuración del Selector de Estrellas para Feedback
     const starButtons = document.querySelectorAll('#stars-selector .star-btn');
