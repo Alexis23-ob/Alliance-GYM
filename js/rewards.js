@@ -102,12 +102,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 let statusHTML = `<span class="badge badge-success">${red.status}</span>`;
                 if (red.status === 'Pendiente') {
-                    // Usamos el ID del registro en Supabase (UUID) como código de validación
+                    // Generar un código corto a partir del UUID de Supabase (ej: RW-A1B2C3)
+                    const shortCode = 'RW-' + red.id.substring(0, 6).toUpperCase();
                     statusHTML = `
                         <span class="badge badge-inactive">${red.status}</span>
-                        <button class="btn btn-outline btn-sm" onclick="showRewardQR('${red.id}', '${red.reward_name.replace(/'/g, "\\'")}', 'Pendiente')" style="padding: 2px 8px; font-size: 0.75rem; margin-left: 8px;">
-                            <i class="fas fa-qrcode"></i> Ver QR
-                        </button>
+                        <span style="display: inline-block; background: var(--bg-lighter); padding: 2px 8px; border-radius: 4px; font-family: monospace; font-weight: bold; font-size: 0.85rem; margin-left: 8px; border: 1px dashed var(--glass-border); color: var(--text-main);">
+                            <i class="fas fa-ticket-alt"></i> ${shortCode}
+                        </span>
                     `;
                 }
 
