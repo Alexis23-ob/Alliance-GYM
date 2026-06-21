@@ -189,16 +189,15 @@ ul {
 }
 
 .logo-img {
-    height: 45px;
+    height: 60px;
     width: auto;
-    border-radius: 8px; /* Borde redondeado para el fondo blanco */
-    box-shadow: 0 0 10px rgba(230, 43, 46, 0.3);
+    filter: drop-shadow(0 0 8px rgba(230, 43, 46, 0.5));
     transition: var(--transition);
 }
 
 .logo:hover .logo-img {
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(230, 43, 46, 0.6);
+    filter: drop-shadow(0 0 15px rgba(230, 43, 46, 0.8));
 }
 
 .nav-links {
@@ -2257,7 +2256,7 @@ ul {
         font-size: 1.5rem;
     }
     .logo-img {
-        height: 38px;
+        height: 48px;
     }
     .nav-auth-buttons {
         gap: 10px;
