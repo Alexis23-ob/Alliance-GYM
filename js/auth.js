@@ -11,6 +11,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
                 document.getElementById('client-dashboard').style.display = 'flex';
                 document.body.style.overflow = 'hidden';
                 if (window.loadUserAppointments) window.loadUserAppointments();
+                if (window.loadUserRewards) window.loadUserRewards();
             };
         }
         if (joinBtn) joinBtn.style.display = 'none';
