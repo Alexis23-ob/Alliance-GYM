@@ -7,7 +7,9 @@ window.AllianceAuth = {
     login: () => ({success: false, message: 'Usar Supabase'}),
     register: () => ({success: false, message: 'Usar Supabase'}),
     purchaseMembership: () => ({success: false}),
-    logout: () => {}
+    logout: async () => {
+        await supabase.auth.signOut();
+    }
 };
 
 // Sobrescribir función conflictiva de main.js
