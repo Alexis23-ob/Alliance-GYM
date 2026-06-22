@@ -1232,14 +1232,40 @@ async function updateStaffDashboardUI(staffUser) {
     document.getElementById('dash-staff-name').innerText = staffUser.name;
     document.getElementById('dash-staff-role').innerText = staffUser.staffRole;
 
-    // Control de visibilidad del panel webconfig (Modificaciones Web) para administradores/gerentes
+    // Obtener los botones del menú
+    const checkinMenu = document.querySelector('li[data-tab="staff-checkin"]');
+    const opinionsMenu = document.querySelector('li[data-tab="staff-opinions"]');
+    const appointmentsMenu = document.querySelector('li[data-tab="staff-appointments"]');
+    const employeesMenu = document.querySelector('li[data-tab="staff-employees"]');
     const configMenuItem = document.getElementById('menu-item-webconfig');
-    if (configMenuItem) {
-        if (staffUser.staffRole === 'Gerente General' || (staffUser.permissions && staffUser.permissions.includes('Modificaciones Web'))) {
-            configMenuItem.style.display = 'block';
-        } else {
-            configMenuItem.style.display = 'none';
-        }
+
+    // Resetear visibilidad por defecto (todo visible para admin)
+    if (checkinMenu) checkinMenu.style.display = 'block';
+    if (opinionsMenu) opinionsMenu.style.display = 'block';
+    if (appointmentsMenu) appointmentsMenu.style.display = 'block';
+    if (employeesMenu) employeesMenu.style.display = 'block';
+    if (configMenuItem) configMenuItem.style.display = 'block';
+
+    const role = staffUser.roleCode || 'admin';
+
+    if (role === 'coach') {
+        // Coach solo ve citas
+        if (checkinMenu) checkinMenu.style.display = 'none';
+        if (opinionsMenu) opinionsMenu.style.display = 'none';
+        if (employeesMenu) employeesMenu.style.display = 'none';
+        if (configMenuItem) configMenuItem.style.display = 'none';
+        
+        // Forzar apertura de pestaña de citas si es coach
+        switchStaffTab('staff-appointments');
+    } else if (role === 'receptionist') {
+        // Recepcionista ve validación y citas
+        if (employeesMenu) employeesMenu.style.display = 'none';
+        if (configMenuItem) configMenuItem.style.display = 'none';
+        
+        switchStaffTab('staff-checkin');
+    } else {
+        // Admin ve todo
+        switchStaffTab('staff-checkin');
     }
 
     // Historial asistencias

@@ -39,16 +39,22 @@ supabase.auth.onAuthStateChange(async (event, session) => {
                 // Cargar datos
                 const { data: memberData } = await supabase.from('members').select('full_name, member_number, role').eq('id', session.user.id).single();
                 if (memberData) {
-                    if (memberData.role === 'staff') {
-                        // Es administrador/staff
+                    if (['admin', 'coach', 'receptionist', 'staff'].includes(memberData.role)) {
+                        // Es un empleado (cualquier jerarquía)
                         document.getElementById('staff-dashboard').style.display = 'flex';
-                        document.getElementById('dash-staff-name').innerText = memberData.full_name;
-                        document.getElementById('dash-staff-role').innerText = 'Administrador';
+                        
+                        // Determinar el título formal para mostrar en la interfaz
+                        let formalRole = 'Staff';
+                        if (memberData.role === 'admin') formalRole = 'Administrador General';
+                        if (memberData.role === 'coach') formalRole = 'Entrenador (Coach)';
+                        if (memberData.role === 'receptionist') formalRole = 'Recepción';
+                        if (memberData.role === 'staff') formalRole = 'Administrador'; // Retrocompatibilidad
                         
                         // Cargar scripts de staff conectados a Supabase
                         window.updateStaffDashboardUI({
                             name: memberData.full_name,
-                            staffRole: 'Administrador'
+                            roleCode: memberData.role, // Código interno ('admin', 'coach', etc)
+                            staffRole: formalRole      // Texto bonito para mostrar
                         });
                     } else {
                         // Es cliente normal
