@@ -806,17 +806,11 @@ function renderPublicReviews() {
         `;
     });
 
-    // Controlar el banner del login en opiniones
-    const currentUser = window.AllianceAuth.getCurrentUser();
+    // Controlar el banner en opiniones para redirigir a Google Maps
     const loginPromo = document.getElementById('reviews-login-promo');
     if (loginPromo) {
-        if (currentUser) {
-            loginPromo.innerHTML = `<p class="mb-2 text-muted">¿Deseas evaluar el servicio? Ve a la sección **Valoraciones** de tu panel personal.</p>
-                                    <button class="btn btn-outline" onclick="openDashboard(window.AllianceAuth.getCurrentUser())">Ir a mi Panel de Socio</button>`;
-        } else {
-            loginPromo.innerHTML = `<p class="mb-2 text-muted">¿Quieres dejar tu valoración o ver opiniones de coaches específicos?</p>
-                                    <button class="btn btn-outline" onclick="openAuthModal()">Iniciar Sesión para Valorar</button>`;
-        }
+        loginPromo.innerHTML = `<p class="mb-2 text-muted">¿Te gusta nuestro servicio? Ayúdanos dejando tu valoración en Google Maps.</p>
+                                <a href="https://maps.google.com" target="_blank" class="btn btn-outline" style="text-decoration: none; color: inherit;">Dejar Reseña en Google Maps</a>`;
     }
 }
 

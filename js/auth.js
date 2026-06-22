@@ -203,9 +203,17 @@ document.getElementById('auth-login-form').addEventListener('submit', async (e) 
 
         if (error) throw error;
 
-        alert('¡Bienvenido!');
+        if (typeof showToast === 'function') showToast('Inicio de sesión exitoso', 'success');
+        
+        // Cerrar modal manualmente por si acaso
+        document.getElementById('auth-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
     } catch (error) {
-        alert('Error al iniciar sesión: ' + error.message);
+        if (typeof showToast === 'function') {
+            showToast('Error al iniciar sesión: Verifique sus credenciales.', 'error');
+        } else {
+            console.error('Error al iniciar sesión: ' + error.message);
+        }
     } finally {
         btn.innerText = originalText;
         btn.disabled = false;
