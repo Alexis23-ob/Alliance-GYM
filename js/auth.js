@@ -18,6 +18,29 @@ window.openAuthModal = function(tab = 'login') {
     document.body.style.overflow = 'hidden';
     window.switchAuthTab(tab);
 };
+// Función para manejar la recuperación de contraseña
+window.handleForgotPassword = async function(event) {
+    if (event) event.preventDefault();
+    const email = document.getElementById('forgot-email').value;
+    if (!email) {
+        if (typeof showToast === 'function') showToast('Ingresa tu correo.', 'error');
+        return;
+    }
+    
+    // Usar Supabase para enviar el correo de recuperación
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + window.location.pathname,
+    });
+
+    if (error) {
+        if (typeof showToast === 'function') showToast(error.message, 'error');
+    } else {
+        if (typeof showToast === 'function') showToast('Si el correo existe, te hemos enviado un enlace.', 'success');
+        document.getElementById('forgot-email').value = '';
+        if (typeof showLogin === 'function') showLogin();
+    }
+};
+
 supabase.auth.onAuthStateChange(async (event, session) => {
     const navBtn = document.getElementById('nav-portal-btn');
     const joinBtn = document.getElementById('nav-join-btn');
