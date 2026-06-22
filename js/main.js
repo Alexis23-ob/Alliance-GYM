@@ -1316,8 +1316,8 @@ async function updateStaffDashboardUI(staffUser) {
 
     if (apps.length > 0) {
         apps.forEach(a => {
-            const isScheduled = a.status === 'Programada';
-            const badgeClass = a.status === 'Programada' ? 'badge-inactive' : (a.status === 'Completada' ? 'badge-active' : 'badge-expired');
+            const isScheduled = a.status === 'Pendiente' || a.status === 'Programada';
+            const badgeClass = (a.status === 'Pendiente' || a.status === 'Programada') ? 'badge-inactive' : (a.status === 'Completada' ? 'badge-active' : 'badge-expired');
             
             let actionsHTML = '';
             if (isScheduled) {
