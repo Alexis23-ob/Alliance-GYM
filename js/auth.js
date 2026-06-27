@@ -153,14 +153,15 @@ window.renderDashboardState = async (session = null) => {
                             const { data: authData, error: authError } = await supabase.auth.signUp({ email, password: pass });
                             if (authError) throw authError;
                             if (authData.user) {
-                                // Usar UPSERT por si el administrador ya sincronizó la cuenta desde el panel
+                                // Guardar perfil en 'members'. Se omite onConflict para que use 'id' por defecto.
                                 await supabase.from('members').upsert([{ 
                                     id: authData.user.id, 
                                     member_number: tempUser.id, 
                                     full_name: tempUser.name, 
                                     points: 0, 
-                                    email: email 
-                                }], { onConflict: 'member_number' });
+                                    email: email,
+                                    role: 'client'
+                                }]);
                             }
                             
                             // En lugar de borrar el usuario temporal y recargar (lo que los bloquea si Supabase pide confirmar correo),
@@ -182,6 +183,9 @@ window.renderDashboardState = async (session = null) => {
             // Cargar datos reales
             try {
                 const { data: memberData, error } = await supabase.from('members').select('full_name, member_number, role').eq('id', session.user.id).single();
+                
+                if (error) throw error;
+
                 if (memberData) {
                     // Actualizar el botón de navegación con el nombre real de la BD
                     if (navBtn && memberData.full_name) {
@@ -201,18 +205,42 @@ window.renderDashboardState = async (session = null) => {
                         if (window.loadUserAppointments) window.loadUserAppointments();
                         if (window.loadUserRewards) window.loadUserRewards();
                     }
-                } else {
-                    // Fallback si la cuenta existe en Supabase pero no tiene perfil en 'members'
-                    document.getElementById('client-dashboard').style.display = 'flex';
-                    document.getElementById('dash-client-name').innerText = session.user.user_metadata?.full_name || session.user.email || 'Socio';
-                    document.getElementById('dash-client-email').innerText = 'Socio (Registrado)';
                 }
             } catch (err) {
                 console.error("Error cargando perfil de usuario:", err);
-                // Fallback en caso de error de red
-                document.getElementById('client-dashboard').style.display = 'flex';
-                document.getElementById('dash-client-name').innerText = session.user.email || 'Socio';
-                document.getElementById('dash-client-email').innerText = 'Socio (Modo Offline)';
+                
+                // Si el error es que la fila no existe, la creamos automáticamente (Self-healing)
+                if (err.code === 'PGRST116') {
+                    console.log("Creando perfil de miembro faltante...");
+                    try {
+                        const newMemberNumber = Math.floor(10000 + Math.random() * 90000).toString();
+                        const newName = session.user.user_metadata?.full_name || session.user.email.split('@')[0];
+                        
+                        await supabase.from('members').insert([{
+                            id: session.user.id,
+                            full_name: newName,
+                            email: session.user.email,
+                            member_number: newMemberNumber,
+                            points: 0,
+                            role: 'client'
+                        }]);
+                        
+                        document.getElementById('client-dashboard').style.display = 'flex';
+                        document.getElementById('dash-client-name').innerText = newName;
+                        document.getElementById('dash-client-email').innerText = 'Socio: ' + newMemberNumber;
+                        if (navBtn) navBtn.innerHTML = `<i class="fas fa-user-shield"></i> ${newName.split(' ')[0]}`;
+                    } catch (insertErr) {
+                        console.error("Fallo al auto-recuperar cuenta:", insertErr);
+                        document.getElementById('client-dashboard').style.display = 'flex';
+                        document.getElementById('dash-client-name').innerText = session.user.email.split('@')[0];
+                        document.getElementById('dash-client-email').innerText = 'Socio (Sin Perfil)';
+                    }
+                } else {
+                    // Fallback en caso de error de red real
+                    document.getElementById('client-dashboard').style.display = 'flex';
+                    document.getElementById('dash-client-name').innerText = session.user.email.split('@')[0];
+                    document.getElementById('dash-client-email').innerText = 'Socio (Modo Offline)';
+                }
             }
         }
         if (joinBtn) joinBtn.style.display = 'none';
