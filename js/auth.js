@@ -71,7 +71,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
             document.getElementById('dash-client-email').innerText = 'Socio (Sin Correo)';
             
             // Mostrar modal de invitación a registrarse si no lo ha hecho
-            if (!tempUser.email_linked) {
+            if (!tempUser.email_linked && tempUser.email_linked !== 'dismissed') {
                 setTimeout(() => {
                     document.getElementById('email-prompt-modal').style.display = 'flex';
                 // Pre-llenar datos para que lo completen

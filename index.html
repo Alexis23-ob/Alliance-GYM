@@ -1342,7 +1342,11 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100 mt-2" id="btn-prompt-submit">Guardar y Vincular</button>
-                <button type="button" class="btn btn-outline w-100 mt-2" onclick="document.getElementById('email-prompt-modal').style.display='none'">Hacerlo más tarde</button>
+                <button type="button" class="btn btn-outline w-100 mt-2" onclick="
+                    const tUser = JSON.parse(localStorage.getItem('alliance_temp_user'));
+                    if(tUser) { tUser.email_linked = 'dismissed'; localStorage.setItem('alliance_temp_user', JSON.stringify(tUser)); }
+                    document.getElementById('email-prompt-modal').style.display='none';
+                ">Hacerlo más tarde</button>
             </form>
         </div>
     </div>
