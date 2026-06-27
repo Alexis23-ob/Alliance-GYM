@@ -70,11 +70,21 @@ window.renderDashboardState = async (session = null) => {
     const tempUser = tempUserStr ? JSON.parse(tempUserStr) : null;
     
     if ((session && session.user) || tempUser) {
-        // Actualizar botón de navegación
-        if (navBtn) {
-            let displayName = tempUser ? tempUser.name : (session?.user?.user_metadata?.full_name || 'Socio');
-            navBtn.innerHTML = `<i class="fas fa-user-shield"></i> ${displayName.split(' ')[0]}`;
+        // Actualizar botón de navegación de forma segura
+        try {
+            if (navBtn) {
+                let displayName = 'Socio';
+                if (tempUser && tempUser.name) {
+                    displayName = tempUser.name;
+                } else if (session?.user?.user_metadata?.full_name) {
+                    displayName = session.user.user_metadata.full_name;
+                }
+                navBtn.innerHTML = `<i class="fas fa-user-shield"></i> ${displayName.split(' ')[0]}`;
+            }
+        } catch (e) {
+            console.error('Error actualizando botón:', e);
         }
+
         if (joinBtn) joinBtn.style.display = 'none';
 
         // Ocultar la página pública para mostrar el dashboard completo
@@ -342,10 +352,17 @@ document.getElementById('auth-login-form').addEventListener('submit', async (e) 
             window.renderDashboardState(data.session);
         }
     } catch (error) {
+        let msg = 'Error al iniciar sesión: Verifique sus credenciales.';
+        if (error.message && error.message.toLowerCase().includes('email not confirmed')) {
+            msg = 'Debes confirmar tu correo electrónico. Por favor revisa tu bandeja de entrada o SPAM.';
+        } else if (error.message) {
+            msg = error.message;
+        }
+        
         if (typeof showToast === 'function') {
-            showToast('Error al iniciar sesión: Verifique sus credenciales.', 'error');
+            showToast(msg, 'error');
         } else {
-            console.error('Error al iniciar sesión: ' + error.message);
+            alert(msg);
         }
     } finally {
         btn.innerText = originalText;
