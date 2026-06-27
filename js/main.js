@@ -399,15 +399,15 @@ window.switchAuthTab = function(tabName) {
     const formRegister = document.getElementById('auth-register-form');
 
     if (tabName === 'login') {
-        btnLogin.classList.add('active');
-        btnRegister.classList.remove('active');
-        formLogin.style.display = 'block';
-        formRegister.style.display = 'none';
+        if (btnLogin) btnLogin.classList.add('active');
+        if (btnRegister) btnRegister.classList.remove('active');
+        if (formLogin) formLogin.style.display = 'block';
+        if (formRegister) formRegister.style.display = 'none';
     } else {
-        btnLogin.classList.remove('active');
-        btnRegister.classList.add('active');
-        formLogin.style.display = 'none';
-        formRegister.style.display = 'block';
+        if (btnLogin) btnLogin.classList.remove('active');
+        if (btnRegister) btnRegister.classList.add('active');
+        if (formLogin) formLogin.style.display = 'none';
+        if (formRegister) formRegister.style.display = 'block';
     }
 };
 
