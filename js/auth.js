@@ -17,12 +17,22 @@ window.AllianceAuth = {
 };
 
 // Sobrescribir función conflictiva de main.js
-window.openAuthModal = function(tab = 'login') {
+window.openAuthModal = async function(tab = 'login') {
     const tempUserStr = localStorage.getItem('alliance_temp_user');
     if (tempUserStr) {
         // Ya está logueado, mostrar dashboard
         if (window.renderDashboardState) window.renderDashboardState();
         return;
+    }
+    
+    try {
+        const { data } = await supabase.auth.getSession();
+        if (data && data.session) {
+            if (window.renderDashboardState) window.renderDashboardState(data.session);
+            return;
+        }
+    } catch(err) {
+        console.error("Error validando sesión:", err);
     }
     
     document.getElementById('auth-modal').style.display = 'flex';
@@ -132,21 +142,34 @@ window.renderDashboardState = async (session = null) => {
             
         } else if (session && session.user) {
             // Cargar datos reales
-            const { data: memberData } = await supabase.from('members').select('full_name, member_number, role').eq('id', session.user.id).single();
-            if (memberData) {
-                if (['admin', 'coach', 'receptionist', 'staff'].includes(memberData.role)) {
-                    // Es un empleado
-                    document.getElementById('staff-dashboard').style.display = 'flex';
-                    let formalRole = memberData.role === 'admin' ? 'Administrador General' : 'Staff';
-                    if (window.updateStaffDashboardUI) window.updateStaffDashboardUI({ name: memberData.full_name, roleCode: memberData.role, staffRole: formalRole });
+            try {
+                const { data: memberData, error } = await supabase.from('members').select('full_name, member_number, role').eq('id', session.user.id).single();
+                if (memberData) {
+                    if (['admin', 'coach', 'receptionist', 'staff'].includes(memberData.role)) {
+                        // Es un empleado
+                        document.getElementById('staff-dashboard').style.display = 'flex';
+                        let formalRole = memberData.role === 'admin' ? 'Administrador General' : 'Staff';
+                        if (window.updateStaffDashboardUI) window.updateStaffDashboardUI({ name: memberData.full_name, roleCode: memberData.role, staffRole: formalRole });
+                    } else {
+                        // Es cliente normal
+                        document.getElementById('client-dashboard').style.display = 'flex';
+                        document.getElementById('dash-client-name').innerText = memberData.full_name;
+                        document.getElementById('dash-client-email').innerText = 'Socio: ' + memberData.member_number;
+                        if (window.loadUserAppointments) window.loadUserAppointments();
+                        if (window.loadUserRewards) window.loadUserRewards();
+                    }
                 } else {
-                    // Es cliente normal
+                    // Fallback si la cuenta existe en Supabase pero no tiene perfil en 'members'
                     document.getElementById('client-dashboard').style.display = 'flex';
-                    document.getElementById('dash-client-name').innerText = memberData.full_name;
-                    document.getElementById('dash-client-email').innerText = 'Socio: ' + memberData.member_number;
-                    if (window.loadUserAppointments) window.loadUserAppointments();
-                    if (window.loadUserRewards) window.loadUserRewards();
+                    document.getElementById('dash-client-name').innerText = session.user.user_metadata?.full_name || session.user.email || 'Socio';
+                    document.getElementById('dash-client-email').innerText = 'Socio (Registrado)';
                 }
+            } catch (err) {
+                console.error("Error cargando perfil de usuario:", err);
+                // Fallback en caso de error de red
+                document.getElementById('client-dashboard').style.display = 'flex';
+                document.getElementById('dash-client-name').innerText = session.user.email || 'Socio';
+                document.getElementById('dash-client-email').innerText = 'Socio (Modo Offline)';
             }
         }
         if (joinBtn) joinBtn.style.display = 'none';
