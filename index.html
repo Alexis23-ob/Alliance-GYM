@@ -1325,7 +1325,21 @@
                 </div>
                 <div class="form-group" style="text-align: left;">
                     <label for="prompt-password">Crea una nueva contraseña</label>
-                    <input type="password" id="prompt-password" placeholder="Mínimo 6 caracteres" minlength="6" required>
+                    <div style="position: relative;">
+                        <input type="password" id="prompt-password" placeholder="Mínimo 6 caracteres" minlength="6" required style="width: 100%; padding-right: 40px;">
+                        <i class="fas fa-eye" id="toggle-prompt-password" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;" onclick="
+                            const passInput = document.getElementById('prompt-password');
+                            if (passInput.type === 'password') {
+                                passInput.type = 'text';
+                                this.classList.remove('fa-eye');
+                                this.classList.add('fa-eye-slash');
+                            } else {
+                                passInput.type = 'password';
+                                this.classList.remove('fa-eye-slash');
+                                this.classList.add('fa-eye');
+                            }
+                        "></i>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100 mt-2" id="btn-prompt-submit">Guardar y Vincular</button>
                 <button type="button" class="btn btn-outline w-100 mt-2" onclick="document.getElementById('email-prompt-modal').style.display='none'">Hacerlo más tarde</button>
