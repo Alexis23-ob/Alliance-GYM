@@ -332,6 +332,10 @@ document.getElementById('auth-login-form').addEventListener('submit', async (e) 
         // Cerrar modal manualmente por si acaso
         document.getElementById('auth-modal').style.display = 'none';
         document.body.style.overflow = 'auto';
+
+        if (data && data.session && window.renderDashboardState) {
+            window.renderDashboardState(data.session);
+        }
     } catch (error) {
         if (typeof showToast === 'function') {
             showToast('Error al iniciar sesión: Verifique sus credenciales.', 'error');
