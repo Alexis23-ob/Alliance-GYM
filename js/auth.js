@@ -2,7 +2,11 @@
 
 // DUMMY OBJECT PARA EVITAR CRASHES EN MAIN.JS
 window.AllianceAuth = {
-    getCurrentUser: () => null,
+    getCurrentUser: () => {
+        const tUserStr = localStorage.getItem('alliance_temp_user');
+        if (tUserStr) return JSON.parse(tUserStr);
+        return null;
+    },
     getUsers: () => [],
     login: () => ({success: false, message: 'Usar Supabase'}),
     register: () => ({success: false, message: 'Usar Supabase'}),
@@ -14,6 +18,13 @@ window.AllianceAuth = {
 
 // Sobrescribir función conflictiva de main.js
 window.openAuthModal = function(tab = 'login') {
+    const tempUserStr = localStorage.getItem('alliance_temp_user');
+    if (tempUserStr) {
+        // Ya está logueado, mostrar dashboard
+        if (window.renderDashboardState) window.renderDashboardState();
+        return;
+    }
+    
     document.getElementById('auth-modal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
     window.switchAuthTab(tab);
@@ -41,7 +52,7 @@ window.handleForgotPassword = async function(event) {
     }
 };
 
-supabase.auth.onAuthStateChange(async (event, session) => {
+window.renderDashboardState = async (session = null) => {
     const navBtn = document.getElementById('nav-portal-btn');
     const joinBtn = document.getElementById('nav-join-btn');
     
@@ -49,13 +60,21 @@ supabase.auth.onAuthStateChange(async (event, session) => {
     const tempUser = tempUserStr ? JSON.parse(tempUserStr) : null;
     
     if ((session && session.user) || tempUser) {
+        // Actualizar botón de navegación
+        if (navBtn) {
+            let displayName = tempUser ? tempUser.name : (session?.user?.user_metadata?.full_name || 'Socio');
+            navBtn.innerHTML = `<i class="fas fa-user-shield"></i> ${displayName.split(' ')[0]}`;
+        }
+        if (joinBtn) joinBtn.style.display = 'none';
+
         // Ocultar la página pública para mostrar el dashboard completo
         document.getElementById('public-site').style.display = 'none';
         const navbarEl = document.getElementById('navbar');
         if (navbarEl) navbarEl.style.display = 'none';
         
         // Ocultar modal de auth si estaba abierto
-        document.getElementById('auth-modal').style.display = 'none';
+        const authModal = document.getElementById('auth-modal');
+        if (authModal) authModal.style.display = 'none';
         document.body.style.overflow = 'auto';
         
         // Mostrar dashboard
@@ -74,41 +93,41 @@ supabase.auth.onAuthStateChange(async (event, session) => {
             if (!tempUser.email_linked && tempUser.email_linked !== 'dismissed') {
                 setTimeout(() => {
                     document.getElementById('email-prompt-modal').style.display = 'flex';
-                // Pre-llenar datos para que lo completen
-                document.getElementById('email-prompt-form').onsubmit = async (e) => {
-                    e.preventDefault();
-                    const btn = document.getElementById('btn-prompt-submit');
-                    btn.innerText = "Registrando..."; btn.disabled = true;
-                    const email = document.getElementById('prompt-email').value;
-                    const pass = document.getElementById('prompt-password').value;
-                    
-                    try {
-                        const { data: authData, error: authError } = await supabase.auth.signUp({ email, password: pass });
-                        if (authError) throw authError;
-                        if (authData.user) {
-                            // Usar UPSERT por si el administrador ya sincronizó la cuenta desde el panel
-                            await supabase.from('members').upsert([{ 
-                                id: authData.user.id, 
-                                member_number: tempUser.id, 
-                                full_name: tempUser.name, 
-                                points: 0, 
-                                email: email 
-                            }], { onConflict: 'member_number' });
+                    // Pre-llenar datos para que lo completen
+                    document.getElementById('email-prompt-form').onsubmit = async (e) => {
+                        e.preventDefault();
+                        const email = document.getElementById('prompt-email').value.trim();
+                        const pass = document.getElementById('prompt-password').value.trim();
+                        const btn = document.getElementById('btn-prompt-submit');
+                        btn.innerText = "Guardando..."; btn.disabled = true;
+                        
+                        try {
+                            const { data: authData, error: authError } = await supabase.auth.signUp({ email, password: pass });
+                            if (authError) throw authError;
+                            if (authData.user) {
+                                // Usar UPSERT por si el administrador ya sincronizó la cuenta desde el panel
+                                await supabase.from('members').upsert([{ 
+                                    id: authData.user.id, 
+                                    member_number: tempUser.id, 
+                                    full_name: tempUser.name, 
+                                    points: 0, 
+                                    email: email 
+                                }], { onConflict: 'member_number' });
+                            }
+                            
+                            // En lugar de borrar el usuario temporal y recargar (lo que los bloquea si Supabase pide confirmar correo),
+                            // actualizamos el registro temporal para saber que ya lo vincularon y cerramos el modal.
+                            tempUser.email_linked = true;
+                            localStorage.setItem('alliance_temp_user', JSON.stringify(tempUser));
+                            
+                            alert("¡Perfil guardado exitosamente! Hemos enviado un enlace de confirmación a tu correo. Podrás iniciar sesión con tu correo la próxima vez que ingreses.");
+                            document.getElementById('email-prompt-modal').style.display = 'none';
+                        } catch (err) {
+                            alert("Error: " + err.message);
+                            btn.innerText = "Guardar y Vincular"; btn.disabled = false;
                         }
-                        
-                        // En lugar de borrar el usuario temporal y recargar (lo que los bloquea si Supabase pide confirmar correo),
-                        // actualizamos el registro temporal para saber que ya lo vincularon y cerramos el modal.
-                        tempUser.email_linked = true;
-                        localStorage.setItem('alliance_temp_user', JSON.stringify(tempUser));
-                        
-                        alert("¡Perfil guardado exitosamente! Hemos enviado un enlace de confirmación a tu correo. Podrás iniciar sesión con tu correo la próxima vez que ingreses.");
-                        document.getElementById('email-prompt-modal').style.display = 'none';
-                    } catch (err) {
-                        alert("Error: " + err.message);
-                        btn.innerText = "Guardar y Vincular"; btn.disabled = false;
-                    }
-                };
-            }, 1000);
+                    };
+                }, 1000);
             }
             
         } else if (session && session.user) {
@@ -151,6 +170,13 @@ supabase.auth.onAuthStateChange(async (event, session) => {
         }
         if (joinBtn) joinBtn.style.display = 'inline-block';
     }
+};
+
+// Ejecutar inmediatamente para usuarios temporales (evita esperas o fallos si Supabase tarda en cargar)
+window.renderDashboardState();
+
+supabase.auth.onAuthStateChange(async (event, session) => {
+    window.renderDashboardState(session);
 });
 
 // Funciones de navegación del modal de Auth
@@ -251,14 +277,19 @@ document.getElementById('auth-login-form').addEventListener('submit', async (e) 
                 // Login exitoso temporal
                 localStorage.setItem('alliance_temp_user', JSON.stringify({
                     id: email,
-                    name: window.INITIAL_USERS[email].name
+                    name: window.INITIAL_USERS[email].name,
+                    email_linked: false
                 }));
                 if (typeof showToast === 'function') showToast('Inicio de sesión exitoso', 'success');
                 document.getElementById('auth-modal').style.display = 'none';
                 document.body.style.overflow = 'auto';
                 
-                // Forzar recarga para actualizar el estado
-                window.location.reload();
+                // Actualizar la interfaz de inmediato sin recargar la página
+                if (window.renderDashboardState) {
+                    window.renderDashboardState();
+                } else {
+                    window.location.reload(); // Fallback por si acaso
+                }
                 return;
             } else {
                 throw new Error("Contraseña incorrecta para el Identificador.");
