@@ -9,7 +9,35 @@ window.AllianceAuth = {
     },
     getUsers: () => [],
     login: () => ({success: false, message: 'Usar Supabase'}),
-    register: () => ({success: false, message: 'Usar Supabase'}),
+    register: async (name, email, password) => {
+        try {
+            const { data: authData, error: authError } = await supabase.auth.signUp({ 
+                email: email, 
+                password: password,
+                options: { data: { full_name: name } }
+            });
+            if (authError) throw authError;
+
+            if (authData && authData.user) {
+                // Generar un número de socio al azar de 5 dígitos para nuevos registros
+                const memberNumber = Math.floor(10000 + Math.random() * 90000).toString();
+                await supabase.from('members').insert([{
+                    id: authData.user.id,
+                    full_name: name,
+                    email: email,
+                    member_number: memberNumber,
+                    points: 0,
+                    role: 'client'
+                }]);
+                
+                alert("¡Registro exitoso! Por favor revisa tu correo electrónico (o bandeja de SPAM) para confirmar tu cuenta. Una vez confirmada, podrás iniciar sesión con tus credenciales.");
+                return { success: true, user: { name: name, email: email, role: 'client' } };
+            }
+            return { success: false, message: 'Error desconocido al registrar' };
+        } catch (err) {
+            return { success: false, message: err.message };
+        }
+    },
     purchaseMembership: () => ({success: false}),
     logout: async () => {
         await supabase.auth.signOut();

@@ -472,39 +472,29 @@ function handleLogin(e) {
     }
 }
 
-// Registrar nuevo usuario desde modal de login
-function handleRegister(e) {
-    e.preventDefault();
-    const name = document.getElementById('register-name').value;
-    const email = document.getElementById('register-email').value;
-    const pass = document.getElementById('register-password').value;
-
-    const res = window.AllianceAuth.register(name, email, pass);
-    if (res.success) {
-        // Loguear de inmediato
-        window.AllianceAuth.login(email, pass);
-        closeAuthModal();
-        openDashboard(res.user);
-        showToast('Cuenta creada con éxito. Elige tu membresía para comenzar.', 'success');
-    } else {
-        showToast(res.message, 'error');
-    }
-}
-
 // Registro rápido en el checkout
-function handleCheckoutRegister(e) {
+async function handleCheckoutRegister(e) {
     e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    const origText = btn.innerText;
+    btn.innerText = 'Registrando...';
+    btn.disabled = true;
+
     const name = document.getElementById('check-reg-name').value;
     const email = document.getElementById('check-reg-email').value;
     const pass = document.getElementById('check-reg-password').value;
 
-    const res = window.AllianceAuth.register(name, email, pass);
-    if (res.success) {
-        window.AllianceAuth.login(email, pass);
+    const res = await window.AllianceAuth.register(name, email, pass);
+    if (res && res.success) {
+        // En Supabase, a menudo se requiere confirmar el correo, así que no logueamos forzosamente,
+        // pero avanzamos al paso 2 para que terminen el flujo simulado.
         switchCheckoutStep(2);
     } else {
-        showToast(res.message, 'error');
+        showToast(res ? res.message : 'Error desconocido al registrar', 'error');
     }
+    
+    btn.innerText = origText;
+    btn.disabled = false;
 }
 
 // Simulación de Pago de membresía
