@@ -70,9 +70,10 @@ supabase.auth.onAuthStateChange(async (event, session) => {
             document.getElementById('dash-client-name').innerText = tempUser.name;
             document.getElementById('dash-client-email').innerText = 'Socio (Sin Correo)';
             
-            // Mostrar modal de invitación a registrarse
-            setTimeout(() => {
-                document.getElementById('email-prompt-modal').style.display = 'flex';
+            // Mostrar modal de invitación a registrarse si no lo ha hecho
+            if (!tempUser.email_linked) {
+                setTimeout(() => {
+                    document.getElementById('email-prompt-modal').style.display = 'flex';
                 // Pre-llenar datos para que lo completen
                 document.getElementById('email-prompt-form').onsubmit = async (e) => {
                     e.preventDefault();
@@ -94,15 +95,21 @@ supabase.auth.onAuthStateChange(async (event, session) => {
                                 email: email 
                             }], { onConflict: 'member_number' });
                         }
-                        localStorage.removeItem('alliance_temp_user');
-                        alert("¡Perfil completado exitosamente! Tu cuenta está segura.");
-                        window.location.reload();
+                        
+                        // En lugar de borrar el usuario temporal y recargar (lo que los bloquea si Supabase pide confirmar correo),
+                        // actualizamos el registro temporal para saber que ya lo vincularon y cerramos el modal.
+                        tempUser.email_linked = true;
+                        localStorage.setItem('alliance_temp_user', JSON.stringify(tempUser));
+                        
+                        alert("¡Perfil guardado exitosamente! Hemos enviado un enlace de confirmación a tu correo. Podrás iniciar sesión con tu correo la próxima vez que ingreses.");
+                        document.getElementById('email-prompt-modal').style.display = 'none';
                     } catch (err) {
                         alert("Error: " + err.message);
                         btn.innerText = "Guardar y Vincular"; btn.disabled = false;
                     }
                 };
             }, 1000);
+            }
             
         } else if (session && session.user) {
             // Cargar datos reales
