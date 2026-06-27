@@ -14,7 +14,7 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css?v=4">
+    <link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
 
@@ -1313,28 +1313,28 @@
 
     <!-- SYSTEM MODULES -->
 
-    <script src="js/points.js?v=5"></script>
-    <script src="js/reviews.js?v=5"></script>
-    <script src="js/staff.js?v=5"></script>
-    <script src="js/main.js?v=5"></script>
+    <script src="js/points.js?v=6"></script>
+    <script src="js/reviews.js?v=6"></script>
+    <script src="js/staff.js?v=6"></script>
+    <script src="js/main.js?v=6"></script>
     <!-- Supabase CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/supabase-client.js?v=5"></script>
-    <script src="js/users_db.js?v=5"></script>
-    <script src="js/auth.js?v=5"></script>
-    <script src="js/appointments.js?v=5"></script>
-    <script src="js/rewards.js?v=5"></script>
+    <script src="js/supabase-client.js?v=6"></script>
+    <script src="js/users_db.js?v=6"></script>
+    <script src="js/auth.js?v=6"></script>
+    <script src="js/appointments.js?v=6"></script>
+    <script src="js/rewards.js?v=6"></script>
 
     <!-- Email Prompt Modal for Temp Users -->
     <div id="email-prompt-modal" class="modal-overlay" style="display: none; z-index: 9999;">
         <div class="modal-container glass-card" style="max-width: 450px; padding: 30px; text-align: center;">
             <div style="font-size: 3rem; color: #ffc107; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle"></i></div>
-            <h3 class="mb-2">¡Completa tu Perfil!</h3>
-            <p class="text-muted text-sm mb-4">Para mayor seguridad y poder recuperar tu cuenta en el futuro, por favor vincula tu correo electrónico.</p>
+            <h3 class="mb-2">¡Aviso Importante!</h3>
+            <p class="text-muted text-sm mb-4">Debes agregar tu correo y contraseña para que tu cuenta sea 100% funcional. Automáticamente serás registrado de forma segura.</p>
             
             <form id="email-prompt-form" class="appointment-form">
                 <div class="form-group" style="text-align: left;">
-                    <label for="prompt-email">Correo Electrónico</label>
+                    <label for="prompt-email">Correo Electrónico (Requerido)</label>
                     <input type="email" id="prompt-email" placeholder="correo@ejemplo.com" required>
                 </div>
                 <div class="form-group" style="text-align: left;">
@@ -1355,12 +1355,7 @@
                         "></i>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary w-100 mt-2" id="btn-prompt-submit">Guardar y Vincular</button>
-                <button type="button" class="btn btn-outline w-100 mt-2" onclick="
-                    const tUser = JSON.parse(localStorage.getItem('alliance_temp_user'));
-                    if(tUser) { tUser.email_linked = 'dismissed'; localStorage.setItem('alliance_temp_user', JSON.stringify(tUser)); }
-                    document.getElementById('email-prompt-modal').style.display='none';
-                ">Hacerlo más tarde</button>
+                <button type="submit" class="btn btn-primary w-100 mt-2" id="btn-prompt-submit">Guardar y Vincular Cuenta</button>
             </form>
         </div>
     </div>

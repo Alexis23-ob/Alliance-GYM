@@ -137,8 +137,8 @@ window.renderDashboardState = async (session = null) => {
             document.getElementById('dash-client-name').innerText = tempUser.name;
             document.getElementById('dash-client-email').innerText = 'Socio (Sin Correo)';
             
-            // Mostrar modal de invitación a registrarse si no lo ha hecho
-            if (!tempUser.email_linked && tempUser.email_linked !== 'dismissed') {
+            // Mostrar modal de invitación a registrarse de forma obligatoria
+            if (!tempUser.email_linked || tempUser.email_linked === 'dismissed') {
                 setTimeout(() => {
                     document.getElementById('email-prompt-modal').style.display = 'flex';
                     // Pre-llenar datos para que lo completen
@@ -168,11 +168,11 @@ window.renderDashboardState = async (session = null) => {
                             tempUser.email_linked = true;
                             localStorage.setItem('alliance_temp_user', JSON.stringify(tempUser));
                             
-                            alert("¡Perfil guardado exitosamente! Hemos enviado un enlace de confirmación a tu correo. Podrás iniciar sesión con tu correo la próxima vez que ingreses.");
+                            alert("¡Tu cuenta es ahora 100% funcional! Automáticamente has sido registrado de forma segura. Nota: Si te es posible, entra a tu correo para confirmar el enlace de seguridad.");
                             document.getElementById('email-prompt-modal').style.display = 'none';
                         } catch (err) {
                             alert("Error: " + err.message);
-                            btn.innerText = "Guardar y Vincular"; btn.disabled = false;
+                            btn.innerText = "Guardar y Vincular Cuenta"; btn.disabled = false;
                         }
                     };
                 }, 1000);
