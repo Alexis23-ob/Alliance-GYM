@@ -45,57 +45,97 @@ supabase.auth.onAuthStateChange(async (event, session) => {
     const navBtn = document.getElementById('nav-portal-btn');
     const joinBtn = document.getElementById('nav-join-btn');
     
-    if (session && session.user) {
-        // Está logueado en Supabase
-        if (navBtn) {
-            navBtn.innerHTML = `<i class="fas fa-user-circle"></i> Mi Panel`;
-            navBtn.onclick = async () => {
-                // Ocultar la página pública para mostrar el dashboard completo
-                document.getElementById('public-site').style.display = 'none';
-                const navbarEl = document.getElementById('navbar');
-                if (navbarEl) navbarEl.style.display = 'none';
-                
-                // Mostrar dashboard
-                document.getElementById('client-dashboard').style.display = 'none';
-                document.getElementById('staff-dashboard').style.display = 'none';
+    const tempUserStr = localStorage.getItem('alliance_temp_user');
+    const tempUser = tempUserStr ? JSON.parse(tempUserStr) : null;
+    
+    if ((session && session.user) || tempUser) {
+        // Ocultar la página pública para mostrar el dashboard completo
+        document.getElementById('public-site').style.display = 'none';
+        const navbarEl = document.getElementById('navbar');
+        if (navbarEl) navbarEl.style.display = 'none';
+        
+        // Ocultar modal de auth si estaba abierto
+        document.getElementById('auth-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+        
+        // Mostrar dashboard
+        document.getElementById('client-dashboard').style.display = 'none';
+        document.getElementById('staff-dashboard').style.display = 'none';
 
-                window.scrollTo(0, 0);
-                
-                // Cargar datos
-                const { data: memberData } = await supabase.from('members').select('full_name, member_number, role').eq('id', session.user.id).single();
-                if (memberData) {
-                    if (['admin', 'coach', 'receptionist', 'staff'].includes(memberData.role)) {
-                        // Es un empleado (cualquier jerarquía)
-                        document.getElementById('staff-dashboard').style.display = 'flex';
-                        
-                        // Determinar el título formal para mostrar en la interfaz
-                        let formalRole = 'Staff';
-                        if (memberData.role === 'admin') formalRole = 'Administrador General';
-                        if (memberData.role === 'coach') formalRole = 'Entrenador (Coach)';
-                        if (memberData.role === 'receptionist') formalRole = 'Recepción';
-                        if (memberData.role === 'staff') formalRole = 'Administrador'; // Retrocompatibilidad
-                        
-                        // Cargar scripts de staff conectados a Supabase
-                        window.updateStaffDashboardUI({
-                            name: memberData.full_name,
-                            roleCode: memberData.role, // Código interno ('admin', 'coach', etc)
-                            staffRole: formalRole      // Texto bonito para mostrar
-                        });
-                    } else {
-                        // Es cliente normal
-                        document.getElementById('client-dashboard').style.display = 'flex';
-                        document.getElementById('dash-client-name').innerText = memberData.full_name;
-                        document.getElementById('dash-client-email').innerText = 'Socio: ' + memberData.member_number;
-
-                        if (window.loadUserAppointments) window.loadUserAppointments();
-                        if (window.loadUserRewards) window.loadUserRewards();
+        window.scrollTo(0, 0);
+        
+        if (tempUser && (!session || !session.user)) {
+            // Logueado de forma temporal (solo dashboard de cliente básico)
+            document.getElementById('client-dashboard').style.display = 'flex';
+            document.getElementById('dash-client-name').innerText = tempUser.name;
+            document.getElementById('dash-client-email').innerText = 'Socio (Sin Correo)';
+            
+            // Mostrar modal de invitación a registrarse
+            setTimeout(() => {
+                document.getElementById('email-prompt-modal').style.display = 'flex';
+                // Pre-llenar datos para que lo completen
+                document.getElementById('email-prompt-form').onsubmit = async (e) => {
+                    e.preventDefault();
+                    const btn = document.getElementById('btn-prompt-submit');
+                    btn.innerText = "Registrando..."; btn.disabled = true;
+                    const email = document.getElementById('prompt-email').value;
+                    const pass = document.getElementById('prompt-password').value;
+                    
+                    try {
+                        const { data: authData, error: authError } = await supabase.auth.signUp({ email, password: pass });
+                        if (authError) throw authError;
+                        if (authData.user) {
+                            // Usar UPSERT por si el administrador ya sincronizó la cuenta desde el panel
+                            await supabase.from('members').upsert([{ 
+                                id: authData.user.id, 
+                                member_number: tempUser.id, 
+                                full_name: tempUser.name, 
+                                points: 0, 
+                                email: email 
+                            }], { onConflict: 'member_number' });
+                        }
+                        localStorage.removeItem('alliance_temp_user');
+                        alert("¡Perfil completado exitosamente! Tu cuenta está segura.");
+                        window.location.reload();
+                    } catch (err) {
+                        alert("Error: " + err.message);
+                        btn.innerText = "Guardar y Vincular"; btn.disabled = false;
                     }
+                };
+            }, 1000);
+            
+        } else if (session && session.user) {
+            // Cargar datos reales
+            const { data: memberData } = await supabase.from('members').select('full_name, member_number, role').eq('id', session.user.id).single();
+            if (memberData) {
+                if (['admin', 'coach', 'receptionist', 'staff'].includes(memberData.role)) {
+                    // Es un empleado
+                    document.getElementById('staff-dashboard').style.display = 'flex';
+                    let formalRole = memberData.role === 'admin' ? 'Administrador General' : 'Staff';
+                    if (window.updateStaffDashboardUI) window.updateStaffDashboardUI({ name: memberData.full_name, roleCode: memberData.role, staffRole: formalRole });
+                } else {
+                    // Es cliente normal
+                    document.getElementById('client-dashboard').style.display = 'flex';
+                    document.getElementById('dash-client-name').innerText = memberData.full_name;
+                    document.getElementById('dash-client-email').innerText = 'Socio: ' + memberData.member_number;
+                    if (window.loadUserAppointments) window.loadUserAppointments();
+                    if (window.loadUserRewards) window.loadUserRewards();
                 }
-            };
+            }
         }
         if (joinBtn) joinBtn.style.display = 'none';
     } else {
         // No está logueado
+        // Ocultar página pública de forma forzada
+        document.getElementById('public-site').style.display = 'none';
+        const navbarEl = document.getElementById('navbar');
+        if (navbarEl) navbarEl.style.display = 'none';
+        
+        // Forzar modal de auth a que no se cierre
+        openAuthModal();
+        const closeBtn = document.querySelector('.modal-close-btn');
+        if (closeBtn) closeBtn.style.display = 'none';
+        
         if (navBtn) {
             navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Mi Cuenta';
             navBtn.onclick = () => openAuthModal();
@@ -196,6 +236,27 @@ document.getElementById('auth-login-form').addEventListener('submit', async (e) 
     const password = document.getElementById('login-password').value;
 
     try {
+        // 1. Interceptar Login Temporal (Identificador)
+        if (window.INITIAL_USERS && window.INITIAL_USERS[email]) {
+            if (window.INITIAL_USERS[email].password === password) {
+                // Login exitoso temporal
+                localStorage.setItem('alliance_temp_user', JSON.stringify({
+                    id: email,
+                    name: window.INITIAL_USERS[email].name
+                }));
+                if (typeof showToast === 'function') showToast('Inicio de sesión exitoso', 'success');
+                document.getElementById('auth-modal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+                
+                // Forzar recarga para actualizar el estado
+                window.location.reload();
+                return;
+            } else {
+                throw new Error("Contraseña incorrecta para el Identificador.");
+            }
+        }
+        
+        // 2. Fallback a login normal de Supabase (Correo)
         const { data, error } = await supabase.auth.signInWithPassword({
             email: email,
             password: password,

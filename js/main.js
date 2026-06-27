@@ -742,10 +742,12 @@ window.exitDashboard = function() {
     checkActiveSession();
 };
 
-window.logoutSession = function() {
-    window.AllianceAuth.logout();
-    showToast('Sesión cerrada correctamente.', 'success');
-    exitDashboard();
+window.logoutSession = async function() {
+    localStorage.removeItem('alliance_temp_user');
+    if (window.AllianceAuth && window.AllianceAuth.logout) {
+        await window.AllianceAuth.logout();
+    }
+    window.location.reload();
 };
 
 // -------------------------------------------------------------

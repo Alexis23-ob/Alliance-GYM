@@ -12,165 +12,244 @@
     <link rel="stylesheet" href="css/style.css">
     
     <style>
-        body {
-            background-color: #f4f6f8;
-            color: #333;
-        }
+        body { background-color: #f4f6f8; color: #333; padding: 20px; font-family: 'Roboto', sans-serif; }
         .admin-container {
-            max-width: 800px;
-            margin: 50px auto;
+            max-width: 1200px;
+            margin: 0 auto;
             background: #fff;
-            padding: 40px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
-        .file-upload-box {
-            border: 2px dashed #ccc;
-            padding: 40px;
-            text-align: center;
-            border-radius: 8px;
-            margin: 20px 0;
-            background: #fafafa;
-        }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background: #f8f9fa; font-weight: 600; color: #555; }
+        tr:hover { background-color: #f1f1f1; }
+        .badge { padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; }
+        .badge-active { background: #d4edda; color: #155724; }
+        .badge-pending { background: #fff3cd; color: #856404; }
+        .badge-none { background: #e2e3e5; color: #383d41; }
         .log-console {
-            background: #111;
-            color: #0f0;
-            padding: 15px;
-            border-radius: 8px;
-            height: 200px;
-            overflow-y: auto;
-            font-family: monospace;
-            font-size: 0.85rem;
-            margin-top: 20px;
+            background: #111; color: #0f0; padding: 15px; border-radius: 8px;
+            height: 150px; overflow-y: auto; font-family: monospace; font-size: 0.85rem; margin-top: 20px; display: none;
         }
     </style>
 </head>
 <body>
-
     <div class="admin-container">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <img src="img/logo.png" alt="Logo" style="width: 80px; margin-bottom: 10px;">
-            <h1 style="font-family: var(--font-heading);">Portal de Staff</h1>
-            <p style="color: var(--text-muted);">Sincronizador de Base de Datos</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">
+            <div>
+                <img src="img/logo.png" alt="Logo" style="width: 50px; vertical-align: middle; margin-right: 15px;">
+                <h1 style="display: inline-block; margin: 0; font-family: var(--font-heading); vertical-align: middle;">Dashboard Administrativo</h1>
+            </div>
+            <div>
+                <button class="btn btn-outline" onclick="window.location.href='index.html'" style="margin-right: 10px;">
+                    <i class="fas fa-home"></i> Ir al Sitio
+                </button>
+                <button class="btn btn-primary" onclick="syncToSupabase()" id="btn-sync">
+                    <i class="fas fa-cloud-upload-alt"></i> Sincronizar Todos a Base de Datos
+                </button>
+            </div>
         </div>
 
-        <h3>1. Actualizar Base de Datos desde Excel</h3>
-        <p style="font-size: 0.9rem; color: #666;">Selecciona el archivo Excel (.xlsx) exportado de Gym Hdelon. El sistema buscará la columna "ID" o "Numero" y actualizará los puntos de los socios.</p>
-        
-        <div class="file-upload-box">
-            <input type="file" id="excel-file" accept=".xlsx, .xls, .csv" style="display: none;">
-            <label for="excel-file" class="btn btn-primary" style="cursor: pointer;">
-                <i class="fas fa-file-excel"></i> Seleccionar Archivo Excel
-            </label>
-            <p id="file-name" style="margin-top: 15px; font-weight: bold; color: var(--primary-color);"></p>
+        <div id="stats" style="display: flex; gap: 20px; margin-bottom: 20px;">
+            <div style="background: #e9ecef; padding: 15px; border-radius: 8px; flex: 1; text-align: center;">
+                <h3 id="stat-total" style="margin: 0; font-size: 2rem;">0</h3>
+                <p style="margin: 5px 0 0; color: #666; font-size: 0.85rem;">Total Usuarios en Excel</p>
+            </div>
+            <div style="background: #d4edda; padding: 15px; border-radius: 8px; flex: 1; text-align: center;">
+                <h3 id="stat-synced" style="margin: 0; font-size: 2rem; color: #155724;">0</h3>
+                <p style="margin: 5px 0 0; color: #155724; font-size: 0.85rem;">Sincronizados en DB</p>
+            </div>
         </div>
 
-        <button id="btn-sync" class="btn btn-primary" style="width: 100%; display: none;" onclick="processExcel()">Comenzar Sincronización a Supabase</button>
+        <div class="log-console" id="log-console"></div>
 
-        <div class="log-console" id="log-console">
-            > Sistema listo. Esperando archivo...<br>
+        <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-search" style="color: #666;"></i>
+            <input type="text" id="admin-search-input" placeholder="Buscar por ID o Nombre..." onkeyup="filterUsers()" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;">
+        </div>
+
+        <div style="overflow-x: auto;">
+            <table id="users-table">
+                <thead>
+                    <tr>
+                        <th>ID (Socio)</th>
+                        <th>Nombre</th>
+                        <th>Contraseña Temporal</th>
+                        <th>Correo Electrónico (Registrado)</th>
+                        <th>Estado DB</th>
+                        <th>Fecha de Pago (Simulada)</th>
+                    </tr>
+                </thead>
+                <tbody id="users-tbody">
+                    <tr><td colspan="6" style="text-align: center;">Cargando información...</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <!-- Librerías Necesarias -->
-    <!-- SheetJS para leer Excel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-client.js"></script>
+    <!-- DB Local -->
+    <script src="js/users_db.js"></script>
 
     <script>
-        const fileInput = document.getElementById('excel-file');
-        const fileNameDisplay = document.getElementById('file-name');
-        const btnSync = document.getElementById('btn-sync');
+        const tbody = document.getElementById('users-tbody');
         const logConsole = document.getElementById('log-console');
+        const btnSync = document.getElementById('btn-sync');
+        let dbMembers = [];
 
-        let parsedData = [];
-
-        function log(message) {
-            logConsole.innerHTML += `> ${message}<br>`;
+        function log(msg) {
+            logConsole.style.display = 'block';
+            logConsole.innerHTML += `> ${msg}<br>`;
             logConsole.scrollTop = logConsole.scrollHeight;
         }
 
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            fileNameDisplay.innerText = "Archivo cargado: " + file.name;
-            log(`Leyendo archivo: ${file.name}...`);
-
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const data = new Uint8Array(event.target.result);
-                const workbook = XLSX.read(data, {type: 'array'});
+        async function loadDashboard() {
+            try {
+                // Obtener todos los de Supabase
+                const { data, error } = await supabase.from('members').select('*');
+                if (error) throw error;
+                dbMembers = data || [];
                 
-                // Asumimos que la información está en la primera hoja
-                const firstSheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[firstSheetName];
+                document.getElementById('stat-synced').innerText = dbMembers.length;
+                document.getElementById('stat-total').innerText = window.INITIAL_USERS ? Object.keys(window.INITIAL_USERS).length : 0;
                 
-                // Convertir a JSON
-                parsedData = XLSX.utils.sheet_to_json(worksheet);
-                
-                log(`Se encontraron ${parsedData.length} registros en el Excel.`);
-                log("¡Listo para sincronizar! Revisa si las columnas son correctas.");
-                
-                // Imprimir el primer registro como ejemplo para depurar las columnas
-                if (parsedData.length > 0) {
-                    log("Ejemplo de columnas detectadas: " + Object.keys(parsedData[0]).join(", "));
-                }
+                renderTable();
+            } catch (err) {
+                console.error(err);
+                tbody.innerHTML = `<tr><td colspan="6" style="color:red; text-align:center;">Error al cargar datos de Supabase.</td></tr>`;
+            }
+        }
 
-                btnSync.style.display = 'block';
-            };
-            reader.readAsArrayBuffer(file);
-        });
-
-        async function processExcel() {
-            if (parsedData.length === 0) return;
-            
-            btnSync.disabled = true;
-            btnSync.innerText = "Sincronizando...";
-            log("Iniciando subida a Supabase...");
-
-            let successCount = 0;
-            let errorCount = 0;
-
-            for (let i = 0; i < parsedData.length; i++) {
-                const row = parsedData[i];
-                
-                // AQUI TENDREMOS QUE AJUSTAR LOS NOMBRES DE LAS COLUMNAS SEGÚN LO QUE EL USUARIO CONFIRME
-                // Supongamos que el Excel tiene columnas "NumeroSocio", "Nombre" y "Puntos"
-                const memberId = row['NumeroSocio'] || row['ID'] || row['id'] || row['Socio'] || row['Numero']; 
-                const points = row['Puntos'] || row['puntos'] || 0;
-                const name = row['Nombre'] || row['nombre'] || 'Socio ' + memberId;
-
-                if (!memberId) {
-                    log(`Fila ${i+1}: Ignorada. No se encontró Número de Socio.`);
-                    continue;
-                }
-
-                try {
-                    // Usamos UPSERT: Inserta si no existe, actualiza si ya existe
-                    const { error } = await supabase
-                        .from('members')
-                        .upsert({ 
-                            member_number: String(memberId), 
-                            points: parseInt(points) || 0,
-                            full_name: name
-                        }, { onConflict: 'member_number' });
-
-                    if (error) throw error;
-                    successCount++;
-                } catch (err) {
-                    errorCount++;
-                    console.error("Error al subir socio " + memberId, err);
-                }
+        function renderTable() {
+            if (!window.INITIAL_USERS) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No se encontró users_db.js</td></tr>`;
+                return;
             }
 
-            log(`<b>PROCESO TERMINADO</b>`);
-            log(`Éxitos: ${successCount} | Errores: ${errorCount}`);
-            btnSync.disabled = false;
-            btnSync.innerText = "Comenzar Sincronización a Supabase";
+            let html = '';
+            let syncCount = 0;
+            
+            // Recorrer los usuarios iniciales para formar la tabla
+            for (const [id, user] of Object.entries(window.INITIAL_USERS)) {
+                // Buscar si existe en Supabase
+                const dbMatch = dbMembers.find(m => String(m.member_number) === String(id));
+                
+                let email = dbMatch && dbMatch.email ? dbMatch.email : '<span style="color:#aaa;">No ha registrado correo</span>';
+                let statusBadge = '<span class="badge badge-none">No Sincronizado</span>';
+                let mockPaymentDate = '<span style="color:#aaa;">Pendiente</span>';
+                
+                if (dbMatch) {
+                    syncCount++;
+                    if (dbMatch.email) {
+                        statusBadge = '<span class="badge badge-active">Registrado Oficial</span>';
+                    } else {
+                        statusBadge = '<span class="badge badge-pending">Sincronizado (Falta Perfil)</span>';
+                    }
+                    
+                    // Simular fecha de pago basándonos en ID
+                    const d = new Date();
+                    d.setDate(d.getDate() - (parseInt(id) % 15));
+                    mockPaymentDate = d.toLocaleDateString();
+                }
+
+                html += `
+                    <tr>
+                        <td><strong>${id}</strong></td>
+                        <td>${user.name}</td>
+                        <td style="font-family: monospace; font-size: 1.1rem; color: #d32f2f;">${user.password}</td>
+                        <td>${email}</td>
+                        <td>${statusBadge}</td>
+                        <td>${mockPaymentDate}</td>
+                    </tr>
+                `;
+            }
+            
+            document.getElementById('stat-synced').innerText = syncCount;
+            tbody.innerHTML = html;
         }
+
+        async function syncToSupabase() {
+            if (!window.INITIAL_USERS) return;
+            if (!confirm('¿Deseas subir todos los usuarios a la base de datos? Esto permitirá que el sistema reconozca su estatus oficialmente.')) return;
+
+            btnSync.disabled = true;
+            btnSync.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sincronizando...';
+            log('Iniciando sincronización masiva...');
+
+            const batch = [];
+            for (const [id, user] of Object.entries(window.INITIAL_USERS)) {
+                // Solo añadir si no existe ya para no machacar sus correos si ya los pusieron
+                const exists = dbMembers.find(m => String(m.member_number) === String(id));
+                if (!exists) {
+                    batch.push({
+                        member_number: id,
+                        full_name: user.name,
+                        membership_status: 'Activo',
+                        points: 0
+                    });
+                }
+            }
+            
+            if (batch.length === 0) {
+                log('Todos los usuarios ya están sincronizados. No hay registros nuevos.');
+                btnSync.disabled = false;
+                btnSync.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Sincronizar Todos a Base de Datos';
+                return;
+            }
+
+            try {
+                // Subir en chunks de 100
+                const chunkSize = 100;
+                for (let i = 0; i < batch.length; i += chunkSize) {
+                    const chunk = batch.slice(i, i + chunkSize);
+                    // Insert en lugar de upsert ya que filtramos los que no existen
+                    const { error } = await supabase.from('members').insert(chunk);
+                    if (error) {
+                        // Intentar Upsert por si hay problemas de primary key
+                        const { error: upsertErr } = await supabase.from('members').upsert(chunk, { onConflict: 'member_number' });
+                        if(upsertErr) throw upsertErr;
+                    }
+                    log(`Lote ${Math.floor(i/chunkSize) + 1} completado (${chunk.length} nuevos registros).`);
+                }
+                
+                log('¡Sincronización completada con éxito!');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+                
+            } catch (err) {
+                log(`<span style="color:red;">Error de sincronización: ${err.message}</span>`);
+                console.error(err);
+                btnSync.disabled = false;
+                btnSync.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Sincronizar Todos a Base de Datos';
+            }
+        }
+
+        function filterUsers() {
+            const input = document.getElementById("admin-search-input").value.toLowerCase();
+            const trs = tbody.getElementsByTagName("tr");
+            
+            for (let i = 0; i < trs.length; i++) {
+                const tds = trs[i].getElementsByTagName("td");
+                if (tds.length < 2) continue; // Skip if it's not a data row
+                
+                const idText = tds[0].textContent || tds[0].innerText;
+                const nameText = tds[1].textContent || tds[1].innerText;
+                
+                if (idText.toLowerCase().includes(input) || nameText.toLowerCase().includes(input)) {
+                    trs[i].style.display = "";
+                } else {
+                    trs[i].style.display = "none";
+                }
+            }
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', loadDashboard);
     </script>
 </body>
 </html>
