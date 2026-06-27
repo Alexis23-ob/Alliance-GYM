@@ -133,15 +133,17 @@ supabase.auth.onAuthStateChange(async (event, session) => {
         if (joinBtn) joinBtn.style.display = 'none';
     } else {
         // No está logueado
-        // Ocultar página pública de forma forzada
-        document.getElementById('public-site').style.display = 'none';
+        // Asegurarse de que el sitio público sea visible
+        document.getElementById('public-site').style.display = 'block';
         const navbarEl = document.getElementById('navbar');
-        if (navbarEl) navbarEl.style.display = 'none';
+        if (navbarEl) navbarEl.style.display = '';
         
-        // Forzar modal de auth a que no se cierre
-        openAuthModal();
+        // Ocultar dashboards
+        document.getElementById('client-dashboard').style.display = 'none';
+        document.getElementById('staff-dashboard').style.display = 'none';
+
         const closeBtn = document.querySelector('.modal-close-btn');
-        if (closeBtn) closeBtn.style.display = 'none';
+        if (closeBtn) closeBtn.style.display = 'block';
         
         if (navBtn) {
             navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Mi Cuenta';
@@ -239,13 +241,13 @@ document.getElementById('auth-login-form').addEventListener('submit', async (e) 
     btn.innerText = 'Iniciando...';
     btn.disabled = true;
 
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value.trim();
 
     try {
         // 1. Interceptar Login Temporal (Identificador)
         if (window.INITIAL_USERS && window.INITIAL_USERS[email]) {
-            if (window.INITIAL_USERS[email].password === password) {
+            if (window.INITIAL_USERS[email].password.toLowerCase() === password.toLowerCase()) {
                 // Login exitoso temporal
                 localStorage.setItem('alliance_temp_user', JSON.stringify({
                     id: email,
