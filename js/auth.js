@@ -145,6 +145,11 @@ window.renderDashboardState = async (session = null) => {
             try {
                 const { data: memberData, error } = await supabase.from('members').select('full_name, member_number, role').eq('id', session.user.id).single();
                 if (memberData) {
+                    // Actualizar el botón de navegación con el nombre real de la BD
+                    if (navBtn && memberData.full_name) {
+                        navBtn.innerHTML = `<i class="fas fa-user-shield"></i> ${memberData.full_name.split(' ')[0]}`;
+                    }
+
                     if (['admin', 'coach', 'receptionist', 'staff'].includes(memberData.role)) {
                         // Es un empleado
                         document.getElementById('staff-dashboard').style.display = 'flex';

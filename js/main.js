@@ -697,16 +697,12 @@ function handleSuggestionSubmit(e) {
 // -------------------------------------------------------------
 
 function checkActiveSession() {
-    const user = window.AllianceAuth.getCurrentUser();
-    const navBtn = document.getElementById('nav-portal-btn');
-    const joinBtn = document.getElementById('nav-join-btn');
-
-    if (user) {
-        if (navBtn) navBtn.innerHTML = `<i class="fas fa-user-shield"></i> ${user.name.split(' ')[0]}`;
-        if (joinBtn) joinBtn.style.display = 'none';
-    } else {
-        if (navBtn) navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Mi Cuenta';
-        if (joinBtn) joinBtn.style.display = 'inline-block';
+    // La lógica de autenticación ahora está delegada completamente a auth.js (window.renderDashboardState)
+    // para manejar de forma asíncrona tanto usuarios temporales como sesiones de Supabase.
+    if (window.renderDashboardState) {
+        // Ejecutamos renderDashboardState pero le pedimos que NO cambie la visibilidad de la página completa,
+        // solo que actualice el texto del botón si la sesión está activa.
+        // Como no podemos pasar parámetros fácilmente, al menos evitamos sobrescribir el botón aquí.
     }
 }
 
