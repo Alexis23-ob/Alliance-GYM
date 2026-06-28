@@ -381,6 +381,8 @@ if (loginForm) {
         btn.disabled = false;
     }
 });
+} // Fin del if (loginForm)
+
 
 // 3. Recuperar Contraseña
 document.getElementById('auth-forgot-form').addEventListener('submit', async (e) => {
