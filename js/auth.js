@@ -151,8 +151,26 @@ window.renderDashboardState = async (session = null) => {
                         
                         try {
                             const { data: authData, error: authError } = await supabase.auth.signUp({ email, password: pass });
-                            if (authError) throw authError;
-                            if (authData.user) {
+                            
+                            if (authError) {
+                                if (authError.message.toLowerCase().includes('already registered') || authError.status === 422) {
+                                    // El correo ya está registrado, intentamos iniciar sesión directo
+                                    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({ email, password: pass });
+                                    if (signInError) {
+                                        throw new Error("Este correo ya está registrado pero la contraseña ingresada es incorrecta. Si es tuyo, intenta recuperar tu contraseña en el menú principal.");
+                                    }
+                                    
+                                    // Inicio de sesión exitoso con la cuenta existente
+                                    tempUser.email_linked = true;
+                                    localStorage.setItem('alliance_temp_user', JSON.stringify(tempUser));
+                                    alert("Detectamos que ya estabas registrado. Hemos vinculado tu sesión correctamente.");
+                                    window.location.reload();
+                                    return;
+                                }
+                                throw authError;
+                            }
+
+                            if (authData && authData.user) {
                                 // Guardar perfil en 'members'. Se omite onConflict para que use 'id' por defecto.
                                 await supabase.from('members').upsert([{ 
                                     id: authData.user.id, 
@@ -172,7 +190,7 @@ window.renderDashboardState = async (session = null) => {
                             alert("¡Tu cuenta es ahora 100% funcional! Automáticamente has sido registrado de forma segura. Nota: Si te es posible, entra a tu correo para confirmar el enlace de seguridad.");
                             document.getElementById('email-prompt-modal').style.display = 'none';
                         } catch (err) {
-                            alert("Error: " + err.message);
+                            alert(err.message);
                             btn.innerText = "Guardar y Vincular Cuenta"; btn.disabled = false;
                         }
                     };
@@ -276,93 +294,31 @@ supabase.auth.onAuthStateChange(async (event, session) => {
 // Funciones de navegación del modal de Auth
 function showForgotPassword() {
     document.getElementById('auth-login-form').style.display = 'none';
-    document.getElementById('auth-register-form').style.display = 'none';
-    document.getElementById('auth-forgot-form').style.display = 'block';
-    document.querySelector('.modal-auth-tabs').style.display = 'none';
+    const forgotForm = document.getElementById('auth-forgot-form');
+    if (forgotForm) forgotForm.style.display = 'block';
 }
 
 function showLoginForm() {
-    document.getElementById('auth-forgot-form').style.display = 'none';
-    document.querySelector('.modal-auth-tabs').style.display = 'flex';
-    switchAuthTab('login');
-}
-
-// Sobrescribir switchAuthTab de main.js
-window.switchAuthTab = function(tab) {
-    document.getElementById('btn-tab-login').classList.remove('active');
-    document.getElementById('btn-tab-register').classList.remove('active');
-    document.getElementById('auth-login-form').style.display = 'none';
-    document.getElementById('auth-register-form').style.display = 'none';
-    document.getElementById('auth-forgot-form').style.display = 'none';
-    
-    if (tab === 'login') {
-        document.getElementById('btn-tab-login').classList.add('active');
-        document.getElementById('auth-login-form').style.display = 'block';
-    } else {
-        document.getElementById('btn-tab-register').classList.add('active');
-        document.getElementById('auth-register-form').style.display = 'block';
-    }
+    const forgotForm = document.getElementById('auth-forgot-form');
+    if (forgotForm) forgotForm.style.display = 'none';
+    const loginForm = document.getElementById('auth-login-form');
+    if (loginForm) loginForm.style.display = 'block';
 }
 
 // LOGICA DE SUPABASE
 
-// 1. Registro de Usuario (Vincular Cuenta)
-document.getElementById('auth-register-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('btn-register-submit');
-    const originalText = btn.innerText;
-    btn.innerText = 'Cargando...';
-    btn.disabled = true;
-
-    const memberId = document.getElementById('register-member-id').value;
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
-
-    try {
-        // Registrar en Supabase Auth
-        const { data: authData, error: authError } = await supabase.auth.signUp({
-            email: email,
-            password: password,
-        });
-
-        if (authError) throw authError;
-
-        // Insertar en la tabla publica 'members'
-        if (authData.user) {
-            const { error: dbError } = await supabase
-                .from('members')
-                .insert([
-                    { id: authData.user.id, member_number: memberId, full_name: 'Socio ' + memberId, points: 0, email: email }
-                ]);
-            
-            // Si hay error en base de datos (por ejemplo, el número de socio ya existe)
-            if (dbError) {
-                console.error(dbError);
-                // NOTA: Idealmente si falla, deberíamos borrar el usuario en Auth, pero Supabase no lo permite desde el cliente.
-                throw new Error("El número de socio ya está registrado o no es válido.");
-            }
-        }
-
-        alert('¡Registro exitoso! Por favor, verifica tu correo electrónico si es necesario o inicia sesión.');
-        showLoginForm();
-    } catch (error) {
-        alert('Error en registro: ' + error.message);
-    } finally {
-        btn.innerText = originalText;
-        btn.disabled = false;
-    }
-});
-
 // 2. Inicio de Sesión
-document.getElementById('auth-login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('btn-login-submit');
-    const originalText = btn.innerText;
-    btn.innerText = 'Iniciando...';
-    btn.disabled = true;
+const loginForm = document.getElementById('auth-login-form');
+if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('btn-login-submit');
+        const originalText = btn.innerText;
+        btn.innerText = 'Iniciando...';
+        btn.disabled = true;
 
-    const email = document.getElementById('login-email').value.trim();
-    const password = document.getElementById('login-password').value.trim();
+        const email = document.getElementById('login-email').value.trim();
+        const password = document.getElementById('login-password').value.trim();
 
     try {
         // 1. Interceptar Login Temporal (Identificador)
