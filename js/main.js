@@ -798,7 +798,7 @@ function renderPublicReviews() {
     const loginPromo = document.getElementById('reviews-login-promo');
     if (loginPromo) {
         loginPromo.innerHTML = `<p class="mb-2 text-muted">¿Te gusta nuestro servicio? Ayúdanos dejando tu valoración en Google Maps.</p>
-                                <a href="https://maps.google.com" target="_blank" class="btn btn-outline" style="text-decoration: none; color: inherit;">Dejar Reseña en Google Maps</a>`;
+                                <a href="https://maps.google.com/maps?q=ALLIANCE+GYM+CHIMALHUACAN" target="_blank" class="btn btn-outline" style="text-decoration: none; color: inherit; border-radius: 30px;">DEJAR RESEÑA EN GOOGLE MAPS</a>`;
     }
 }
 
