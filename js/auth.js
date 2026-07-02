@@ -346,9 +346,25 @@ if (loginForm) {
             }
         }
         
-        // 2. Fallback a login normal de Supabase (Correo)
+        // 2. Fallback a login normal de Supabase (Correo o Número de Socio)
+        let loginEmail = email;
+        
+        // Si no tiene '@', asumimos que es un número de socio y buscamos su correo real en la BD
+        if (!loginEmail.includes('@')) {
+            const { data: memberData, error: memberError } = await supabase
+                .from('members')
+                .select('email')
+                .eq('member_number', loginEmail)
+                .single();
+                
+            if (memberError || !memberData || !memberData.email) {
+                throw new Error("No se encontró ninguna cuenta registrada con ese número de socio o identificador.");
+            }
+            loginEmail = memberData.email;
+        }
+
         const { data, error } = await supabase.auth.signInWithPassword({
-            email: email,
+            email: loginEmail,
             password: password,
         });
 
