@@ -364,7 +364,7 @@ window.selectCoach = function(coachValue, coachName) {
 
 // Redireccionar al inicio de la web
 window.goToHome = function() {
-    window.location.hash = '';
+    window.history.replaceState(null, null, window.location.pathname);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     exitDashboard();
 };
@@ -1667,5 +1667,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 { opacity: 1, transform: 'translateY(0)' }
             ], { duration: 500, easing: 'ease-out' });
         });
+    }
+});
+
+// Interceptar clics en enlaces internos para usar replaceState en lugar de ensuciar el historial
+document.addEventListener('click', function(e) {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (href && href.startsWith('#') && href.length > 1) {
+        const targetEl = document.getElementById(href.substring(1)) || document.querySelector(href);
+        if (targetEl) {
+            e.preventDefault();
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+            window.history.replaceState(null, null, href);
+        }
     }
 });
