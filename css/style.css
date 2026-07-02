@@ -133,20 +133,20 @@ ul {
 .mt-2 { margin-top: 1rem; }
 .mt-4 { margin-top: 2rem; }
 
-/* Solid Cards */
+/* Premium Glass Cards */
 .glass-card {
     background: var(--bg-card);
     border: 1px solid var(--glass-border);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Lighter shadow */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0,0,0,0.03);
     transition: var(--transition);
 }
 
 .glass-card:hover {
-    border-color: var(--secondary-color);
+    border-color: rgba(230, 43, 46, 0.3);
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px rgba(230, 43, 46, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 /* Navbar */
@@ -2527,4 +2527,36 @@ ul {
         padding: 8px 10px !important;
         font-size: 0.75rem !important;
     }
+}
+
+/* Calculadora Nutricional Premium Styles */
+.calc-card {
+    border-top: 4px solid var(--primary-color);
+    background: linear-gradient(180deg, var(--bg-card) 0%, rgba(240, 242, 245, 0.4) 100%);
+    position: relative;
+    overflow: hidden;
+}
+.calc-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 120px;
+    height: 120px;
+    background: var(--primary-color);
+    opacity: 0.04;
+    border-radius: 50%;
+    z-index: 0;
+}
+.calc-card > * {
+    position: relative;
+    z-index: 1;
+}
+.calc-card .form-group input, .calc-card .form-group select {
+    background: rgba(255, 255, 255, 0.8);
+    transition: var(--transition);
+}
+.calc-card .form-group input:focus, .calc-card .form-group select:focus {
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(230, 43, 46, 0.2);
 }

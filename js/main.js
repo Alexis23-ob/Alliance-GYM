@@ -1618,3 +1618,54 @@ window.closeDashboardDrawer = function() {
     }
 };
 
+
+// Calculadora Nutricional Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const calcForm = document.getElementById('calc-form');
+    if (calcForm) {
+        calcForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const weight = parseFloat(document.getElementById('calc-weight').value);
+            const height = parseFloat(document.getElementById('calc-height').value);
+            const age = parseInt(document.getElementById('calc-age').value);
+            const gender = document.getElementById('calc-gender').value;
+            const goal = document.getElementById('calc-goal').value;
+
+            if (!weight || !height || !age) return;
+
+            // Mifflin-St Jeor Equation
+            let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+            bmr += (gender === 'm') ? 5 : -161;
+
+            // Multiplicador de actividad (moderado)
+            let tdee = bmr * 1.55;
+
+            // Ajuste por meta
+            let targetCals = tdee;
+            let proteinPerKg = 1.8; 
+
+            if (goal === 'lose') {
+                targetCals = tdee - 500;
+                proteinPerKg = 2.2; 
+            } else if (goal === 'gain') {
+                targetCals = tdee + 300;
+                proteinPerKg = 2.0; 
+            }
+
+            const totalProtein = Math.round(weight * proteinPerKg);
+            targetCals = Math.round(targetCals);
+
+            document.getElementById('res-cals').innerText = targetCals;
+            document.getElementById('res-protein').innerText = totalProtein;
+            
+            const resultDiv = document.getElementById('calc-result');
+            resultDiv.style.display = 'block';
+            
+            // Highlight animation
+            resultDiv.animate([
+                { opacity: 0, transform: 'translateY(-10px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+            ], { duration: 500, easing: 'ease-out' });
+        });
+    }
+});

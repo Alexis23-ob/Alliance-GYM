@@ -4,22 +4,14 @@
  */
 
 (function () {
-    const STORAGE_REVIEWS_KEY = 'alliance_gym_reviews';
-    const STORAGE_SUGGESTIONS_KEY = 'alliance_gym_suggestions';
+    const STORAGE_REVIEWS_KEY = 'alliance_gym_reviews_v2';
+    const STORAGE_SUGGESTIONS_KEY = 'alliance_gym_suggestions_v2';
 
     // Opiniones semilla iniciales (Simulando reseñas de Google Maps)
-    const seedReviews = [
-        { id: 'rev_1', userName: 'Miguel Ángel', rating: 5, target: 'general', comment: 'Las mejores instalaciones de la zona. Excelente equipo y el ambiente es muy motivador. ¡Totalmente recomendado!', date: '2026-06-05' },
-        { id: 'rev_2', userName: 'Sofía Ruiz', rating: 5, target: 'general', comment: 'Llevo 3 meses entrenando aquí y los coaches siempre están atentos para ayudarte con tus rutinas.', date: '2026-06-08' },
-        { id: 'rev_3', userName: 'David León', rating: 4, target: 'general', comment: 'Muy buen gimnasio, buenas máquinas y limpieza. Se llena un poco por las tardes pero es normal.', date: '2026-06-11' },
-        { id: 'rev_4', userName: 'Laura G.', rating: 5, target: 'general', comment: 'Me encanta que tienen visor 360 en su web, fui a conocerlo y es tal cual. 5 estrellas a la atención en recepción.', date: '2026-06-12' }
-    ];
+    const seedReviews = [];
 
     // Buzón semilla inicial
-    const seedSuggestions = [
-        { id: 'sug_1', userName: 'Miguel Ángel', type: 'Sugerencia', subject: 'Más discos de 45 lbs', message: 'Sería genial si pudieran añadir un par de discos más de 45 lbs en la zona de peso libre.', date: '2026-06-06', status: 'Leído' },
-        { id: 'sug_2', userName: 'Anónimo', type: 'Queja', subject: 'Temperatura de duchas', message: 'A veces el agua sale templada en lugar de caliente en la mañana.', date: '2026-06-09', status: 'En Proceso' }
-    ];
+    const seedSuggestions = [];
 
     function initReviews() {
         if (!localStorage.getItem(STORAGE_REVIEWS_KEY)) {
