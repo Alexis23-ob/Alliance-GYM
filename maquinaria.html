@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -806,7 +806,8 @@
                     // Actualizar URL sin recargar
                     const url = new URL(window.location);
                     url.searchParams.set('category', filterValue);
-                    window.history.pushState({}, '', url);
+                    // Usamos replaceState en lugar de pushState para no llenar el historial
+                    window.history.replaceState({}, '', url);
                 });
             });
 
