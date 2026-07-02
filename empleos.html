@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabaja con Nosotros | Alliance GYM</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .jobs-content {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .jobs-content h3 {
+            color: var(--text-main);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 5px;
+        }
+        .jobs-content ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+        .jobs-content ul li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+        .jobs-content ul li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+        .job-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .btn-whatsapp-job {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #25d366;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp-job:hover {
+            background-color: #128c7e;
+            transform: translateY(-3px);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Simple -->
+    <nav class="navbar" style="position: static; padding: 20px 40px; background: rgba(10, 10, 10, 0.9);">
+        <div class="logo">
+            <a href="index.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit;">
+                <img src="img/logo.png" alt="Alliance GYM Logo" style="height: 40px;">
+                <span class="logo-text">ALLIANCE<span class="logo-accent">GYM</span></span>
+            </a>
+        </div>
+        <a href="index.html" class="btn btn-outline" style="text-decoration: none;"><i class="fas fa-arrow-left"></i> Volver al Inicio</a>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="section" style="padding-top: 50px; padding-bottom: 50px;">
+        <div class="container">
+            <div class="glass-card" style="max-width: 900px; margin: 0 auto;">
+                <div class="text-center" style="margin-bottom: 40px;">
+                    <img src="img/logo.png" alt="Alliance Logo" style="width: 100px; margin-bottom: 20px;">
+                    <h1 class="section-title">ÚNETE A <span>NUESTRO EQUIPO</span></h1>
+                    <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto;">¿Te apasiona el fitness y el servicio al cliente? En Alliance GYM estamos en constante búsqueda de talento para brindar la mejor experiencia a nuestros socios.</p>
+                </div>
+                
+                <div class="jobs-content">
+                    
+                    <div class="job-card">
+                        <h3><i class="fas fa-dumbbell"></i> Coaches / Entrenadores</h3>
+                        <p>Buscamos instructores comprometidos con el progreso físico de nuestros socios.</p>
+                        <ul>
+                            <li>Certificación vigente como Entrenador Personal o Acondicionamiento Físico.</li>
+                            <li>Experiencia comprobable en piso de pesas y diseño de rutinas.</li>
+                            <li>Excelente actitud de servicio, proactividad y facilidad de palabra.</li>
+                            <li>Disponibilidad de horario.</li>
+                        </ul>
+                    </div>
+
+                    <div class="job-card">
+                        <h3><i class="fas fa-desktop"></i> Recepción y Atención al Cliente</h3>
+                        <p>La primera impresión de nuestro gimnasio. Buscamos personas dinámicas y amables.</p>
+                        <ul>
+                            <li>Experiencia en atención al cliente y ventas.</li>
+                            <li>Manejo básico de computadora (paquetería Office y sistemas de punto de venta).</li>
+                            <li>Facilidad para resolver dudas y manejo de objeciones.</li>
+                            <li>Excelente presentación y puntualidad.</li>
+                        </ul>
+                    </div>
+
+                    <div class="job-card">
+                        <h3><i class="fas fa-broom"></i> Mantenimiento e Higiene</h3>
+                        <p>El pilar de unas instalaciones impecables y seguras.</p>
+                        <ul>
+                            <li>Experiencia en limpieza y mantenimiento de instalaciones.</li>
+                            <li>Atención al detalle y alto sentido de responsabilidad.</li>
+                            <li>Disposición para mantener los estándares de higiene de Alliance GYM.</li>
+                        </ul>
+                    </div>
+
+                    <div class="text-center" style="margin-top: 50px;">
+                        <h3 style="border: none;">¿Cumples con el perfil?</h3>
+                        <p>Envíanos un mensaje con tu nombre completo, el puesto que te interesa y cuéntanos sobre tu experiencia. Si tienes tu CV a la mano, prepáralo.</p>
+                        
+                        <a href="https://wa.me/525567659004?text=%C2%A1Hola!%20Estoy%20interesado%20en%20formar%20parte%20del%20equipo%20de%20Alliance%20GYM%20y%20me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20el%20proceso%20de%20selecci%C3%B3n." class="btn-whatsapp-job" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-whatsapp"></i> Postularme por WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Simple -->
+    <footer style="text-align: center; padding: 30px; border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.9rem;">
+        &copy; 2026 Alliance GYM. Todos los derechos reservados.
+    </footer>
+
+</body>
+</html>
