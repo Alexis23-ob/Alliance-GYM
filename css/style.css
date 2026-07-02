@@ -493,7 +493,7 @@ ul {
     font-size: 0.9rem;
 }
 
-.form-group input, .form-group select {
+.form-group input, .form-group select, .form-group textarea {
     width: 100%;
     padding: 12px 15px;
     background: #fff;
@@ -505,7 +505,7 @@ ul {
     transition: var(--transition);
 }
 
-.form-group input:focus, .form-group select:focus {
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(255, 77, 0, 0.2);
 }
