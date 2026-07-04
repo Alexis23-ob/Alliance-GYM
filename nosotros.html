@@ -104,6 +104,18 @@
         .cta-buttons { display: flex; justify-content: center; gap: 20px; margin-top: 40px; }
         .btn-light { background: white; color: var(--primary-color); font-weight: bold; padding: 15px 40px; border-radius: 30px; }
         
+        /* Animations */
+        html { scroll-behavior: smooth; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
         @media (max-width: 992px) {
             .story-grid, .benefit-large, .benefits-grid-alt, .testimonials-grid { grid-template-columns: 1fr; }
             .benefit-large { flex-direction: column; text-align: center; }
@@ -139,7 +151,7 @@
     </section>
 
     <!-- Our Story -->
-    <section class="our-story">
+    <section class="our-story reveal">
         <div class="container">
             <div class="story-grid">
                 <div class="story-content">
@@ -159,11 +171,11 @@
                         <span class="stat-text">Miembros Activos</span>
                     </div>
                     <div class="visual-card primary">
-                        <span class="stat-big">98%</span>
+                        <span class="stat-big" style="color: white;">98%</span>
                         <span class="stat-text" style="color: white;">Satisfacción</span>
                     </div>
                     <div class="visual-card dark">
-                        <span class="stat-big">1</span>
+                        <span class="stat-big" style="color: white;">1</span>
                         <span class="stat-text">Sede Premium en Chimalhuacán</span>
                     </div>
                 </div>
@@ -172,7 +184,7 @@
     </section>
 
     <!-- Main Benefits -->
-    <section class="main-benefits">
+    <section class="main-benefits reveal">
         <div class="container">
             <div class="section-header-ref">
                 <span class="section-badge">Nuestras Fortalezas</span>
@@ -211,7 +223,7 @@
     </section>
 
     <!-- Extra Benefits -->
-    <section class="extra-benefits">
+    <section class="extra-benefits reveal">
         <div class="container">
             <div class="section-header-ref">
                 <span class="section-badge">Beneficios Adicionales</span>
@@ -243,7 +255,7 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="testimonials-section">
+    <section class="testimonials-section reveal">
         <div class="container">
             <div class="section-header-ref">
                 <span class="section-badge" style="background: rgba(255,255,255,0.1); color: white;">Testimonios</span>
@@ -283,7 +295,7 @@
     </section>
 
     <!-- Comparison -->
-    <section class="comparison-section">
+    <section class="comparison-section reveal">
         <div class="container">
             <div class="section-header-ref">
                 <span class="section-badge">Comparativa</span>
@@ -331,7 +343,7 @@
     </section>
 
     <!-- CTA -->
-    <section class="cta-section">
+    <section class="cta-section reveal">
         <div class="container">
             <h2>¿Listo para <span style="color: white; border-bottom: 3px solid white;">transformar</span> tu físico?</h2>
             <p style="font-size: 1.2rem; margin-top: 15px;">Únete a la élite de Alliance GYM y comienza tu camino hacia el éxito.</p>
@@ -353,5 +365,22 @@
         </div>
     </footer>
 
+    <!-- Script Animaciones -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
+        reveal();
+    </script>
 </body>
 </html>
