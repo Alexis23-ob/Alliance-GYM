@@ -113,6 +113,9 @@
         <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
             <i class="fas fa-search" style="color: #666;"></i>
             <input type="text" id="admin-search-input" placeholder="Buscar por ID o Nombre..." onkeyup="filterUsers()" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;">
+            <button class="btn btn-outline" id="toggle-users-btn" onclick="toggleUsers()" style="padding: 10px 15px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 5px;" title="Minimizar/Maximizar Usuarios">
+                <i class="fas fa-chevron-up" id="toggle-users-icon"></i> Minimizar
+            </button>
         </div>
 
         <div style="overflow-x: auto;">
@@ -396,6 +399,23 @@
             wl.splice(idx, 1);
             localStorage.setItem('alliance_waitlist', JSON.stringify(wl));
             loadWaitlist();
+        }
+
+        // --- FUNCION MINIMIZAR USUARIOS ---
+        function toggleUsers() {
+            const tbody = document.getElementById('users-tbody');
+            const icon = document.getElementById('toggle-users-icon');
+            const btn = document.getElementById('toggle-users-btn');
+            
+            if (tbody.style.display === 'none') {
+                tbody.style.display = '';
+                icon.className = 'fas fa-chevron-up';
+                btn.innerHTML = '<i class="fas fa-chevron-up" id="toggle-users-icon"></i> Minimizar';
+            } else {
+                tbody.style.display = 'none';
+                icon.className = 'fas fa-chevron-down';
+                btn.innerHTML = '<i class="fas fa-chevron-down" id="toggle-users-icon"></i> Expandir';
+            }
         }
     </script>
 </body>
