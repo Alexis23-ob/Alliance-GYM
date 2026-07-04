@@ -13,48 +13,102 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .feature-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(230,43,46,0.3); border-color: rgba(230,43,46,0.5); }
+        /* Specific Styles based on Reference */
+        .section-badge {
+            display: inline-block;
+            background: rgba(229, 69, 69, 0.1);
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary-color), #ff7e67);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         .hero-banner {
-            background: linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.9)), url('img/hero-bg.jpg') center/cover;
-            padding: 150px 0 80px;
+            background: linear-gradient(rgba(10,10,10,0.85), rgba(10,10,10,0.9)), url('img/hero-bg.jpg') center/cover;
+            padding: 160px 0 100px;
             text-align: center;
         }
-        .detail-section {
-            padding: 80px 0;
-            background-color: var(--bg-dark);
-        }
-        .detail-row {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-        .detail-row:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-        .detail-text {
-            flex: 1;
-        }
-        .detail-img {
-            flex: 1;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        .detail-img img {
-            width: 100%;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        .detail-img:hover img {
-            transform: scale(1.05);
-        }
-        @media (max-width: 768px) {
-            .detail-row, .detail-row:nth-child(even) {
-                flex-direction: column;
-            }
+        
+        /* Our Story / Stats Section */
+        .our-story { padding: 80px 0; background: var(--bg-page); }
+        .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .story-values { display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap; }
+        .value-item { display: flex; align-items: center; gap: 10px; font-weight: bold; color: var(--text-main); }
+        .value-item i { color: var(--primary-color); font-size: 1.2rem; }
+        
+        .story-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .visual-card { background: var(--bg-card); padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid var(--glass-border); }
+        .visual-card.primary { background: var(--primary-color); color: white; border: none; }
+        .visual-card.primary .stat-text { color: rgba(255,255,255,0.9); }
+        .visual-card.dark { background: var(--bg-dark); color: white; border: none; grid-column: span 2; }
+        .stat-big { display: block; font-size: 2.5rem; font-weight: 900; font-family: var(--font-heading); margin-bottom: 5px; }
+        .stat-text { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+
+        /* Main Benefits */
+        .main-benefits { padding: 80px 0; background: var(--bg-section-alt); }
+        .section-header-ref { text-align: center; margin-bottom: 60px; }
+        .section-header-ref h2 { font-size: 2.5rem; margin-top: 10px; }
+        
+        .benefit-large { background: var(--bg-dark); border-radius: 20px; padding: 50px; display: flex; gap: 40px; align-items: center; margin-bottom: 40px; color: white; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .benefit-large-icon { font-size: 5rem; color: var(--primary-color); flex-shrink: 0; }
+        .benefit-list { list-style: none; padding: 0; margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .benefit-list li { display: flex; align-items: center; gap: 10px; }
+        .benefit-list li i { color: var(--primary-color); }
+
+        .benefits-grid-alt { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .benefit-card-alt { background: var(--bg-card); border-radius: 20px; padding: 40px; border: 1px solid var(--glass-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .benefit-icon-alt { width: 60px; height: 60px; background: rgba(229, 69, 69, 0.1); color: var(--primary-color); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 20px; }
+        
+        /* Extra Benefits */
+        .extra-benefits { padding: 80px 0; background: var(--bg-page); }
+        .extras-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
+        .extra-item { text-align: center; background: var(--bg-card); padding: 40px 20px; border-radius: 16px; border: 1px solid var(--glass-border); transition: transform 0.3s ease; }
+        .extra-item:hover { transform: translateY(-10px); }
+        .extra-icon { width: 70px; height: 70px; margin: 0 auto 20px; background: var(--bg-page); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--primary-color); }
+        
+        /* Testimonials */
+        .testimonials-section { padding: 80px 0; background: var(--bg-dark); color: white; }
+        .testimonials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 50px; }
+        .testimonial-card { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); position: relative; }
+        .testimonial-quote { font-size: 4rem; color: var(--primary-color); position: absolute; top: 20px; right: 30px; opacity: 0.3; font-family: serif; line-height: 1; }
+        .testimonial-text { font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; position: relative; z-index: 1; font-style: italic; }
+        .author-info { display: flex; align-items: center; gap: 15px; }
+        .author-avatar { width: 50px; height: 50px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; }
+        .author-details h4 { margin: 0; font-size: 1.1rem; }
+        .author-details span { color: #aaa; font-size: 0.9rem; }
+        .stars i { color: #FFD700; font-size: 0.8rem; }
+
+        /* Comparison Table */
+        .comparison-section { padding: 80px 0; background: var(--bg-section-alt); }
+        .comp-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.08); background: var(--bg-card); }
+        .comp-table th, .comp-table td { padding: 20px; text-align: center; border-bottom: 1px solid var(--glass-border); }
+        .comp-table th { background: var(--bg-dark); color: white; font-size: 1.2rem; border-bottom: none; }
+        .comp-table th:first-child { text-align: left; }
+        .comp-table td:first-child { text-align: left; font-weight: bold; color: var(--text-main); }
+        .comp-table .alliance-col { background: rgba(229, 69, 69, 0.05); font-weight: bold; color: var(--primary-color); border-left: 1px solid var(--glass-border); border-right: 1px solid var(--glass-border); }
+        .comp-table th.alliance-col { background: var(--primary-color); color: white; border: none; }
+        .comp-table .fas.fa-check { color: var(--primary-color); font-size: 1.2rem; }
+        .comp-table .fas.fa-times { color: #ccc; font-size: 1.2rem; }
+
+        /* CTA */
+        .cta-section { background: linear-gradient(rgba(229,69,69,0.9), rgba(200,50,50,0.9)), url('img/hero-bg.jpg') center/cover; padding: 80px 0; text-align: center; color: white; }
+        .cta-section h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .cta-buttons { display: flex; justify-content: center; gap: 20px; margin-top: 40px; }
+        .btn-light { background: white; color: var(--primary-color); font-weight: bold; padding: 15px 40px; border-radius: 30px; }
+        
+        @media (max-width: 992px) {
+            .story-grid, .benefit-large, .benefits-grid-alt, .testimonials-grid { grid-template-columns: 1fr; }
+            .benefit-large { flex-direction: column; text-align: center; }
+            .benefit-list { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; }
         }
     </style>
 </head>
@@ -68,76 +122,234 @@
                 ALLIANCE <span>GYM</span>
             </a>
             <ul class="nav-links">
-                <li><a href="index.html" class="btn btn-outline" style="padding: 8px 20px; border-radius: 30px;"><i class="fas fa-arrow-left"></i> Volver al Inicio</a></li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nosotros.html">¿Por qué Alliance?</a></li>
+                <li><a href="index.html#memberships" class="btn btn-primary" style="padding: 8px 20px; border-radius: 30px;">Inscribirse <i class="fas fa-arrow-right"></i></a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="hero-banner">
+    <!-- Hero -->
+    <section class="hero-banner">
         <div class="container">
-            <h1 class="section-title" style="font-size: 3.5rem; margin-bottom: 20px;">¿POR QUÉ ELEGIR <span>ALLIANCE GYM?</span></h1>
-            <p class="section-desc" style="max-width: 800px; margin: 0 auto; font-size: 1.2rem;">No somos solo un gimnasio, somos una comunidad dedicada a forjar tu mejor versión con estándares de excelencia. Conoce nuestros principales diferenciadores.</p>
+            <span class="section-badge" style="background: rgba(255,255,255,0.2); color: white;">Conócenos</span>
+            <h1 class="section-title" style="font-size: 3.5rem; margin-bottom: 20px; color: white;">¿Por qué elegir <span class="gradient-text">Alliance GYM</span>?</h1>
+            <p class="section-desc" style="max-width: 700px; margin: 0 auto; font-size: 1.2rem; color: #eee;">Descubre lo que nos hace diferentes y por qué somos tu mejor opción para forjar tu físico y transformar tu estilo de vida.</p>
         </div>
-    </div>
+    </section>
 
-    <div class="detail-section">
+    <!-- Our Story -->
+    <section class="our-story">
         <div class="container">
-            <!-- Maquinaria -->
-            <div class="detail-row">
-                <div class="detail-text">
-                    <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-dumbbell"></i> Maquinaria Biomecánica Premium</h2>
-                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">Contamos con equipamiento de última generación, diseñado biomecánicamente para maximizar tus resultados y prevenir lesiones. Nuestro equipo es sometido a un mantenimiento constante para asegurar tu mejor rendimiento en cada repetición.</p>
-                    <a href="maquinaria.html" class="btn btn-outline mt-3">Conocer Maquinaria</a>
+            <div class="story-grid">
+                <div class="story-content">
+                    <span class="section-badge">Nuestra Comunidad</span>
+                    <h2>Transformando <span class="gradient-text">físicos</span> a través de la excelencia</h2>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 15px;">Alliance GYM nació con una misión clara: ofrecer un espacio de entrenamiento de nivel premium accesible para quienes buscan verdaderos resultados.</p>
+                    <p style="color: var(--text-muted); font-size: 1.1rem;">Creemos que entrenar con equipo biomecánico de élite no debería ser un lujo inalcanzable. Por eso combinamos instalaciones de primer nivel, tecnología y un ambiente seguro.</p>
+                    <div class="story-values">
+                        <div class="value-item"><i class="fas fa-dumbbell"></i> Disciplina</div>
+                        <div class="value-item"><i class="fas fa-star"></i> Excelencia</div>
+                        <div class="value-item"><i class="fas fa-shield-alt"></i> Seguridad</div>
+                    </div>
                 </div>
-                <div class="detail-img">
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" alt="Maquinaria Premium">
-                </div>
-            </div>
-
-            <!-- Coaches -->
-            <div class="detail-row">
-                <div class="detail-text">
-                    <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-user-tie"></i> Coaches Certificados</h2>
-                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">Nuestros entrenadores son profesionales apasionados y certificados que te guiarán paso a paso. Se aseguran de que mantengas una técnica perfecta, te motivan constantemente y diseñan rutinas personalizadas adaptadas a tus objetivos y nivel.</p>
-                </div>
-                <div class="detail-img">
-                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="Coaches Certificados">
-                </div>
-            </div>
-
-            <!-- Ambiente y Seguridad -->
-            <div class="detail-row">
-                <div class="detail-text">
-                    <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-shield-alt"></i> Ambiente Exclusivo y Seguro</h2>
-                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">Para nosotros tu seguridad es primordial. El acceso a las instalaciones se realiza mediante tecnología biométrica (huella/QR), garantizando que solo miembros de nuestra comunidad puedan ingresar. Además, nuestras instalaciones están monitoreadas para que entrenes con total tranquilidad.</p>
-                </div>
-                <div class="detail-img">
-                    <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=800&auto=format&fit=crop" alt="Ambiente Seguro">
+                <div class="story-visual">
+                    <div class="visual-card">
+                        <span class="stat-big" style="color: var(--text-main);">+1K</span>
+                        <span class="stat-text">Miembros Activos</span>
+                    </div>
+                    <div class="visual-card primary">
+                        <span class="stat-big">98%</span>
+                        <span class="stat-text" style="color: white;">Satisfacción</span>
+                    </div>
+                    <div class="visual-card dark">
+                        <span class="stat-big">1</span>
+                        <span class="stat-text">Sede Premium en Chimalhuacán</span>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Recompensas -->
-            <div class="detail-row">
-                <div class="detail-text">
-                    <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-gem"></i> Club de Recompensas Alliance</h2>
-                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">Premiamos tu disciplina. Nuestro sistema exclusivo de lealtad te permite ganar puntos por tus asistencias regulares y compras dentro del gimnasio. Podrás canjear estos puntos por productos, suplementos, prendas exclusivas o descuentos en tu mensualidad.</p>
+    <!-- Main Benefits -->
+    <section class="main-benefits">
+        <div class="container">
+            <div class="section-header-ref">
+                <span class="section-badge">Nuestras Fortalezas</span>
+                <h2 style="color: var(--text-main);">Lo que nos <span class="gradient-text">distingue</span></h2>
+            </div>
+            
+            <div class="benefit-large">
+                <div class="benefit-large-icon">
+                    <i class="fas fa-cogs"></i>
                 </div>
-                <div class="detail-img">
-                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop" alt="Club de Recompensas">
+                <div class="benefit-large-content">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 15px; color: white;">Maquinaria Biomecánica Premium</h3>
+                    <p style="color: #ccc; font-size: 1.1rem;">No usamos equipo genérico. Contamos con maquinaria diseñada científicamente para maximizar el estímulo muscular y minimizar el riesgo de lesiones durante tus rutinas.</p>
+                    <ul class="benefit-list">
+                        <li><i class="fas fa-check-circle"></i> Aislamiento muscular perfecto</li>
+                        <li><i class="fas fa-check-circle"></i> Mantenimiento preventivo constante</li>
+                        <li><i class="fas fa-check-circle"></i> Ergonomía superior</li>
+                        <li><i class="fas fa-check-circle"></i> Diseño de vanguardia</li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="text-center" style="margin-top: 80px;">
-                <h3 style="margin-bottom: 20px;">¿Listo para formar parte de la élite?</h3>
-                <a href="index.html#memberships" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 40px;">Inscríbete Ahora</a>
+            <div class="benefits-grid-alt">
+                <div class="benefit-card-alt">
+                    <div class="benefit-icon-alt"><i class="fas fa-user-tie"></i></div>
+                    <h3 style="margin-bottom: 15px; color: var(--text-main);">Coaches Certificados</h3>
+                    <p style="color: var(--text-muted);">Nuestros entrenadores no solo supervisan; te guían, corrigen tu postura y diseñan rutinas adaptadas a tu nivel y objetivos específicos.</p>
+                </div>
+                <div class="benefit-card-alt">
+                    <div class="benefit-icon-alt"><i class="fas fa-gem"></i></div>
+                    <h3 style="margin-bottom: 15px; color: var(--text-main);">Club de Recompensas</h3>
+                    <p style="color: var(--text-muted);">El único gimnasio que premia tu constancia. Gana puntos por tus asistencias y canjéalos por suplementos o descuentos exclusivos.</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer simplificado -->
-    <footer class="footer" style="padding-top: 50px;">
-        <div class="container text-center">
-            <p style="color: var(--text-muted);">&copy; 2026 Alliance GYM. Todos los derechos reservados.</p>
+    <!-- Extra Benefits -->
+    <section class="extra-benefits">
+        <div class="container">
+            <div class="section-header-ref">
+                <span class="section-badge">Beneficios Adicionales</span>
+                <h2 style="color: var(--text-main);">Todo lo que <span class="gradient-text">incluimos</span></h2>
+            </div>
+            <div class="extras-grid">
+                <div class="extra-item">
+                    <div class="extra-icon"><i class="fas fa-fingerprint"></i></div>
+                    <h4 style="color: var(--text-main);">Acceso Biométrico</h4>
+                    <p style="color: var(--text-muted); margin-top: 10px;">Ingreso rápido y seguro mediante huella digital o código QR.</p>
+                </div>
+                <div class="extra-item">
+                    <div class="extra-icon"><i class="fas fa-calculator"></i></div>
+                    <h4 style="color: var(--text-main);">Herramientas Digitales</h4>
+                    <p style="color: var(--text-muted); margin-top: 10px;">Calculadora nutricional y portal web para gestionar tu cuenta.</p>
+                </div>
+                <div class="extra-item">
+                    <div class="extra-icon"><i class="fas fa-clock"></i></div>
+                    <h4 style="color: var(--text-main);">Horarios Amplios</h4>
+                    <p style="color: var(--text-muted); margin-top: 10px;">De lunes a viernes de 5:00 AM a 11:00 PM y fines de semana.</p>
+                </div>
+                <div class="extra-item">
+                    <div class="extra-icon"><i class="fas fa-video"></i></div>
+                    <h4 style="color: var(--text-main);">Monitoreo 24/7</h4>
+                    <p style="color: var(--text-muted); margin-top: 10px;">Cámaras de seguridad en todas las áreas para tu total tranquilidad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header-ref">
+                <span class="section-badge" style="background: rgba(255,255,255,0.1); color: white;">Testimonios</span>
+                <h2 style="color: white;">Historias de <span class="gradient-text">éxito</span></h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">Llevo 6 meses entrenando en Alliance y la diferencia en el equipo se nota de inmediato. Los coaches siempre están al pendiente y el ambiente es de primera.</p>
+                    <div class="author-info">
+                        <div class="author-avatar">JR</div>
+                        <div class="author-details">
+                            <h4>Javier Ramírez</h4>
+                            <span>Miembro Alliance - 2025</span>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"</div>
+                    <p class="testimonial-text">Me encanta el sistema de puntos, ya canjeé mi primera proteína gratis solo por venir a entrenar. El acceso con huella me da mucha seguridad.</p>
+                    <div class="author-info">
+                        <div class="author-avatar">LM</div>
+                        <div class="author-details">
+                            <h4>Laura Martínez</h4>
+                            <span>Miembro VIP - 2026</span>
+                            <div class="stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header-ref">
+                <span class="section-badge">Comparativa</span>
+                <h2 style="color: var(--text-main);">Alliance GYM vs <span class="gradient-text">Otros</span></h2>
+            </div>
+            <div style="overflow-x: auto; padding: 20px 0;">
+                <table class="comp-table">
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th class="alliance-col">Alliance GYM</th>
+                            <th>Gimnasio Convencional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Maquinaria Biomecánica</td>
+                            <td class="alliance-col"><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Coaches Personalizados</td>
+                            <td class="alliance-col"><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-times" style="color: #ccc;"></i> Costo Extra</td>
+                        </tr>
+                        <tr>
+                            <td>Control de Acceso Biométrico</td>
+                            <td class="alliance-col"><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Club de Recompensas (Puntos)</td>
+                            <td class="alliance-col"><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Ambiente Seguro y Exclusivo</td>
+                            <td class="alliance-col"><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-times" style="color: #ccc;"></i> Aforo saturado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>¿Listo para <span style="color: white; border-bottom: 3px solid white;">transformar</span> tu físico?</h2>
+            <p style="font-size: 1.2rem; margin-top: 15px;">Únete a la élite de Alliance GYM y comienza tu camino hacia el éxito.</p>
+            <div class="cta-buttons">
+                <a href="index.html#memberships" class="btn btn-light"><i class="fas fa-user-plus"></i> Inscribirme Ahora</a>
+                <a href="maquinaria.html" class="btn btn-outline" style="border-color: white; color: white;">Ver Maquinaria</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="padding: 40px 0; background: var(--bg-dark); color: white; text-align: center;">
+        <div class="container">
+            <a href="index.html" class="logo" style="color: white; display: inline-flex; align-items: center; gap: 10px; font-size: 1.5rem; text-decoration: none; font-weight: bold; margin-bottom: 20px;">
+                <img src="img/logo.png" alt="Logo" style="height: 40px;">
+                ALLIANCE <span style="color: var(--primary-color);">GYM</span>
+            </a>
+            <p style="color: #aaa;">&copy; 2026 Alliance GYM. Todos los derechos reservados.</p>
         </div>
     </footer>
 
