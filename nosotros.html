@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Por qué elegirnos | Alliance GYM</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .feature-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(230,43,46,0.3); border-color: rgba(230,43,46,0.5); }
+        .hero-banner {
+            background: linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.9)), url('img/hero-bg.jpg') center/cover;
+            padding: 150px 0 80px;
+            text-align: center;
+        }
+        .detail-section {
+            padding: 80px 0;
+            background-color: var(--bg-dark);
+        }
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .detail-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .detail-text {
+            flex: 1;
+        }
+        .detail-img {
+            flex: 1;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .detail-img img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .detail-img:hover img {
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .detail-row, .detail-row:nth-child(even) {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="img/logo.png" alt="Alliance GYM Logo" class="logo-img">
+                ALLIANCE <span>GYM</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="btn btn-outline" style="padding: 8px 20px; border-radius: 30px;"><i class="fas fa-arrow-left"></i> Volver al Inicio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="hero-banner">
+        <div class="container">
+            <h1 class="section-title" style="font-size: 3.5rem; margin-bottom: 20px;">¿POR QUÉ ELEGIR <span>ALLIANCE GYM?</span></h1>
+            <p class="section-desc" style="max-width: 800px; margin: 0 auto; font-size: 1.2rem;">No somos solo un gimnasio, somos una comunidad dedicada a forjar tu mejor versión con estándares de excelencia. Conoce nuestros principales diferenciadores.</p>
+        </div>
+    </div>
+
+    <div class="detail-section">
+        <div class="container">
+            <!-- Maquinaria -->
+            <div class="detail-row">
+                <div class="detail-text">
+                    <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-dumbbell"></i> Maquinaria Biomecánica Premium</h2>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">Contamos con equipamiento de última generación, diseñado biomecánicamente para maximizar tus resultados y prevenir lesiones. Nuestro equipo es sometido a un mantenimiento constante para asegurar tu mejor rendimiento en cada repetición.</p>
+                    <a href="maquinaria.html" class="btn btn-outline mt-3">Conocer Maquinaria</a>
+                </div>
+                <div class="detail-img">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" alt="Maquinaria Premium">
+                </div>
+            </div>
+
+            <!-- Coaches -->
+            <div class="detail-row">
+                <div class="detail-text">
+                    <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-user-tie"></i> Coaches Certificados</h2>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">Nuestros entrenadores son profesionales apasionados y certificados que te guiarán paso a paso. Se aseguran de que mantengas una técnica perfecta, te motivan constantemente y diseñan rutinas personalizadas adaptadas a tus objetivos y nivel.</p>
+                </div>
+                <div class="detail-img">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="Coaches Certificados">
+                </div>
+            </div>
+
+            <!-- Ambiente y Seguridad -->
+            <div class="detail-row">
+                <div class="detail-text">
+                    <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-shield-alt"></i> Ambiente Exclusivo y Seguro</h2>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">Para nosotros tu seguridad es primordial. El acceso a las instalaciones se realiza mediante tecnología biométrica (huella/QR), garantizando que solo miembros de nuestra comunidad puedan ingresar. Además, nuestras instalaciones están monitoreadas para que entrenes con total tranquilidad.</p>
+                </div>
+                <div class="detail-img">
+                    <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=800&auto=format&fit=crop" alt="Ambiente Seguro">
+                </div>
+            </div>
+
+            <!-- Recompensas -->
+            <div class="detail-row">
+                <div class="detail-text">
+                    <h2 style="color: var(--primary-color); margin-bottom: 20px;"><i class="fas fa-gem"></i> Club de Recompensas Alliance</h2>
+                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;">Premiamos tu disciplina. Nuestro sistema exclusivo de lealtad te permite ganar puntos por tus asistencias regulares y compras dentro del gimnasio. Podrás canjear estos puntos por productos, suplementos, prendas exclusivas o descuentos en tu mensualidad.</p>
+                </div>
+                <div class="detail-img">
+                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop" alt="Club de Recompensas">
+                </div>
+            </div>
+            
+            <div class="text-center" style="margin-top: 80px;">
+                <h3 style="margin-bottom: 20px;">¿Listo para formar parte de la élite?</h3>
+                <a href="index.html#memberships" class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 40px;">Inscríbete Ahora</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer simplificado -->
+    <footer class="footer" style="padding-top: 50px;">
+        <div class="container text-center">
+            <p style="color: var(--text-muted);">&copy; 2026 Alliance GYM. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
