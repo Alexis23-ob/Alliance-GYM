@@ -1,16 +1,16 @@
 :root {
-    --bg-page: #F0F2F5; /* Light gray background to highlight white cards */
+    --bg-page: #F4F6F9; /* Gris aún más claro y suave */
     --bg-section-alt: #FFFFFF; /* Blanco puro */
-    --bg-dark: #1A1A1A; /* Para el pie de página, footer y header */
+    --bg-dark: #2B3036; /* Gris pizarra elegante en lugar de negro profundo */
     --bg-darker: transparent;
     --bg-card: #FFFFFF; /* Tarjetas blancas */
-    --primary-color: #E62B2E; /* Rojo Alliance */
-    --primary-hover: #C52225;
-    --secondary-color: #DDDDDD; /* Gris neutro para bordes y detalles */
-    --text-main: #212529; /* Gris muy oscuro para texto principal (mejor legibilidad que negro puro) */
-    --text-muted: #6C757D; /* Gris medio para descripciones */
+    --primary-color: #E54545; /* Un rojo un poco más suave y claro */
+    --primary-hover: #D03535;
+    --secondary-color: #E2E2E2; /* Gris neutro más claro */
+    --text-main: #333940; /* Gris azulado muy oscuro para texto, más formal que negro */
+    --text-muted: #7A828A; /* Gris medio suave */
     --text-light: #FFFFFF; /* Texto blanco sobre fondos oscuros */
-    --glass-border: #EAEAEA; /* Borde muy sutil para tarjetas blancas */
+    --glass-border: #E8ECEF; /* Borde sutil y claro */
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Roboto', sans-serif;
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
