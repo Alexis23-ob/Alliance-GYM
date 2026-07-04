@@ -118,8 +118,10 @@
             </button>
         </div>
 
-        <div style="overflow-x: auto;">
-            <table id="users-table">
+        <div id="table-wrapper" style="display: grid; grid-template-rows: 1fr; transition: grid-template-rows 0.8s ease-in-out, opacity 0.8s ease-in-out; opacity: 1;">
+            <div style="overflow: hidden;">
+                <div style="overflow-x: auto;">
+                    <table id="users-table">
                 <thead>
                     <tr>
                         <th>ID (Socio)</th>
@@ -134,6 +136,8 @@
                     <tr><td colspan="6" style="text-align: center;">Cargando información...</td></tr>
                 </tbody>
             </table>
+                </div>
+            </div>
         </div>
 
         <!-- Seccion Lista de Espera -->
@@ -403,16 +407,18 @@
 
         // --- FUNCION MINIMIZAR USUARIOS ---
         function toggleUsers() {
-            const tbody = document.getElementById('users-tbody');
+            const wrapper = document.getElementById('table-wrapper');
             const icon = document.getElementById('toggle-users-icon');
             const btn = document.getElementById('toggle-users-btn');
             
-            if (tbody.style.display === 'none') {
-                tbody.style.display = '';
+            if (wrapper.style.gridTemplateRows === '0fr') {
+                wrapper.style.gridTemplateRows = '1fr';
+                wrapper.style.opacity = '1';
                 icon.className = 'fas fa-chevron-up';
                 btn.innerHTML = '<i class="fas fa-chevron-up" id="toggle-users-icon"></i> Minimizar';
             } else {
-                tbody.style.display = 'none';
+                wrapper.style.gridTemplateRows = '0fr';
+                wrapper.style.opacity = '0';
                 icon.className = 'fas fa-chevron-down';
                 btn.innerHTML = '<i class="fas fa-chevron-down" id="toggle-users-icon"></i> Expandir';
             }
