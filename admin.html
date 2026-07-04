@@ -132,6 +132,46 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Seccion Lista de Espera -->
+        <div style="margin-top: 50px; border-top: 2px solid #eee; padding-top: 20px;">
+            <h2 style="font-family: var(--font-heading); margin-bottom: 20px;"><i class="fas fa-list-alt"></i> Lista de Espera (Postulantes)</h2>
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end;">
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: #555; margin-bottom: 5px;">Nombre del Postulante</label>
+                    <input type="text" id="wl-name" placeholder="Ej. Juan Pérez" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 250px;">
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: #555; margin-bottom: 5px;">Puesto</label>
+                    <select id="wl-role" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 180px;">
+                        <option value="Entrenador">Entrenador</option>
+                        <option value="Recepcionista">Recepcionista</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; color: #555; margin-bottom: 5px;">Teléfono (WhatsApp)</label>
+                    <input type="text" id="wl-phone" placeholder="Ej. 5551234567" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; width: 150px;">
+                </div>
+                <button class="btn btn-primary" onclick="addWaitlist()" style="padding: 10px 20px; height: 42px;">
+                    <i class="fas fa-plus"></i> Guardar
+                </button>
+            </div>
+            
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                <thead>
+                    <tr>
+                        <th style="background: #f1f1f1;">Nombre</th>
+                        <th style="background: #f1f1f1;">Puesto</th>
+                        <th style="background: #f1f1f1;">Contacto</th>
+                        <th style="background: #f1f1f1;">Fecha Reg.</th>
+                        <th style="background: #f1f1f1;">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="waitlist-tbody">
+                    <tr><td colspan="5" style="text-align: center;">Sin postulantes en espera.</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Supabase -->
@@ -294,7 +334,69 @@
         }
 
         // Init
-        document.addEventListener('DOMContentLoaded', loadDashboard);
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDashboard();
+            loadWaitlist();
+        });
+
+        // --- FUNCIONES LISTA DE ESPERA ---
+        function loadWaitlist() {
+            let wl = JSON.parse(localStorage.getItem('alliance_waitlist')) || [];
+            const tb = document.getElementById('waitlist-tbody');
+            if (wl.length === 0) {
+                tb.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 15px;">No hay postulantes en espera.</td></tr>';
+                return;
+            }
+            let html = '';
+            wl.forEach((p, idx) => {
+                html += `
+                    <tr>
+                        <td><strong>${p.name}</strong></td>
+                        <td><span class="badge badge-pending" style="background:#e0f7fa; color:#006064;">${p.role}</span></td>
+                        <td><a href="https://wa.me/${p.phone}" target="_blank" style="color: #25d366; text-decoration: none; font-weight: bold;"><i class="fab fa-whatsapp"></i> ${p.phone}</a></td>
+                        <td>${p.date}</td>
+                        <td><button onclick="removeWaitlist(${idx})" style="background: #ff4c4c; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer;"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                `;
+            });
+            tb.innerHTML = html;
+        }
+
+        function addWaitlist() {
+            const name = document.getElementById('wl-name').value.trim();
+            const role = document.getElementById('wl-role').value;
+            let phone = document.getElementById('wl-phone').value.trim();
+            
+            if(!name || !phone) { 
+                alert("Por favor ingresa el nombre y teléfono del postulante."); 
+                return; 
+            }
+            
+            // Limpiar número de teléfono (quitar espacios, +52, etc)
+            phone = phone.replace(/[^0-9]/g, '');
+            if(phone.length === 10) phone = '52' + phone; // Asumir MX si son 10 digitos
+            
+            let wl = JSON.parse(localStorage.getItem('alliance_waitlist')) || [];
+            wl.push({
+                name: name,
+                role: role,
+                phone: phone,
+                date: new Date().toLocaleDateString()
+            });
+            localStorage.setItem('alliance_waitlist', JSON.stringify(wl));
+            
+            document.getElementById('wl-name').value = '';
+            document.getElementById('wl-phone').value = '';
+            loadWaitlist();
+        }
+
+        function removeWaitlist(idx) {
+            if(!confirm("¿Estás seguro de eliminar a este postulante de la lista de espera?")) return;
+            let wl = JSON.parse(localStorage.getItem('alliance_waitlist')) || [];
+            wl.splice(idx, 1);
+            localStorage.setItem('alliance_waitlist', JSON.stringify(wl));
+            loadWaitlist();
+        }
     </script>
 </body>
 </html>
