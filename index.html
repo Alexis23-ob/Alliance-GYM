@@ -50,7 +50,7 @@
     <div id="public-site">
         
         <!-- Hero Section -->
-        <section id="home" class="hero">
+        <section id="home" class="hero reveal">
             <div class="hero-overlay"></div>
             <div class="container hero-content">
                 <h1 class="hero-title">FORJA TU <span>LEGADO</span></h1>
@@ -63,7 +63,7 @@
         </section>
 
         <!-- Gallery & Zonas Corporales Section -->
-        <section id="gallery" class="section gallery-section" style="background-color: var(--bg-section-alt);">
+        <section id="gallery" class="section gallery-section reveal" style="background-color: var(--bg-section-alt);">
             <div class="container">
                 <div class="section-header text-center">
                     <h2 class="section-title">NUESTRAS <span>INSTALACIONES</span></h2>
@@ -87,7 +87,7 @@
         </section>
 
         <!-- Equipment Section -->
-        <section id="equipment" class="section equipment-section">
+        <section id="equipment" class="section equipment-section reveal">
             <div class="container">
                 <div class="section-header text-center">
                     <h2 class="section-title">NUESTRA <span>MAQUINARIA</span></h2>
@@ -146,7 +146,7 @@
         </section>
 
         <!-- Coaches & Appointments Section -->
-        <section id="coaches" class="section coaches-section" style="background-color: var(--bg-section-alt);">
+        <section id="coaches" class="section coaches-section reveal" style="background-color: var(--bg-section-alt);">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">ENTRENA CON LOS <span>MEJORES</span></h2>
@@ -219,7 +219,7 @@
         
 
         <!-- Info Section (Promotions, Enrollment, Hours) -->
-        <section id="info" class="section info-section">
+        <section id="info" class="section info-section reveal">
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">TODO LO QUE NECESITAS <span>SABER</span></h2>
@@ -325,7 +325,7 @@
         </section>
 
         <!-- Por qué elegirnos Banner -->
-        <section id="why-us-banner" class="section why-us-banner" style="background: linear-gradient(rgba(10,10,10,0.85), rgba(230,43,46,0.2)), url('img/hero-bg.jpg') center/cover; padding: 80px 0; text-align: center;">
+        <section id="why-us-banner" class="section why-us-banner reveal" style="background: linear-gradient(rgba(10,10,10,0.85), rgba(230,43,46,0.2)), url('img/hero-bg.jpg') center/cover; padding: 80px 0; text-align: center;">
             <div class="container">
                 <h2 style="font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase;">Descubre por qué somos tu <span style="color: var(--primary-color);">mejor opción</span></h2>
                 <p style="font-size: 1.2rem; color: #ddd; max-width: 700px; margin: 0 auto 30px;">Conoce nuestras instalaciones premium, coaches certificados, el exclusivo sistema de recompensas y el ambiente seguro que hemos creado para ti.</p>
@@ -336,7 +336,7 @@
         </section>
 
         <!-- Opiniones & Reseñas Section (NEW) -->
-        <section id="reviews-section" class="section reviews-section" style="background-color: var(--bg-section-alt);">
+        <section id="reviews-section" class="section reviews-section reveal" style="background-color: var(--bg-section-alt);">
             <div class="container">
                 <div class="section-header text-center">
                     <h2 class="section-title">LO QUE DICEN NUESTROS <span>SOCIOS</span></h2>
@@ -392,7 +392,7 @@
         </section>
 
         <!-- Membership Section (NEW) -->
-        <section id="memberships" class="section memberships-section">
+        <section id="memberships" class="section memberships-section reveal">
             <div class="container">
                 <div class="section-header text-center">
                     <h2 class="section-title">NUESTROS <span>PLANES</span></h2>
@@ -452,7 +452,7 @@
         </section>
 
         <!-- Location Section -->
-        <section id="location" class="section location-section" style="background-color: var(--bg-dark); color: var(--text-light);">
+        <section id="location" class="section location-section reveal" style="background-color: var(--bg-dark); color: var(--text-light);">
             <div class="container">
                 <div class="section-header text-center">
                     <h2 class="section-title">NUESTRA <span>UBICACIÓN</span></h2>
@@ -1423,5 +1423,23 @@
         <span class="whatsapp-tooltip">¿Necesitas ayuda?</span>
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <!-- Script Animaciones -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
+        reveal();
+    </script>
 </body>
 </html>

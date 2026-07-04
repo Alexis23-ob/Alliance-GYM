@@ -210,7 +210,7 @@
     </header>
 
     <!-- Galería Interactiva -->
-    <main class="machinery-container">
+    <main class="machinery-container reveal">
         <div class="container">
             
             <!-- Botones de Navegación del Catálogo -->
@@ -818,6 +818,24 @@
             // Ejecutar filtro inicial
             filterGallery(initialCategory);
         });
+    </script>
+
+    <!-- Script Animaciones -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
+        reveal();
     </script>
 </body>
 </html>
