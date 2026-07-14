@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         promo: {
             title: '🔥 PROMO INAUGURAL 🔥',
-            description: 'Inscríbete hoy en línea y llévate tu primer mes con <strong>500 Puntos de Regalo</strong> en tu monedero de recompensas.'
+            description: 'Inscríbete hoy en línea y llévate tu primer mes con <strong>Inscripci�n Gratis</strong> con inscripci�n gratis.'
         },
         plans: {
             basico: { price: 399 },
