@@ -1,6 +1,6 @@
-/**
+﻿/**
  * Alliance GYM - Coordinador Principal (SPA & UI Bindings)
- * Controla el flujo de la página, modales, transiciones de vistas y cableado de formularios.
+ * Controla el flujo de la pÃ¡gina, modales, transiciones de vistas y cableado de formularios.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sunday: '7:00 AM - 2:00 PM'
         },
         promo: {
-            title: '🔥 PROMO INAUGURAL 🔥',
-            description: 'Inscríbete hoy en línea y llévate tu primer mes con <strong>Inscripci�n Gratis</strong> con inscripci�n gratis.'
+            title: 'ðŸ”¥ PROMO INAUGURAL ðŸ”¥',
+            description: 'InscrÃ­bete hoy en lÃ­nea y llÃ©vate tu primer mes con <strong>Inscripción Gratis</strong> con inscripción gratis.'
         },
         plans: {
             basico: { price: 399 },
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             plans: { ...DEFAULT_CONFIG.plans, ...(saved.plans || {}) }
         };
         
-        // Guardar por si no existía en localStorage o estaba incompleto
+        // Guardar por si no existÃ­a en localStorage o estaba incompleto
         localStorage.setItem('alliance_gym_config', JSON.stringify(config));
 
         // Aplicar horarios
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (promoTitle) promoTitle.innerText = config.promo.title;
         if (promoText) promoText.innerHTML = config.promo.description;
 
-        // Aplicar precios de membresías
+        // Aplicar precios de membresÃ­as
         const priceBasico = document.getElementById('val-price-basico');
         const priceBlack = document.getElementById('val-price-black');
         const priceVip = document.getElementById('val-price-vip');
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Formulario de citas público (Simulación preservada)
+    // Formulario de citas pÃºblico (SimulaciÃ³n preservada)
     const publicAppForm = document.getElementById('appointment-form');
     const successMessage = document.getElementById('appointment-success');
     if (publicAppForm) {
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicializar Visor 360° (Pannellum)
+    // Inicializar Visor 360Â° (Pannellum)
     try {
         if (document.getElementById('panorama')) {
             pannellum.viewer('panorama', {
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {
         console.error("Error al inicializar Pannellum", e);
         if (document.querySelector('.panorama-placeholder')) {
-            document.querySelector('.panorama-placeholder').innerHTML = "No se pudo cargar el visor 360. Asegúrate de tener conexión a internet.";
+            document.querySelector('.panorama-placeholder').innerHTML = "No se pudo cargar el visor 360. AsegÃºrate de tener conexiÃ³n a internet.";
         }
     }
 
@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Lógica de la Calculadora Nutricional (Preservada)
+    // LÃ³gica de la Calculadora Nutricional (Preservada)
     const calcForm = document.getElementById('nutrition-form');
     if (calcForm) {
         calcForm.addEventListener('submit', (e) => {
@@ -240,13 +240,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -------------------------------------------------------------
-    // 2. INICIALIZACIÓN DEL SISTEMA DINÁMICO (SPA, Modales, Session)
+    // 2. INICIALIZACIÃ“N DEL SISTEMA DINÃMICO (SPA, Modales, Session)
     // -------------------------------------------------------------
     applySiteConfig();
     checkActiveSession();
     renderPublicReviews();
 
-    // Eventos de Modales de Autenticación
+    // Eventos de Modales de AutenticaciÃ³n
     const authLoginForm = document.getElementById('auth-login-form');
     /* if (authLoginForm) {
         authLoginForm.addEventListener('submit', handleLogin);
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
         authRegisterForm.addEventListener('submit', handleRegister);
     } */
 
-    // Configuración del Selector de Estrellas para Feedback
+    // ConfiguraciÃ³n del Selector de Estrellas para Feedback
     const starButtons = document.querySelectorAll('#stars-selector .star-btn');
     starButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
         feedbackForm.addEventListener('submit', handleFeedbackSubmit);
     }
 
-    // Formulario de configuración de la web (Admin)
+    // Formulario de configuraciÃ³n de la web (Admin)
     const webConfigForm = document.getElementById('webconfig-form');
     if (webConfigForm) {
         webConfigForm.addEventListener('submit', (e) => {
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             localStorage.setItem('alliance_gym_config', JSON.stringify(config));
             window.applySiteConfig();
-            showToast('¡Modificaciones de la página guardadas con éxito!', 'success');
+            showToast('Â¡Modificaciones de la pÃ¡gina guardadas con Ã©xito!', 'success');
         });
     }
 
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
         suggestionForm.addEventListener('submit', handleSuggestionSubmit);
     }
 
-    // Bindeo del menú de pestañas (Tabs) en Dashboards
+    // Bindeo del menÃº de pestaÃ±as (Tabs) en Dashboards
     bindDashboardTabs();
 
     // Formulario de citas interno (Cliente)
@@ -348,10 +348,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // -------------------------------------------------------------
-// 3. FUNCIONES GLOBALES DE NAVEGACIÓN Y PORTALES
+// 3. FUNCIONES GLOBALES DE NAVEGACIÃ“N Y PORTALES
 // -------------------------------------------------------------
 
-// Función global para seleccionar coach desde las tarjetas
+// FunciÃ³n global para seleccionar coach desde las tarjetas
 window.selectCoach = function(coachValue, coachName) {
     document.querySelectorAll('.coach-card').forEach(card => card.classList.remove('active'));
     event.currentTarget.classList.add('active');
@@ -377,7 +377,7 @@ window.goToSection = function(sectionId) {
     }
 };
 
-// Gestión de Modales de Autenticación
+// GestiÃ³n de Modales de AutenticaciÃ³n
 window.openAuthModal = function() {
     const currentUser = window.AllianceAuth.getCurrentUser();
     if (currentUser) {
@@ -418,17 +418,17 @@ window.startPurchaseFlow = function(planName) {
     let baseMsg = '';
     
     if (planName === 'Plan Mensual') {
-        baseMsg = `Hola, solicito información para inscribirme a Alliance GYM con la Mensualidad regular de $550 y cómo realizar el pago de inscripción.`;
+        baseMsg = `Hola, solicito informaciÃ³n para inscribirme a Alliance GYM con la Mensualidad regular de $550 y cÃ³mo realizar el pago de inscripciÃ³n.`;
     } else if (planName === 'Plan Semestral') {
-        baseMsg = `Hola, solicito información para inscribirme a Alliance GYM con el Plan Semestral de $2600 y cómo realizar el pago.`;
+        baseMsg = `Hola, solicito informaciÃ³n para inscribirme a Alliance GYM con el Plan Semestral de $2600 y cÃ³mo realizar el pago.`;
     } else if (planName === 'Plan Anual') {
-        baseMsg = `Hola, solicito información para inscribirme a Alliance GYM con la Anualidad de $5000 y cómo realizar el pago.`;
+        baseMsg = `Hola, solicito informaciÃ³n para inscribirme a Alliance GYM con la Anualidad de $5000 y cÃ³mo realizar el pago.`;
     } else if (planName === 'Promo Estudiante') {
-        baseMsg = `Hola, me interesa la Promo Estudiantes con mensualidad de $380 en Alliance GYM. Cuento con mi credencial vigente, ¿cómo realizo mi pago?`;
-    } else if (planName === 'Promo Día del Padre') {
-        baseMsg = `Hola, quiero aprovechar la Promo Día del Padre en Alliance GYM con inscripción gratis. ¿Me podrían dar información de los costos por persona y cómo inscribirme?`;
+        baseMsg = `Hola, me interesa la Promo Estudiantes con mensualidad de $380 en Alliance GYM. Cuento con mi credencial vigente, Â¿cÃ³mo realizo mi pago?`;
+    } else if (planName === 'Promo DÃ­a del Padre') {
+        baseMsg = `Hola, quiero aprovechar la Promo DÃ­a del Padre en Alliance GYM con inscripciÃ³n gratis. Â¿Me podrÃ­an dar informaciÃ³n de los costos por persona y cÃ³mo inscribirme?`;
     } else {
-        baseMsg = `Hola, solicito información para inscribirme a Alliance GYM con el ${planName} y cómo realizar mi pago.`;
+        baseMsg = `Hola, solicito informaciÃ³n para inscribirme a Alliance GYM con el ${planName} y cÃ³mo realizar mi pago.`;
     }
 
     const encodedMsg = encodeURIComponent(baseMsg);
@@ -456,7 +456,7 @@ function switchCheckoutStep(stepNumber) {
 // 4. CONTROLADORES DE ACCIONES Y ENVIOS
 // -------------------------------------------------------------
 
-// Iniciar sesión
+// Iniciar sesiÃ³n
 function handleLogin(e) {
     e.preventDefault();
     const email = document.getElementById('login-email').value;
@@ -472,7 +472,7 @@ function handleLogin(e) {
     }
 }
 
-// Registro rápido en el checkout
+// Registro rÃ¡pido en el checkout
 async function handleCheckoutRegister(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button[type="submit"]');
@@ -486,7 +486,7 @@ async function handleCheckoutRegister(e) {
 
     const res = await window.AllianceAuth.register(name, email, pass);
     if (res && res.success) {
-        // En Supabase, a menudo se requiere confirmar el correo, así que no logueamos forzosamente,
+        // En Supabase, a menudo se requiere confirmar el correo, asÃ­ que no logueamos forzosamente,
         // pero avanzamos al paso 2 para que terminen el flujo simulado.
         switchCheckoutStep(2);
     } else {
@@ -497,7 +497,7 @@ async function handleCheckoutRegister(e) {
     btn.disabled = false;
 }
 
-// Simulación de Pago de membresía
+// SimulaciÃ³n de Pago de membresÃ­a
 function handleCheckoutPayment(e) {
     e.preventDefault();
     const btn = document.getElementById('btn-pay-submit');
@@ -518,7 +518,7 @@ function handleCheckoutPayment(e) {
         if (res.success) {
             // Ir al paso de agendar cita
             switchCheckoutStep(3);
-            showToast('¡Pago aprobado! Membresía activada.', 'success');
+            showToast('Â¡Pago aprobado! MembresÃ­a activada.', 'success');
         } else {
             showToast(res.message, 'error');
         }
@@ -543,7 +543,7 @@ function handleCheckoutBookingSubmit(e) {
             id: 'app_' + Date.now(),
             date: date,
             time: time,
-            type: 'Evaluación e Inducción Inicial',
+            type: 'EvaluaciÃ³n e InducciÃ³n Inicial',
             coach: coach,
             status: 'Programada'
         };
@@ -560,7 +560,7 @@ function handleCheckoutBookingSubmit(e) {
     document.getElementById('ticket-user-code').innerText = latestUser.qrCode;
     document.getElementById('ticket-appointment-detail').innerText = `${date} a las ${time} hrs con ${coach}`;
     
-    // Generar código QR real en canvas del ticket
+    // Generar cÃ³digo QR real en canvas del ticket
     const ticketQrCanvas = document.getElementById('checkout-qrcode-canvas');
     ticketQrCanvas.innerHTML = '';
     try {
@@ -601,9 +601,9 @@ function handleClientAppointmentSubmit(e) {
     if (userIndex !== -1) {
         const user = users[userIndex];
         
-        // Verificar restricciones de membresía: si está inactiva no puede agendar
+        // Verificar restricciones de membresÃ­a: si estÃ¡ inactiva no puede agendar
         if (!user.membership || !user.membership.active) {
-            showToast('Debes tener una membresía activa para agendar citas.', 'error');
+            showToast('Debes tener una membresÃ­a activa para agendar citas.', 'error');
             return;
         }
 
@@ -623,14 +623,14 @@ function handleClientAppointmentSubmit(e) {
         localStorage.setItem('alliance_gym_users', JSON.stringify(users));
 
         document.getElementById('dash-appointment-form').reset();
-        showToast('Cita programada con éxito.', 'success');
+        showToast('Cita programada con Ã©xito.', 'success');
         
         // Refrescar paneles
         updateClientDashboardUI(user);
     }
 }
 
-// Envío de opiniones en el panel de cliente
+// EnvÃ­o de opiniones en el panel de cliente
 function handleFeedbackSubmit(e) {
     e.preventDefault();
     const target = document.getElementById('feedback-target').value;
@@ -638,7 +638,7 @@ function handleFeedbackSubmit(e) {
     const comment = document.getElementById('feedback-comment').value;
 
     const currentUser = window.AllianceAuth.getCurrentUser();
-    const name = currentUser ? currentUser.name : 'Socio Anónimo';
+    const name = currentUser ? currentUser.name : 'Socio AnÃ³nimo';
 
     const res = window.AllianceReviews.addReview(name, rating, target, comment);
     if (res.success) {
@@ -651,9 +651,9 @@ function handleFeedbackSubmit(e) {
         document.getElementById('feedback-rating-val').value = '5';
         
         if (res.pointsAwarded) {
-            showToast('¡Muchas gracias por valorar! Se te han sumado +50 puntos.', 'success');
+            showToast('Â¡Muchas gracias por valorar! Se te han sumado +50 puntos.', 'success');
         } else {
-            showToast('¡Muchas gracias por valorar! Tu opinión ha sido publicada (límite de 50 pts semanales ya alcanzado).', 'info');
+            showToast('Â¡Muchas gracias por valorar! Tu opiniÃ³n ha sido publicada (lÃ­mite de 50 pts semanales ya alcanzado).', 'info');
         }
         
         // Actualizar UI
@@ -664,7 +664,7 @@ function handleFeedbackSubmit(e) {
     }
 }
 
-// Envío de quejas y sugerencias en buzón de cliente
+// EnvÃ­o de quejas y sugerencias en buzÃ³n de cliente
 function handleSuggestionSubmit(e) {
     e.preventDefault();
     const type = document.getElementById('sug-type').value;
@@ -673,12 +673,12 @@ function handleSuggestionSubmit(e) {
     const message = document.getElementById('sug-message').value;
 
     const currentUser = window.AllianceAuth.getCurrentUser();
-    const name = identity === 'public' ? (currentUser ? currentUser.name : 'Socio') : 'Anónimo';
+    const name = identity === 'public' ? (currentUser ? currentUser.name : 'Socio') : 'AnÃ³nimo';
 
     const res = window.AllianceReviews.submitSuggestion(name, type, subject, message);
     if (res.success) {
         document.getElementById('suggestion-form').reset();
-        showToast('Tu mensaje ha sido depositado en el buzón administrativo.', 'success');
+        showToast('Tu mensaje ha sido depositado en el buzÃ³n administrativo.', 'success');
     }
 }
 
@@ -687,12 +687,12 @@ function handleSuggestionSubmit(e) {
 // -------------------------------------------------------------
 
 function checkActiveSession() {
-    // La lógica de autenticación ahora está delegada completamente a auth.js (window.renderDashboardState)
-    // para manejar de forma asíncrona tanto usuarios temporales como sesiones de Supabase.
+    // La lÃ³gica de autenticaciÃ³n ahora estÃ¡ delegada completamente a auth.js (window.renderDashboardState)
+    // para manejar de forma asÃ­ncrona tanto usuarios temporales como sesiones de Supabase.
     if (window.renderDashboardState) {
-        // Ejecutamos renderDashboardState pero le pedimos que NO cambie la visibilidad de la página completa,
-        // solo que actualice el texto del botón si la sesión está activa.
-        // Como no podemos pasar parámetros fácilmente, al menos evitamos sobrescribir el botón aquí.
+        // Ejecutamos renderDashboardState pero le pedimos que NO cambie la visibilidad de la pÃ¡gina completa,
+        // solo que actualice el texto del botÃ³n si la sesiÃ³n estÃ¡ activa.
+        // Como no podemos pasar parÃ¡metros fÃ¡cilmente, al menos evitamos sobrescribir el botÃ³n aquÃ­.
     }
 }
 
@@ -737,10 +737,10 @@ window.logoutSession = async function() {
 };
 
 // -------------------------------------------------------------
-// 6. RENDERIZACIÓN DE TABS Y DATOS DINÁMICOS
+// 6. RENDERIZACIÃ“N DE TABS Y DATOS DINÃMICOS
 // -------------------------------------------------------------
 
-// Renders en el Home público
+// Renders en el Home pÃºblico
 function renderPublicReviews() {
     const publicReviewsList = document.getElementById('public-reviews-list');
     if (!publicReviewsList) return;
@@ -769,7 +769,7 @@ function renderPublicReviews() {
         }
     }
 
-    // Listar las últimas 4 opiniones públicas
+    // Listar las Ãºltimas 4 opiniones pÃºblicas
     publicReviewsList.innerHTML = '';
     const limitReviews = reviews.slice(0, 4);
     
@@ -797,8 +797,8 @@ function renderPublicReviews() {
     // Controlar el banner en opiniones para redirigir a Google Maps
     const loginPromo = document.getElementById('reviews-login-promo');
     if (loginPromo) {
-        loginPromo.innerHTML = `<p class="mb-2 text-muted">¿Te gusta nuestro servicio? Ayúdanos dejando tu valoración en Google Maps.</p>
-                                <a href="https://maps.google.com/maps?q=ALLIANCE+GYM+CHIMALHUACAN" target="_blank" class="btn btn-outline" style="text-decoration: none; color: inherit; border-radius: 30px;">DEJAR RESEÑA EN GOOGLE MAPS</a>`;
+        loginPromo.innerHTML = `<p class="mb-2 text-muted">Â¿Te gusta nuestro servicio? AyÃºdanos dejando tu valoraciÃ³n en Google Maps.</p>
+                                <a href="https://maps.google.com/maps?q=ALLIANCE+GYM+CHIMALHUACAN" target="_blank" class="btn btn-outline" style="text-decoration: none; color: inherit; border-radius: 30px;">DEJAR RESEÃ‘A EN GOOGLE MAPS</a>`;
     }
 }
 
@@ -837,16 +837,16 @@ function switchClientTab(tabName) {
     const targetSec = document.getElementById(`tab-${tabName}`);
     if (targetSec) targetSec.style.display = 'block';
 
-    // Sincronizar título superior
+    // Sincronizar tÃ­tulo superior
     const titleEl = document.getElementById('dash-title');
     if (tabName === 'client-summary') titleEl.innerText = 'Resumen de Cuenta';
     if (tabName === 'client-qr') titleEl.innerText = 'Mi Credencial QR de Acceso';
     if (tabName === 'client-appointments') titleEl.innerText = 'Mis Citas y Evaluaciones';
     if (tabName === 'client-points') titleEl.innerText = 'Club de Recompensas';
     if (tabName === 'client-payments') titleEl.innerText = 'Pagos y Facturas';
-    if (tabName === 'client-feedback') titleEl.innerText = 'Valorar Servicio y Buzón';
+    if (tabName === 'client-feedback') titleEl.innerText = 'Valorar Servicio y BuzÃ³n';
 
-    // Actualizar menú en caso de salto manual (por botón)
+    // Actualizar menÃº en caso de salto manual (por botÃ³n)
     const menuItems = document.querySelectorAll('#client-dashboard .menu-item');
     menuItems.forEach(item => {
         if (item.getAttribute('data-tab') === tabName) {
@@ -863,12 +863,12 @@ function switchStaffTab(tabName) {
     if (targetSec) targetSec.style.display = 'block';
 
     const titleEl = document.getElementById('dash-staff-title');
-    if (tabName === 'staff-checkin') titleEl.innerText = 'Registro y Validación de Accesos';
-    if (tabName === 'staff-opinions') titleEl.innerText = 'Buzón de Opiniones y Quejas';
+    if (tabName === 'staff-checkin') titleEl.innerText = 'Registro y ValidaciÃ³n de Accesos';
+    if (tabName === 'staff-opinions') titleEl.innerText = 'BuzÃ³n de Opiniones y Quejas';
     if (tabName === 'staff-appointments') titleEl.innerText = 'Control de Citas';
     if (tabName === 'staff-employees') titleEl.innerText = 'Organigrama y Roles';
     if (tabName === 'staff-webconfig') {
-        titleEl.innerText = 'Modificaciones de la Página';
+        titleEl.innerText = 'Modificaciones de la PÃ¡gina';
         window.renderWebConfigTab();
     }
 
@@ -904,7 +904,7 @@ function updateClientDashboardUI(user) {
         
         expiryText.innerText = `Vence el: ${user.membership.endDate}`;
 
-        // Calcular porcentaje de días restantes
+        // Calcular porcentaje de dÃ­as restantes
         const start = new Date(user.membership.startDate).getTime();
         const end = new Date(user.membership.endDate).getTime();
         const now = new Date().getTime();
@@ -917,23 +917,23 @@ function updateClientDashboardUI(user) {
         expiryProgress.style.width = pct + '%';
 
         const days = Math.max(0, Math.ceil(remaining / (1000 * 60 * 60 * 24)));
-        daysLabel.innerText = `Quedan ${days} días`;
+        daysLabel.innerText = `Quedan ${days} dÃ­as`;
     } else {
         statusBadge.innerText = 'INACTIVA';
         statusBadge.className = 'badge badge-inactive';
         expiryText.innerText = 'Sin vencimiento';
         expiryProgress.style.width = '0%';
-        daysLabel.innerText = 'Quedan 0 días';
+        daysLabel.innerText = 'Quedan 0 dÃ­as';
         
         // Alerta
         if (user.membership.status === 'expired') {
             statusBadge.innerText = 'EXPIRADA';
             statusBadge.className = 'badge badge-expired';
-            expiryText.innerText = `Venció el: ${user.membership.endDate}`;
+            expiryText.innerText = `VenciÃ³ el: ${user.membership.endDate}`;
         }
     }
 
-    // Actualizar próx cita en resumen
+    // Actualizar prÃ³x cita en resumen
     const nextAppBox = document.getElementById('summary-next-appointment-box');
     const activeApps = (user.appointments || []).filter(a => a.status === 'Programada');
     if (activeApps.length > 0) {
@@ -951,7 +951,7 @@ function updateClientDashboardUI(user) {
         `;
     } else {
         nextAppBox.innerHTML = `
-            <p class="text-muted text-sm">No tienes ninguna cita agendada próximamente.</p>
+            <p class="text-muted text-sm">No tienes ninguna cita agendada prÃ³ximamente.</p>
             <button class="btn btn-primary mt-4 w-100 btn-sm" onclick="switchClientTab('client-appointments')">Agendar Cita</button>
         `;
     }
@@ -966,14 +966,14 @@ function updateClientDashboardUI(user) {
 
     passName.innerText = user.name;
     passId.innerText = `ID: ${user.id.substring(0, 10).toUpperCase()}`;
-    passPlan.innerText = user.membership.planName || 'Sin Membresía';
+    passPlan.innerText = user.membership.planName || 'Sin MembresÃ­a';
     
     if (user.membership.active) {
         passStatus.innerText = 'SOCIO ACTIVO';
         passStatus.className = 'pass-status-indicator';
         passExpiry.innerText = user.membership.endDate;
     } else {
-        passStatus.innerText = user.membership.status === 'expired' ? 'MEMBRESÍA EXPIRADA' : 'INACTIVO';
+        passStatus.innerText = user.membership.status === 'expired' ? 'MEMBRESÃA EXPIRADA' : 'INACTIVO';
         passStatus.className = 'pass-status-indicator badge-expired';
         passExpiry.innerText = user.membership.endDate || 'No Registra';
     }
@@ -997,7 +997,7 @@ function updateClientDashboardUI(user) {
             qrContainer.innerHTML = `<div style="padding: 20px; border: 2px dashed var(--primary-color); font-weight: bold; color: #000; font-size: 0.85rem;">${user.qrCode}</div>`;
         }
     } else {
-        qrContainer.innerHTML = '<div style="color:red; font-size:0.8rem; padding: 20px;">Adquiere una membresía para habilitar tu código QR de acceso.</div>';
+        qrContainer.innerHTML = '<div style="color:red; font-size:0.8rem; padding: 20px;">Adquiere una membresÃ­a para habilitar tu cÃ³digo QR de acceso.</div>';
     }
 
     // Listar citas del cliente
@@ -1017,7 +1017,7 @@ function updateClientDashboardUI(user) {
             `;
         });
     } else {
-        appointmentsList.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No tienes citas agendadas históricamente.</td></tr>';
+        appointmentsList.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No tienes citas agendadas histÃ³ricamente.</td></tr>';
     }
 
     // Tienda de recompensas
@@ -1058,12 +1058,12 @@ function updateClientDashboardUI(user) {
                 <tr>
                     <td data-label="Fecha">${h.date}</td>
                     <td data-label="Puntos" class="${pointsClass}"><strong>${prefix}${h.points} pts</strong></td>
-                    <td data-label="Descripción">${h.description}</td>
+                    <td data-label="DescripciÃ³n">${h.description}</td>
                 </tr>
             `;
         });
     } else {
-        pointsHistory.innerHTML = '<tr><td colspan="3" class="text-center text-muted">Aún no registras historial de puntos.</td></tr>';
+        pointsHistory.innerHTML = '<tr><td colspan="3" class="text-center text-muted">AÃºn no registras historial de puntos.</td></tr>';
     }
 
     // Historial canjes cliente
@@ -1093,7 +1093,7 @@ function updateClientDashboardUI(user) {
             `;
         });
     } else {
-        redeemedHistory.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No has canjeado ningún premio todavía.</td></tr>';
+        redeemedHistory.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No has canjeado ningÃºn premio todavÃ­a.</td></tr>';
     }
 
     // Historial pagos cliente
@@ -1103,17 +1103,17 @@ function updateClientDashboardUI(user) {
         user.paymentHistory.forEach(p => {
             paymentsList.innerHTML += `
                 <tr>
-                    <td data-label="ID Transacción"><code>${p.id}</code></td>
+                    <td data-label="ID TransacciÃ³n"><code>${p.id}</code></td>
                     <td data-label="Fecha">${p.date}</td>
                     <td data-label="Concepto">${p.description}</td>
                     <td data-label="Monto">$${p.amount} MXN</td>
                     <td data-label="Estatus"><span class="badge badge-active">${p.status}</span></td>
-                    <td data-label="Acción"><button class="btn btn-outline btn-sm" onclick="mockDownloadInvoice('${p.id}', ${p.amount}, '${p.date}')"><i class="fas fa-file-pdf"></i> PDF</button></td>
+                    <td data-label="AcciÃ³n"><button class="btn btn-outline btn-sm" onclick="mockDownloadInvoice('${p.id}', ${p.amount}, '${p.date}')"><i class="fas fa-file-pdf"></i> PDF</button></td>
                 </tr>
             `;
         });
     } else {
-        paymentsList.innerHTML = '<tr><td colspan="6" class="text-center text-muted">Aún no registras pagos completados.</td></tr>';
+        paymentsList.innerHTML = '<tr><td colspan="6" class="text-center text-muted">AÃºn no registras pagos completados.</td></tr>';
     }
 }
 
@@ -1121,16 +1121,16 @@ function updateClientDashboardUI(user) {
 window.redeemStoreItem = function(rewardId, pointsCost) {
     const user = window.AllianceAuth.getCurrentUser();
     
-    if (confirm(`¿Estás seguro de canjear este premio por ${pointsCost} puntos?`)) {
+    if (confirm(`Â¿EstÃ¡s seguro de canjear este premio por ${pointsCost} puntos?`)) {
         const res = window.AlliancePoints.redeemReward(user.id, rewardId);
         if (res.success) {
             showToast(res.message, 'success');
             // Refrescar
             updateClientDashboardUI(window.AllianceAuth.getCurrentUser());
 
-            // Abrir automáticamente el modal del código QR del premio recién canjeado
+            // Abrir automÃ¡ticamente el modal del cÃ³digo QR del premio reciÃ©n canjeado
             const freshUser = window.AllianceAuth.getCurrentUser();
-            const newReward = freshUser.redeemedRewards[0]; // El último canje está al inicio
+            const newReward = freshUser.redeemedRewards[0]; // El Ãºltimo canje estÃ¡ al inicio
             if (newReward && newReward.code) {
                 showRewardQR(newReward.code, newReward.rewardName, newReward.status);
             }
@@ -1140,34 +1140,34 @@ window.redeemStoreItem = function(rewardId, pointsCost) {
     }
 };
 
-// Descarga simulación PDF de factura
+// Descarga simulaciÃ³n PDF de factura
 window.mockDownloadInvoice = function(payId, amount, date) {
     const user = window.AllianceAuth.getCurrentUser();
     alert(`---------------------------------------------
         FACTURA DE COMPRA SIMULADA
 ---------------------------------------------
-Gimnasio: ALLIANCE GYM Chimalhuacán
-Folio Transacción: ${payId}
-Fecha de Emisión: ${date}
+Gimnasio: ALLIANCE GYM ChimalhuacÃ¡n
+Folio TransacciÃ³n: ${payId}
+Fecha de EmisiÃ³n: ${date}
 
 Cliente: ${user.name}
 Correo: ${user.email}
 
 Detalle de Cobro:
-Inscripción y Mensualidad Activa
+InscripciÃ³n y Mensualidad Activa
 Importe Pagado: $${amount}.00 MXN
-Estatus de Operación: PAGADO (Autorizado en línea)
+Estatus de OperaciÃ³n: PAGADO (Autorizado en lÃ­nea)
 ---------------------------------------------
-¡Gracias por tu pago! Este es un comprobante digital.`);
+Â¡Gracias por tu pago! Este es un comprobante digital.`);
 };
 
-// Copiar código alfanumérico al portapapeles
+// Copiar cÃ³digo alfanumÃ©rico al portapapeles
 window.copyManualCode = function() {
     const copyText = document.getElementById("manual-qr-code-val");
     copyText.select();
     copyText.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText.value);
-    showToast("Código copiado al portapapeles.", "success");
+    showToast("CÃ³digo copiado al portapapeles.", "success");
 };
 
 // Mostrar QR de recompensa canjeada
@@ -1214,7 +1214,7 @@ async function updateStaffDashboardUI(staffUser) {
     document.getElementById('dash-staff-name').innerText = staffUser.name;
     document.getElementById('dash-staff-role').innerText = staffUser.staffRole;
 
-    // Obtener los botones del menú
+    // Obtener los botones del menÃº
     const checkinMenu = document.querySelector('li[data-tab="staff-checkin"]');
     const opinionsMenu = document.querySelector('li[data-tab="staff-opinions"]');
     const appointmentsMenu = document.querySelector('li[data-tab="staff-appointments"]');
@@ -1237,10 +1237,10 @@ async function updateStaffDashboardUI(staffUser) {
         if (employeesMenu) employeesMenu.style.display = 'none';
         if (configMenuItem) configMenuItem.style.display = 'none';
         
-        // Forzar apertura de pestaña de citas si es coach
+        // Forzar apertura de pestaÃ±a de citas si es coach
         switchStaffTab('staff-appointments');
     } else if (role === 'receptionist') {
-        // Recepcionista ve validación y citas
+        // Recepcionista ve validaciÃ³n y citas
         if (employeesMenu) employeesMenu.style.display = 'none';
         if (configMenuItem) configMenuItem.style.display = 'none';
         
@@ -1269,7 +1269,7 @@ async function updateStaffDashboardUI(staffUser) {
         `;
     });
 
-    // Buzón opiniones y sugerencias
+    // BuzÃ³n opiniones y sugerencias
     const suggestionsList = document.getElementById('staff-suggestions-list');
     suggestionsList.innerHTML = '';
     const suggestions = window.AllianceReviews.getSuggestions();
@@ -1286,7 +1286,7 @@ async function updateStaffDashboardUI(staffUser) {
                 <td data-label="Acciones">
                     <select class="status-dropdown" onchange="changeTicketStatus('${s.id}', this.value)">
                         <option value="Recibido" ${s.status === 'Recibido' ? 'selected' : ''}>Recibido</option>
-                        <option value="Leído" ${s.status === 'Leído' ? 'selected' : ''}>Leído</option>
+                        <option value="LeÃ­do" ${s.status === 'LeÃ­do' ? 'selected' : ''}>LeÃ­do</option>
                         <option value="En Proceso" ${s.status === 'En Proceso' ? 'selected' : ''}>En Proceso</option>
                         <option value="Resuelto" ${s.status === 'Resuelto' ? 'selected' : ''}>Resuelto</option>
                     </select>
@@ -1311,7 +1311,7 @@ async function updateStaffDashboardUI(staffUser) {
                     <strong>${r.userName}</strong>
                     <span>${starsHTML}</span>
                 </div>
-                <p class="text-sm text-muted">Evalúa a: <strong>${r.target === 'general' ? 'Gimnasio' : r.target}</strong></p>
+                <p class="text-sm text-muted">EvalÃºa a: <strong>${r.target === 'general' ? 'Gimnasio' : r.target}</strong></p>
                 <p class="text-sm mt-1" style="font-style:italic;">"${r.comment}"</p>
             </div>
         `;
@@ -1383,7 +1383,7 @@ window.handleQRValidation = async function() {
     const resultBox = document.getElementById('scanner-result');
 
     if (!inputVal.trim()) {
-        showToast('Ingresa un correo o código QR para validar.', 'error');
+        showToast('Ingresa un correo o cÃ³digo QR para validar.', 'error');
         return;
     }
 
@@ -1399,14 +1399,14 @@ window.handleQRValidation = async function() {
                     <h3 style="color: #ffd700;">RECOMPENSA VALIDADA</h3>
                     <h4 class="mt-2">${res.user.name}</h4>
                     <p class="text-sm mt-1">Premio: <strong>${res.rewardName}</strong></p>
-                    <p class="text-sm">Código: <code>${res.code}</code></p>
+                    <p class="text-sm">CÃ³digo: <code>${res.code}</code></p>
                     <p class="text-sm text-green mt-3" style="font-weight: bold; font-size: 0.95rem; background: rgba(46, 213, 115, 0.1); padding: 8px; border-radius: 4px; border: 1px solid rgba(46, 213, 115, 0.2);">
-                        <i class="fas fa-info-circle"></i> Acción: ${res.benefitMessage}
+                        <i class="fas fa-info-circle"></i> AcciÃ³n: ${res.benefitMessage}
                     </p>
                 </div>
             `;
             document.getElementById('staff-qr-input').value = '';
-            showToast('Recompensa validada con éxito.', 'success');
+            showToast('Recompensa validada con Ã©xito.', 'success');
         } else {
             resultBox.className = 'scanner-result-box result-success';
             resultBox.innerHTML = `
@@ -1414,13 +1414,13 @@ window.handleQRValidation = async function() {
                     <div class="result-icon-big"><i class="fas fa-check-circle"></i></div>
                     <h3>ACCESO PERMITIDO</h3>
                     <h4 class="mt-2">${res.user.name}</h4>
-                    <p class="text-sm mt-1">Membresía activa: <strong>${res.user.membership.planName}</strong></p>
+                    <p class="text-sm mt-1">MembresÃ­a activa: <strong>${res.user.membership.planName}</strong></p>
                     <p class="text-sm text-green">Vence el: ${res.user.membership.endDate}</p>
                     <p class="text-sm mt-2">Asistencia registrada. Se le sumaron +50 puntos.</p>
                 </div>
             `;
             document.getElementById('staff-qr-input').value = '';
-            showToast('Acceso validado con éxito.', 'success');
+            showToast('Acceso validado con Ã©xito.', 'success');
         }
     } else {
         resultBox.className = 'scanner-result-box result-danger';
@@ -1438,11 +1438,11 @@ window.handleQRValidation = async function() {
     updateStaffDashboardUI(window.AllianceAuth.getCurrentUser());
 };
 
-// Cambiar estatus de buzón
+// Cambiar estatus de buzÃ³n
 window.changeTicketStatus = function(ticketId, newStatus) {
     const res = window.AllianceReviews.updateSuggestionStatus(ticketId, newStatus);
     if (res.success) {
-        showToast('Estado de buzón actualizado.', 'success');
+        showToast('Estado de buzÃ³n actualizado.', 'success');
         updateStaffDashboardUI(window.AllianceAuth.getCurrentUser());
     } else {
         showToast(res.message, 'error');
@@ -1461,7 +1461,7 @@ window.changeAppointmentState = async function(userId, appointmentId, newState) 
 };
 
 // -------------------------------------------------------------
-// 7. UTILERÍAS COMPLEMENTARIAS
+// 7. UTILERÃAS COMPLEMENTARIAS
 // -------------------------------------------------------------
 
 // Refrescar pasarela con inputs interactivos de tarjeta
@@ -1472,7 +1472,7 @@ function setupCreditCardInputFormatting() {
 
     if (!cardNumInput) return;
 
-    // Autogap número tarjeta
+    // Autogap nÃºmero tarjeta
     cardNumInput.addEventListener('input', (e) => {
         let val = cardNumInput.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
         let formatted = '';
@@ -1481,7 +1481,7 @@ function setupCreditCardInputFormatting() {
             formatted += val[i];
         }
         cardNumInput.value = formatted;
-        document.getElementById('preview-card-number').innerText = formatted || '•••• •••• •••• ••••';
+        document.getElementById('preview-card-number').innerText = formatted || 'â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢';
     });
 
     // Titular
@@ -1555,17 +1555,17 @@ function showToast(message, type = 'success') {
     }, 4000);
 }
 
-// Exponer funciones globales de pestañas
+// Exponer funciones globales de pestaÃ±as
 window.switchClientTab = switchClientTab;
 window.switchStaffTab = switchStaffTab;
 
-// Función global para filtrar maquinaria desde la galería de zonas corporales
+// FunciÃ³n global para filtrar maquinaria desde la galerÃ­a de zonas corporales
 window.filterEquipmentFromOutside = function(filterValue) {
     const targetBtn = document.querySelector(`.filter-btn[data-filter="${filterValue}"]`);
     if (targetBtn) {
         targetBtn.click();
     } else {
-        // Fallback si no encuentra el botón por alguna razón
+        // Fallback si no encuentra el botÃ³n por alguna razÃ³n
         const filterBtns = document.querySelectorAll('.filter-btn');
         const equipmentItems = document.querySelectorAll('.equipment-item');
         
@@ -1588,7 +1588,7 @@ window.filterEquipmentFromOutside = function(filterValue) {
     }
 };
 
-// Funciones globales de Drawer en Dashboard para móviles
+// Funciones globales de Drawer en Dashboard para mÃ³viles
 window.toggleDashboardDrawer = function() {
     const isClientVisible = document.getElementById('client-dashboard').style.display === 'flex';
     const isStaffVisible = document.getElementById('staff-dashboard').style.display === 'flex';
@@ -1685,6 +1685,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
+
 // Logic for Coach Appointment via WhatsApp
 document.addEventListener('DOMContentLoaded', () => {
     const coachForm = document.getElementById('appointment-form');
@@ -1696,9 +1697,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const date = document.getElementById('appointment-date').value;
             const time = document.getElementById('appointment-time').value;
 
-            const text = \�Hola! Quiero agendar una cita con el coach \. Mi nombre es \. Me gustar�a asistir el \ a las \.\;
+            const text = `Â¡Hola! Quiero agendar una cita con el coach ${coachName}. Mi nombre es ${userName}. Me gustarÃ­a asistir el ${date} a las ${time}.`;
             const encodedText = encodeURIComponent(text);
-            const waUrl = \https://wa.me/525567659004?text=\\;
+            const waUrl = `https://wa.me/525567659004?text=${encodedText}`;
 
             const successMsg = document.getElementById('appointment-success');
             if (successMsg) {
