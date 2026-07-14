@@ -1684,3 +1684,30 @@ document.addEventListener('click', function(e) {
         }
     }
 });
+
+// Logic for Coach Appointment via WhatsApp
+document.addEventListener('DOMContentLoaded', () => {
+    const coachForm = document.getElementById('appointment-form');
+    if (coachForm) {
+        coachForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const coachName = document.getElementById('coach-select').value;
+            const userName = document.getElementById('user-name').value;
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+
+            const text = \¡Hola! Quiero agendar una cita con el coach \. Mi nombre es \. Me gustaría asistir el \ a las \.\;
+            const encodedText = encodeURIComponent(text);
+            const waUrl = \https://wa.me/525567659004?text=\\;
+
+            const successMsg = document.getElementById('appointment-success');
+            if (successMsg) {
+                successMsg.style.display = 'block';
+                setTimeout(() => { successMsg.style.display = 'none'; }, 5000);
+            }
+
+            window.open(waUrl, '_blank');
+            coachForm.reset();
+        });
+    }
+});
