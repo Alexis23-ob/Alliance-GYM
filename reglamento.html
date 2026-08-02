@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -72,6 +72,7 @@
                 <div class="section-header text-center" style="margin-bottom: 30px;">
                     <h1 class="section-title">REGLAMENTO <span>INTERNO</span></h1>
                     <p class="section-desc">Conoce nuestras normas para mantener un ambiente seguro, limpio y de respeto mutuo.</p>
+                    <button id="download-pdf" class="btn" style="margin-top: 20px; background-color: var(--primary-color, #e60000); color: white; padding: 12px 25px; border-radius: 30px; font-weight: bold; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; transition: transform 0.2s;"><i class="fas fa-file-pdf"></i> Descargar Reglamento en PDF</button>
                 </div>
 
                 <div class="rules-content">
@@ -228,7 +229,14 @@
                         <li>12.5. Al ingresar y hacer uso de las instalaciones, el usuario reconoce y acepta entrenar bajo su propio riesgo.</li>
                     </ul>
 
-                    <h3>13. ACEPTACIÓN DEL REGLAMENTO</h3>
+                    <h3>13. AVISO IMPORTANTE: ESTRICTAMENTE PROHIBIDO</h3>
+                    <ul>
+                        <li>13.1. <strong>VENDER PRODUCTOS QUE EL GIMNASIO OFRECE</strong> (Suplementos, Bebidas, Ropa, Accesorios).</li>
+                        <li>13.2. <strong>DAR SERVICIOS PERSONALIZADOS</strong> (Entrenamiento Personal, Nutrición, Masajes) por terceros no autorizados.</li>
+                        <li>13.3. Esta es propiedad exclusiva de ALLIANCE GYM. El incumplimiento resultará en la expulsión inmediata del establecimiento. Gracias por su cooperación.</li>
+                    </ul>
+
+                    <h3>14. ACEPTACIÓN DEL REGLAMENTO</h3>
                     <p style="margin-top: 15px; font-weight: 500; font-style: italic; color: var(--primary-color);">Al inscribirse, registrar su huella digital y hacer uso de las instalaciones, el usuario acepta y se compromete a cumplir el presente reglamento de ALLIANCE GYM.</p>
 
                 </div>
@@ -243,6 +251,27 @@
         &copy; 2026 Alliance GYM. Todos los derechos reservados.
     </footer>
 
-
+    <!-- html2pdf for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        document.getElementById('download-pdf').addEventListener('click', function() {
+            var element = document.querySelector('.glass-card');
+            var btn = document.getElementById('download-pdf');
+            var originalDisplay = btn.style.display;
+            btn.style.display = 'none';
+            
+            var opt = {
+                margin:       [10, 10, 10, 10],
+                filename:     'Reglamento_Alliance_GYM.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save().then(function() {
+                btn.style.display = originalDisplay || 'inline-flex';
+            });
+        });
+    </script>
 </body>
 </html>
